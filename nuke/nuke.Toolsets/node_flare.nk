@@ -1,0 +1,152 @@
+#! C:/Program Files/Nuke10.0v4/nuke-10.0.4.dll -nx
+version 10.0 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-8" y="-8" w="1936" h="1056" maximized="1" screen="1">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1257" stretch="1"/>
+            <splitter orientation="2">
+                <split size="581"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="409"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/___Animation/__data_NUKE/node_flare.nk
+ frame 31
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+}
+Flare {
+ inputs 0
+ position {852 308}
+ offset 0.1
+ radius {10.87 30.45 35.22}
+ size_mult 2.9
+ anamorph 11
+ ring_color {0 0.04870986938 0.05000000075}
+ inner_color {0.125 0 0}
+ inner_falloff 10
+ chroma_spread 0.062
+ chroma_shift 0.2
+ flattening 0.82
+ sharpness 0.73
+ corners_angle 5
+ mult_num 18
+ mult_seed 6
+ mult_offset 2
+ mult_size 0.99
+ mult_color 0.3
+ mult_color_seed 77097
+ mult_brightness -0.68
+ mult_brightness_seed 75027
+ mult_visibility 0.36
+ mult_flattening_seed 45204
+ name Flare1
+ xpos 28
+ ypos -19
+}
+Blur {
+ size 42.5
+ name Blur1
+ xpos 28
+ ypos 7
+}
+Flare {
+ inputs 0
+ position {1068 748}
+ radius {0 0 174.35}
+ size_mult 7.6
+ ring_color {3 2.5 2}
+ inner_color {0.5 0.5 0.5}
+ outer_falloff 5.6
+ inner_falloff {1 1 1}
+ chroma_spread 0.045
+ chroma_shift -2.5
+ brightness 0.53
+ corners 1
+ asym_repeat 4
+ asym_falloff 0.1
+ mult_offset 0
+ name Flare2
+ xpos 218
+ ypos -24
+}
+Flare {
+ inputs 0
+ position {1068 748}
+ radius {0 0 174.35}
+ size_mult 7.6
+ ring_color {3 2.5 2}
+ inner_color {0.5 0.5 0.5}
+ outer_falloff 5.6
+ inner_falloff {1 1 1}
+ brightness 0.53
+ corners 1
+ asym_repeat 14
+ asym_multiplier 0.1
+ asym_falloff 2.65
+ asym_angle -138
+ mult_num 9
+ mult_seed 4
+ mult_offset -5
+ mult_size 0.97
+ name Flare3
+ xpos 342
+ ypos -27
+}
+Flare {
+ inputs 0
+ position {1068 748}
+ radius {0 0 174.35}
+ size_mult 7.6
+ ring_color {3 2.5 2}
+ inner_color {0.5 0.5 0.5}
+ outer_falloff 5.6
+ inner_falloff {1 1 1}
+ brightness 0.53
+ corners 1
+ asym_repeat 0
+ asym_multiplier 0.1
+ asym_falloff 2.65
+ asym_angle -138
+ mult_num 9
+ mult_seed 4
+ mult_offset -5
+ mult_size 0.97
+ mult_brightness -0.9
+ mult_visibility -0.69
+ mult_rotate 0.42
+ speedup 3
+ name Flare4
+ xpos 461
+ ypos -27
+}
+Viewer {
+ frame 31
+ frame_range 1-100
+ name Viewer1
+ xpos 57
+ ypos 174
+}

@@ -1,0 +1,1827 @@
+#! C:/Program Files/Nuke10.0v4/nuke-10.0.4.dll -nx
+version 10.0 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-8" y="-8" w="1936" h="1056" maximized="1" screen="1">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1257" stretch="1"/>
+            <splitter orientation="2">
+                <split size="581"/>
+                <splitter orientation="1">
+                    <split size="1257"/>
+                    <dock id="" activePageId="Viewer.2">
+                        <page id="Viewer.2"/>
+                    </dock>
+                </splitter>
+                <split size="409"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/___Animation/nuke_noise.nk
+ frame 13
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+}
+Noise {
+ inputs 0
+ size 1.15
+ zoffset {{curve x1 0.18 x100 5}}
+ gain 0.35
+ gamma 0.065
+ center {1024 778}
+ name Noise1
+ xpos 17
+ ypos -184
+}
+DirBlurWrapper {
+ BlurLength 63
+ BlurAngle 0
+ Samples 5
+ name DirBlurWrapper1
+ xpos 17
+ ypos -113
+}
+Sphere {
+ name Sphere1
+ xpos 17
+ ypos -61
+}
+push 0
+ScanlineRender {
+ inputs 2
+ conservative_shader_sampling false
+ antialiasing medium
+ zblend_mode smooth
+ zblend_range 2.35
+ motion_vectors_type distance
+ name ScanlineRender1
+ xpos 17
+ ypos 8
+}
+ColorCorrect {
+ contrast 1.86
+ gain 26
+ name ColorCorrect1
+ xpos 17
+ ypos 46
+}
+Noise {
+ inputs 0
+ size 25
+ translate {{frame*250} 0}
+ center {960 540}
+ name Noise3
+ xpos 503
+ ypos -374
+}
+Grade {
+ gamma 0.29
+ name Grade2
+ xpos 503
+ ypos -348
+}
+Reformat {
+ black_outside true
+ name Reformat1
+ xpos 503
+ ypos -322
+}
+Transform {
+ center {960 540}
+ name Transform1
+ xpos 503
+ ypos -296
+}
+DirBlurWrapper {
+ BlurType radial
+ BlurCenter {272 530}
+ BlurLength 82
+ BlurAngle 90
+ target {1442 336}
+ name DirBlurWrapper3
+ xpos 503
+ ypos -270
+}
+Noise {
+ inputs 0
+ type turbulence
+ size 23.5
+ zoffset {{frame}}
+ gain 0.27
+ gamma 3.87
+ rotate 161.7979798
+ center {960 540}
+ name Noise4
+ xpos 114
+ ypos -311
+}
+Invert {
+ name Invert2
+ xpos 114
+ ypos -285
+}
+Noise {
+ inputs 0
+ type turbulence
+ size 23.5
+ zoffset {{curve x1 0 x100 5}}
+ gain 0.27
+ gamma 3.87
+ rotate 161.7979798
+ center {960 540}
+ name Noise2
+ xpos 306
+ ypos -250
+}
+Invert {
+ name Invert1
+ xpos 306
+ ypos -224
+}
+Grade {
+ blackpoint 0.43
+ name Grade1
+ xpos 306
+ ypos -186
+}
+set N39053400 [stack 0]
+Blur {
+ size 24
+ name Blur1
+ xpos 476
+ ypos -192
+}
+Dot {
+ name Dot2
+ xpos 510
+ ypos -89
+}
+push $N39053400
+Dot {
+ name Dot1
+ xpos 340
+ ypos -135
+}
+Merge2 {
+ inputs 2
+ mix 0.185
+ name Merge1
+ xpos 306
+ ypos -93
+}
+Glow2 {
+ tint {0.1274466515 3 0 1}
+ saturation 4
+ name Glow1
+ xpos 306
+ ypos -51
+}
+set N39052400 [stack 0]
+push $N39052400
+Blur {
+ size 11
+ name Blur2
+ xpos 196
+ ypos -57
+}
+Constant {
+ inputs 0
+ channels rgb
+ color {0.000679714256 0.01600000076 0 0.4022985101}
+ name Constant1
+ xpos 109
+ ypos 25
+}
+ColorCorrect {
+ inputs 1+1
+ contrast 0.105
+ gamma 1.88
+ gain 2.85
+ maskChannelMask rgba.green
+ mix 0.535
+ name ColorCorrect2
+ xpos 197
+ ypos 48
+}
+Merge2 {
+ inputs 2
+ name Merge2
+ xpos 306
+ ypos 48
+}
+HueShift {
+ hue_rotation -108
+ name HueShift1
+ xpos 306
+ ypos 95
+}
+DirBlurWrapper {
+ BlurType linear
+ BlurCenter {272 530}
+ BlurLength 82
+ BlurAngle 90
+ target {1442 336}
+ name DirBlurWrapper2
+ xpos 306
+ ypos 132
+}
+Group {
+ inputs 0
+ name Brain_storm_Noise
+ help "Brain_storm_noise is to generate random noise pattern for ideas.."
+ xpos 599
+ ypos -157
+ addUserKnob {20 Brainstorm}
+ addUserKnob {26 ""}
+ addUserKnob {41 width l Resolution T ContactSheet1.width}
+ addUserKnob {41 height l "" -STARTLINE T ContactSheet1.height}
+ addUserKnob {26 ""}
+ addUserKnob {41 Brainstorm_1 l Brainstorm T NoOp1.Brainstorm}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 1142
+  ypos -806
+ }
+set N1e86f400 [stack 0]
+ Noise {
+  type turbulence
+  size {{parent.NoOp1.text09}}
+  zoffset {{parent.NoOp1.text09}}
+  octaves 130
+  gain {{parent.NoOp1.text09/1000}}
+  gamma {{parent.NoOp1.text09/1000}}
+  center {1024 778}
+  name Noise9
+  xpos 2000
+  ypos -526
+ }
+ Text2 {
+  font_size_toolbar 52
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Size : \[value Noise9.size]   Gain : \[value Noise9.gain] \tGamma : \[value Noise9.gamma]  Lacunarity : \[value Noise9.lacunarity]\n"
+  old_message {{83 105 122 101 32 58 32 53 52 49 46 50 54 53 51 56 51 49 32 32 32 71 97 105 110 32 58 32 48 46 53 52 49 50 54 53 51 56 51 49 32 9 71 97 109 109 97 32 58 32 48 46 53 52 49 50 54 53 51 56 51 49 32 32 76 97 99 117 110 97 114 105 116 121 32 58 32 50 10}
+    }
+  old_expression_markers {{7 17 28 39 50 61 77 77}
+    }
+  box {2 3 1850 56}
+  transforms {{0 2}
+    }
+  font_size_values {{0 52 1 52 2 52 3 52 4 52 5 52 6 52 7 52 8 52 9 52 10 52 11 52 12 52 13 52 14 52 15 52 16 52 17 52 18 52 19 52 20 52 21 52 22 52 23 52 24 52 25 52 26 52 27 52 28 52 29 52 30 52 31 52 32 52 33 52 34 52 35 52 36 52 37 52 38 52 39 52 40 52 41 52 42 52 43 52 44 52 45 52 46 52 47 52 48 52 49 52 50 52 51 52 52 52 53 52 54 52 55 52 56 52 57 52 58 52 59 52 60 52 61 52 62 52 62 55 63 52 64 52 65 52 66 52 67 52 68 52 69 52 70 52 71 52 72 52 73 52 74 52 75 52 76 52 77 52 78 52 0 86 1 86 2 86 3 86 4 86 5 86 6 86 7 86 8 86 9 86 18 86 19 86 20 86 23 86 24 86 25 86 26 86 27 86 28 86 29 86 40 86 78 86}
+    }
+  cursor_position 40
+  font_size 52
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{2 56}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  name Text9
+  xpos 2000
+  ypos -467
+ }
+push $N1e86f400
+ Noise {
+  type turbulence
+  size {{parent.NoOp1.text08*5}}
+  zoffset {{parent.NoOp1.text09}}
+  octaves 130
+  gain {{parent.NoOp1.text06/10}}
+  gamma {{parent.NoOp1.text08/10}}
+  center {1024 778}
+  name Noise8
+  xpos 1768
+  ypos -537
+ }
+ Text2 {
+  font_size_toolbar 52
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Size : \[value Noise8.size]   Gain : \[value Noise8.gain] \tGamma : \[value Noise8.gamma]  Lacunarity : \[value Noise8.lacunarity]\n"
+  old_message {{83 105 122 101 32 58 32 53 49 55 46 56 50 56 51 57 51 56 32 32 32 71 97 105 110 32 58 32 48 46 55 56 54 53 49 49 55 53 48 57 32 9 71 97 109 109 97 32 58 32 49 48 46 51 53 54 53 54 55 56 56 32 32 76 97 99 117 110 97 114 105 116 121 32 58 32 50 10}
+    }
+  old_expression_markers {{7 17 28 39 50 60 76 76}
+    }
+  box {2 3 1850 56}
+  transforms {{0 2}
+    }
+  font_size_values {{0 52 1 52 2 52 3 52 4 52 5 52 6 52 7 52 8 52 9 52 10 52 11 52 12 52 13 52 14 52 15 52 16 52 17 52 18 52 19 52 20 52 21 52 22 52 23 52 24 52 25 52 26 52 27 52 28 52 29 52 30 52 31 52 32 52 33 52 34 52 35 52 36 52 37 52 38 52 39 52 40 52 41 52 42 52 43 52 44 52 45 52 46 52 47 52 48 52 49 52 50 52 51 52 52 52 53 52 54 52 55 52 56 52 57 52 58 52 59 52 60 52 61 52 61 55 62 52 63 52 64 52 65 52 66 52 67 52 68 52 69 52 70 52 71 52 72 52 73 52 74 52 75 52 76 52 77 52 0 86 1 86 2 86 3 86 4 86 5 86 6 86 7 86 8 86 9 86 18 86 19 86 20 86 23 86 24 86 25 86 26 86 27 86 28 86 29 86 40 86 77 86}
+    }
+  cursor_position 71
+  font_size 52
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{2 56}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  name Text8
+  xpos 1768
+  ypos -478
+ }
+push $N1e86f400
+ Noise {
+  type turbulence
+  size {{parent.NoOp1.text07}}
+  zoffset 3.3
+  octaves 130
+  gain 0.27
+  gamma {{parent.NoOp1.text07/10}}
+  center {1024 778}
+  name Noise7
+  xpos 1543
+  ypos -537
+ }
+ Text2 {
+  font_size_toolbar 52
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Size : \[value Noise7.size]   Gain : \[value Noise7.gain] \tGamma : \[value Noise7.gamma]  Lacunarity : \[value Noise7.lacunarity]\n"
+  old_message {{83 105 122 101 32 58 32 51 57 46 54 49 51 51 55 52 53 51 32 32 32 71 97 105 110 32 58 32 48 46 50 55 32 9 71 97 109 109 97 32 58 32 51 46 57 54 49 51 51 55 52 53 51 32 32 76 97 99 117 110 97 114 105 116 121 32 58 32 50 10}
+    }
+  old_expression_markers {{7 17 28 31 42 52 68 68}
+    }
+  box {2 3 1570 56}
+  transforms {{0 2}
+    }
+  font_size_values {{0 52 1 52 2 52 3 52 4 52 5 52 6 52 7 52 8 52 9 52 10 52 11 52 12 52 13 52 14 52 15 52 16 52 17 52 18 52 19 52 20 52 21 52 22 52 23 52 24 52 25 52 26 52 27 52 28 52 29 52 30 52 31 52 32 52 33 52 34 52 35 52 36 52 37 52 38 52 39 52 40 52 41 52 42 52 43 52 44 52 45 52 46 52 47 52 48 52 49 52 50 52 51 52 52 52 53 52 53 55 54 52 55 52 56 52 57 52 58 52 59 52 60 52 61 52 62 52 63 52 64 52 65 52 66 52 67 52 68 52 69 52 0 86 1 86 2 86 3 86 4 86 5 86 6 86 7 86 8 86 9 86 18 86 19 86 20 86 23 86 24 86 25 86 26 86 27 86 28 86 29 86 32 86 69 86}
+    }
+  cursor_position 52
+  font_size 52
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{2 56}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  name Text7
+  xpos 1543
+  ypos -478
+ }
+push $N1e86f400
+ Noise {
+  size {{parent.NoOp1.text06}}
+  zoffset 3.3
+  octaves 130
+  gain {{parent.NoOp1.text06/100}}
+  gamma {{parent.NoOp1.text06/10}}
+  center {1024 778}
+  name Noise6
+  xpos 1363
+  ypos -536
+ }
+ Text2 {
+  font_size_toolbar 52
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Size : \[value Noise6.size]   Gain : \[value Noise6.gain] \tGamma : \[value Noise6.gamma]  Lacunarity : \[value Noise6.lacunarity]\n"
+  old_message {{83 105 122 101 32 58 32 55 46 56 54 53 49 49 55 53 48 57 32 32 32 71 97 105 110 32 58 32 48 46 48 55 56 54 53 49 49 55 53 48 57 32 9 71 97 109 109 97 32 58 32 48 46 55 56 54 53 49 49 55 53 48 57 32 32 76 97 99 117 110 97 114 105 116 121 32 58 32 50 10}
+    }
+  old_expression_markers {{7 17 28 40 51 62 78 78}
+    }
+  box {2 3 2046 56}
+  transforms {{0 2}
+    }
+  font_size_values {{0 52 1 52 2 52 3 52 4 52 5 52 6 52 7 52 8 52 9 52 10 52 11 52 12 52 13 52 14 52 15 52 16 52 17 52 18 52 19 52 20 52 21 52 22 52 23 52 24 52 25 52 26 52 27 52 28 52 29 52 30 52 31 52 32 52 33 52 34 52 35 52 36 52 37 52 38 52 39 52 40 52 41 52 42 52 43 52 44 52 45 52 46 52 47 52 48 52 49 52 50 52 51 52 52 52 53 52 54 52 55 52 56 52 57 52 58 52 59 52 60 52 61 52 62 52 63 52 63 55 64 52 65 52 66 52 67 52 68 52 69 52 70 52 71 52 72 52 73 52 74 52 75 52 76 52 77 52 78 52 79 52 0 86 1 86 2 86 3 86 4 86 5 86 6 86 7 86 8 86 9 86 18 86 19 86 20 86 23 86 24 86 25 86 26 86 27 86 28 86 29 86 41 86 79 86}
+    }
+  cursor_position 86
+  font_size 52
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{2 56}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  name Text5
+  xpos 1363
+  ypos -478
+ }
+push $N1e86f400
+ Noise {
+  size {{parent.NoOp1.text05}}
+  zoffset 3.3
+  octaves 130
+  gain 0.585
+  gamma {{parent.NoOp1.text05/100}}
+  center {1024 778}
+  name Noise5
+  xpos 1165
+  ypos -534
+ }
+ Text2 {
+  font_size_toolbar 52
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message " Size : \[value Noise5.size]   Gain : \[value Noise5.gain] \tGamma : \[value Noise5.gamma]  Lacunarity : \[value Noise5.lacunarity]\n"
+  old_message {{32 83 105 122 101 32 58 32 55 51 46 50 56 56 53 50 55 50 55 32 32 32 71 97 105 110 32 58 32 48 46 53 56 53 32 9 71 97 109 109 97 32 58 32 48 46 55 51 50 56 56 53 50 55 50 55 32 32 76 97 99 117 110 97 114 105 116 121 32 58 32 50 10}
+    }
+  old_expression_markers {{8 18 29 33 44 55 71 71}
+    }
+  box {2 3 1862 56}
+  transforms {{0 2}
+    }
+  font_size_values {{0 52 1 52 2 52 3 52 4 52 5 52 6 52 7 52 8 52 9 52 10 52 11 52 12 52 13 52 14 52 15 52 16 52 17 52 18 52 19 52 20 52 21 52 22 52 23 52 24 52 25 52 26 52 27 52 28 52 29 52 30 52 31 52 32 52 33 52 34 52 35 52 36 52 37 52 38 52 39 52 40 52 41 52 42 52 43 52 44 52 45 52 46 52 47 52 48 52 49 52 50 52 51 52 52 52 53 52 54 52 55 52 56 52 56 55 57 52 58 52 59 52 60 52 61 52 62 52 63 52 64 52 65 52 66 52 67 52 68 52 69 52 70 52 71 52 72 52 0 86 1 86 2 86 3 86 4 86 5 86 6 86 7 86 8 86 9 86 10 86 19 86 20 86 21 86 24 86 25 86 26 86 27 86 28 86 29 86 30 86 34 86 72 86}
+    }
+  cursor_position 79
+  font_size 52
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{2 56}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  name Text4
+  xpos 1165
+  ypos -476
+ }
+push $N1e86f400
+ Noise {
+  size {{parent.NoOp1.text04*80}}
+  zoffset 3.3
+  octaves 130
+  gain 0.86
+  gamma {{parent.NoOp1.text04/500}}
+  center {1024 778}
+  name Noise4
+  xpos 934
+  ypos -545
+ }
+ Text2 {
+  font_size_toolbar 52
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message " Size : \[value Noise4.size]   Gain : \[value Noise4.gain] \tGamma : \[value Noise4.gamma]  Lacunarity : \[value Noise4.lacunarity]\n"
+  old_message {{32 83 105 122 101 32 58 32 51 55 52 52 50 46 51 52 53 48 55 32 32 32 71 97 105 110 32 58 32 48 46 56 54 32 9 71 97 109 109 97 32 58 32 48 46 57 51 54 48 53 56 54 50 54 56 32 32 76 97 99 117 110 97 114 105 116 121 32 58 32 50 10}
+    }
+  old_expression_markers {{8 18 29 32 43 54 70 70}
+    }
+  box {2 3 1862 56}
+  transforms {{0 2}
+    }
+  font_size_values {{0 52 1 52 2 52 3 52 4 52 5 52 6 52 7 52 8 52 9 52 10 52 11 52 12 52 13 52 14 52 15 52 16 52 17 52 18 52 19 52 20 52 21 52 22 52 23 52 24 52 25 52 26 52 27 52 28 52 29 52 30 52 31 52 32 52 33 52 34 52 35 52 36 52 37 52 38 52 39 52 40 52 41 52 42 52 43 52 44 52 45 52 46 52 47 52 48 52 49 52 50 52 51 52 52 52 53 52 54 52 55 52 55 55 56 52 57 52 58 52 59 52 60 52 61 52 62 52 63 52 64 52 65 52 66 52 67 52 68 52 69 52 70 52 71 52 0 86 1 86 2 86 3 86 4 86 5 86 6 86 7 86 8 86 9 86 10 86 19 86 20 86 21 86 24 86 25 86 26 86 27 86 28 86 29 86 33 86 71 86}
+    }
+  cursor_position 63
+  font_size 52
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{2 56}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  name Text3
+  xpos 934
+  ypos -487
+ }
+push $N1e86f400
+ Noise {
+  size {{parent.NoOp1.text03*5}}
+  zoffset 3.3
+  octaves 130
+  gain {{parent.NoOp1.text03/500}}
+  gamma {{parent.NoOp1.text03/200}}
+  center {1024 778}
+  name Noise3
+  xpos 683
+  ypos -554
+ }
+ Text2 {
+  font_size_toolbar 52
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message " Size : \[value Noise3.size]   Gain : \[value Noise3.gain] \tGamma : \[value Noise3.gamma]  Lacunarity : \[value Noise3.lacunarity]\n"
+  old_message {{32 83 105 122 101 32 58 32 54 52 54 46 56 55 50 48 50 50 53 32 32 32 71 97 105 110 32 58 32 48 46 50 53 56 55 52 56 56 48 57 32 9 71 97 109 109 97 32 58 32 48 46 54 52 54 56 55 50 48 50 50 53 32 32 76 97 99 117 110 97 114 105 116 121 32 58 32 50 10}
+    }
+  old_expression_markers {{8 18 29 39 50 61 77 77}
+    }
+  box {2 3 1778 56}
+  transforms {{0 2}
+    }
+  font_size_values {{0 52 1 52 2 52 3 52 4 52 5 52 6 52 7 52 8 52 9 52 10 52 11 52 12 52 13 52 14 52 15 52 16 52 17 52 18 52 19 52 20 52 21 52 22 52 23 52 24 52 25 52 26 52 27 52 28 52 29 52 30 52 31 52 32 52 33 52 34 52 35 52 36 52 37 52 38 52 39 52 40 52 41 52 42 52 43 52 44 52 45 52 46 52 47 52 48 52 49 52 50 52 51 52 52 52 53 52 54 52 55 52 56 52 57 52 58 52 59 52 60 52 61 52 62 52 62 55 63 52 64 52 65 52 66 52 67 52 68 52 69 52 70 52 71 52 72 52 73 52 74 52 75 52 76 52 77 52 78 52 0 86 1 86 2 86 3 86 4 86 5 86 6 86 7 86 8 86 9 86 10 86 19 86 20 86 21 86 24 86 25 86 26 86 27 86 28 86 29 86 30 86 40 86 78 86}
+    }
+  cursor_position 70
+  font_size 52
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{2 56}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  name Text2
+  xpos 683
+  ypos -496
+ }
+push $N1e86f400
+ Noise {
+  size {{parent.NoOp1.text02*2}}
+  zoffset 3.3
+  octaves 130
+  gain {{parent.NoOp1.text02/500}}
+  gamma {{parent.NoOp1.text02/200}}
+  center {1024 778}
+  name Noise1
+  xpos 447
+  ypos -558
+ }
+ Text2 {
+  font_size_toolbar 52
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message " Size : \[value Noise1.size]   Gain : \[value Noise1.gain] \tGamma : \[value Noise1.gamma]  Lacunarity : \[value Noise1.lacunarity]\n"
+  old_message {{32 83 105 122 101 32 58 32 51 48 53 46 48 50 51 53 50 53 51 32 32 32 71 97 105 110 32 58 32 48 46 51 48 53 48 50 51 53 50 53 51 32 9 71 97 109 109 97 32 58 32 48 46 55 54 50 53 53 56 56 49 51 51 32 32 76 97 99 117 110 97 114 105 116 121 32 58 32 50 10}
+    }
+  old_expression_markers {{8 18 29 40 51 62 78 78}
+    }
+  box {2 3 1862 56}
+  transforms {{0 2}
+    }
+  font_size_values {{0 52 1 52 2 52 3 52 4 52 5 52 6 52 7 52 8 52 9 52 10 52 11 52 12 52 13 52 14 52 15 52 16 52 17 52 18 52 19 52 20 52 21 52 22 52 23 52 24 52 25 52 26 52 27 52 28 52 29 52 30 52 31 52 32 52 33 52 34 52 35 52 36 52 37 52 38 52 39 52 40 52 41 52 42 52 43 52 44 52 45 52 46 52 47 52 48 52 49 52 50 52 51 52 52 52 53 52 54 52 55 52 56 52 57 52 58 52 59 52 60 52 61 52 62 52 63 52 63 55 64 52 65 52 66 52 67 52 68 52 69 52 70 52 71 52 72 52 73 52 74 52 75 52 76 52 77 52 78 52 79 52 0 86 1 86 2 86 3 86 4 86 5 86 6 86 7 86 8 86 9 86 10 86 19 86 20 86 21 86 24 86 25 86 26 86 27 86 28 86 29 86 30 86 41 86 79 86}
+    }
+  cursor_position 79
+  font_size 52
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{2 56}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  name Text6
+  xpos 447
+  ypos -500
+ }
+push $N1e86f400
+ Noise {
+  size {{parent.NoOp1.text01*2}}
+  zoffset 3.3
+  octaves 130
+  gain {{parent.NoOp1.text01/100}}
+  gamma {{parent.NoOp1.text01/100}}
+  center {1024 778}
+  name Noise2
+  xpos 202
+  ypos -570
+ }
+ Text2 {
+  font_size_toolbar 52
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message " Size : \[value Noise2.size]   Gain : \[value Noise2.gain] \tGamma : \[value Noise2.gamma]  Lacunarity : \[value Noise2.lacunarity]\n"
+  old_message {{32 83 105 122 101 32 58 32 51 57 46 50 52 55 51 54 56 48 54 32 32 32 71 97 105 110 32 58 32 48 46 49 57 54 50 51 54 56 52 48 51 32 9 71 97 109 109 97 32 58 32 48 46 49 57 54 50 51 54 56 52 48 51 32 32 76 97 99 117 110 97 114 105 116 121 32 58 32 50 10}
+    }
+  old_expression_markers {{8 18 29 40 51 62 78 78}
+    }
+  box {2 3 1862 56}
+  transforms {{0 2}
+    }
+  font_size_values {{0 52 1 52 2 52 3 52 4 52 5 52 6 52 7 52 8 52 9 52 10 52 11 52 12 52 13 52 14 52 15 52 16 52 17 52 18 52 19 52 20 52 21 52 22 52 23 52 24 52 25 52 26 52 27 52 28 52 29 52 30 52 31 52 32 52 33 52 34 52 35 52 36 52 37 52 38 52 39 52 40 52 41 52 42 52 43 52 44 52 45 52 46 52 47 52 48 52 49 52 50 52 51 52 52 52 53 52 54 52 55 52 56 52 57 52 58 52 59 52 60 52 61 52 62 52 63 52 63 55 64 52 65 52 66 52 67 52 68 52 69 52 70 52 71 52 72 52 73 52 74 52 75 52 76 52 77 52 78 52 79 52 0 86 1 86 2 86 3 86 4 86 5 86 6 86 7 86 8 86 9 86 10 86 19 86 20 86 21 86 24 86 25 86 26 86 27 86 28 86 29 86 30 86 41 86 79 86}
+    }
+  cursor_position 80
+  font_size 52
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{2 56}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  color_panelDropped true
+  name Text1
+  xpos 202
+  ypos -499
+ }
+ ContactSheet {
+  inputs 9
+  width 1920
+  height 1080
+  columns 3
+  gap 10
+  center true
+  roworder TopBottom
+  name ContactSheet1
+  selected true
+  xpos 1165
+  ypos -195
+ }
+set N37d8a400 [stack 0]
+ Output {
+  name Output1
+  selected true
+  xpos 1165
+  ypos -89
+ }
+push $N37d8a400
+ Viewer {
+  frame_range 1-100
+  name Viewer1
+  selected true
+  xpos 1063
+  ypos 254
+ }
+ NoOp {
+  inputs 0
+  name NoOp1
+  xpos -9
+  ypos -681
+  addUserKnob {20 User}
+  addUserKnob {22 Brainstorm T "import nuke\nimport random\n\nnuke.thisNode().knob('text01').setValue(random.random()*50)\n\nnuke.thisNode().knob('text02').setValue(random.random()*300)\n\nnuke.thisNode().knob('text03').setValue(random.random()*500)\n\nnuke.thisNode().knob('text04').setValue(random.random()*1000)\n\nnuke.thisNode().knob('text05').setValue(random.random()*100)\n\nnuke.thisNode().knob('text06').setValue(random.random()*10)\n\nnuke.thisNode().knob('text07').setValue(random.random()*70)\n\nnuke.thisNode().knob('text08').setValue(random.random()*150)\n\nnuke.thisNode().knob('text09').setValue(random.random()*600)\n\n\n\n\n\n\n" +STARTLINE}
+  addUserKnob {3 text01}
+  text01 19.62368403
+  addUserKnob {3 text02}
+  text02 152.5117627
+  addUserKnob {3 text03}
+  text03 129.3744045
+  addUserKnob {3 text04}
+  text04 468.0293134
+  addUserKnob {3 text05}
+  text05 73.28852727
+  addUserKnob {3 text06}
+  text06 7.865117509
+  addUserKnob {3 text07}
+  text07 39.61337453
+  addUserKnob {3 text08}
+  text08 103.5656788
+  addUserKnob {3 text09}
+  text09 541.2653831
+ }
+end_group
+Noise {
+ inputs 0
+ size 8.2
+ zoffset {{frame*.1}}
+ lacunarity 3.36
+ gain 0.51
+ gamma 0.15
+ center {960 540}
+ name Noise5
+ xpos 1089
+ ypos -479
+}
+set N7915800 [stack 0]
+Grade {
+ name Grade3
+ xpos 1089
+ ypos -378
+ disable true
+}
+Crop {
+ box {0 0 1920 2}
+ crop false
+ name Crop1
+ xpos 1089
+ ypos -323
+}
+set Na5039c00 [stack 0]
+Reformat {
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ name Reformat2
+ xpos 1089
+ ypos -295
+ disable true
+}
+set Nf8dee400 [stack 0]
+Card2 {
+ control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+ name Card1
+ xpos 859
+ ypos -201
+}
+push $Nf8dee400
+Blur {
+ name Blur3
+ xpos 1182
+ ypos -265
+}
+push $N7915800
+Crop {
+ box {0 0 1920 2}
+ crop false
+ name Crop2
+ xpos 961
+ ypos -479
+}
+Crop {
+ box {0 0 1920 1080}
+ name Crop3
+ xpos 961
+ ypos -453
+}
+push $N7915800
+DirBlurWrapper {
+ BlurCenter {970 390}
+ BlurLength 600
+ BlurAngle 0
+ target {2044 1040}
+ name DirBlurWrapper4
+ xpos 957
+ ypos -413
+}
+Ramp {
+ inputs 0
+ p0 {900 654}
+ p1 {898 -2}
+ color {1 0.2849774957 0.04518353939 1}
+ name Ramp1
+ xpos 1538
+ ypos -365
+}
+Constant {
+ inputs 0
+ channels rgb
+ color {1 0.5357958078 0.1488540769 1}
+ name Constant2
+ xpos 1389
+ ypos -422
+}
+Merge2 {
+ inputs 2
+ name Merge3
+ xpos 1375
+ ypos -319
+}
+push $Na5039c00
+ReadGeo2 {
+ file C:/Users/artis/Desktop/Tunnel.abc
+ read_on_each_frame true
+ use_geometry_colors false
+ selectable false
+ uniform_scale 7
+ scene_view {{0} imported: 0 selected: 0 items: /root/pCylinder1/pCylinderShape1}
+ name ReadGeo3
+ xpos 1196
+ ypos -458
+}
+Gizmo {
+ inputs 0
+ name X_Tesla6
+ help "With this gizmo you can create lightning and electricity effects"
+ tile_color 0x5c89ffff
+ gl_color 0xbed7ffff
+ xpos 1585
+ ypos -427
+ point1 {94 478}
+ point2 {1796 496}
+ arcs 1
+ amplitude 250
+ soft_start 0.255
+ soft_end 0.04
+ frequency 0.4
+ complexity 6
+ secondary_amplitude 0.4
+ secondary_frequency 0.42
+ size 10
+ branches 5
+ random_spacing 0.2
+ direction 0.2
+ random_direction 0.5
+ length 0.935
+ random_length 0.5
+ branch_amplitude 2
+ random_amplitude 0.5
+ branch_size 1
+ branch_end_size 0.1
+ random_branch_size 0.2
+ speed 10
+ flow 30
+ seed 42
+ mode "Best Quality (very slow)"
+ primary_color {1 0.875814 0.732576}
+ secondary_color {0.372524 0.663819 1}
+ saturation 0.8
+ global_intensity 1
+ chromatic_aberration 2
+ sharpening 2
+ glow 300
+ intensity 0.3
+ soft_highlights true
+ gamma 1.5
+}
+ Crop {
+  inputs 0
+  box {0 0 {parent.Crop1.box.r} 1}
+  reformat true
+  intersect true
+  crop false
+  name Crop3
+  xpos -251
+  ypos -190
+ }
+set Nca46400 [stack 0]
+ Noise {
+  output {-rgba.red rgba.green -rgba.blue none}
+  size {{100/frequency} 1}
+  zoffset {{speed*frame/100+(frame-int(frame))*11107.7}}
+  octaves {{complexity}}
+  lacunarity {{1/secondary_frequency}}
+  gain {{secondary_amplitude}}
+  gamma 1
+  translate {{frame*flow} {-seed*717}}
+  scale {1 1}
+  xrotate 0
+  yrotate 0
+  name Noise2
+  xpos -129
+  ypos -190
+ }
+ Multiply {
+  value 2
+  name Multiply4
+  xpos -129
+  ypos -164
+ }
+ Add {
+  value -1
+  name Add2
+  xpos -129
+  ypos -126
+ }
+ Reformat {
+  type scale
+  scale {1 {max(amplitude,size+amplitude/2)}}
+  filter Impulse
+  name Reformat4
+  xpos -129
+  ypos -88
+ }
+ Dot {
+  name Dot1
+  xpos -95
+  ypos 85
+ }
+push $Nca46400
+ Expression {
+  channel0 none
+  expr0 "y<amplitude/2 "
+  expr1 1-((-cx/2+.5))**2
+  expr2 "(((-cx/2+.5))*(1+size - 1-branch_end_size)+(1+branch_end_size*size))"
+  channel3 none
+  expr3 fBm(x/100*frequency,seed*717,speed*frame/100,complexity,1/secondary_frequency,secondary_amplitude)*smoothstep(0,soft_start*Crop1.box.r,x)*smoothstep(0,soft_end*Crop1.box.r,Crop1.box.r-x)/clamp((smoothstep(0,soft_start,.5)*smoothstep(0,soft_end,.5))*2,0,1)**2
+  name Expression2
+  xpos -251
+  ypos -164
+ }
+ Reformat {
+  type scale
+  scale {1 {max(amplitude*branch_amplitude,size*branch_size+amplitude*branch_amplitude/2)}}
+  filter Impulse
+  name Reformat3
+  xpos -251
+  ypos -138
+ }
+ Expression {
+  expr0 -abs(y-(max(amplitude*branch_amplitude,size+amplitude*branch_amplitude/2))/2)+b/2
+  name Expression3
+  xpos -251
+  ypos -112
+ }
+ Remove {
+  operation keep
+  channels {rgba.red rgba.green -rgba.blue none}
+  name Remove2
+  xpos -251
+  ypos -86
+ }
+ NoTimeBlur {
+  rounding floor
+  name NoTimeBlur1
+  xpos -251
+  ypos -48
+ }
+ Clamp {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  maximum_enable false
+  name Clamp1
+  xpos -251
+  ypos -22
+ }
+ Transform {
+  scale {1 {"((1-(Transform4.translate.x/Crop1.box.r))*(1-end_size)+end_size)*branch_size*(1-random(seed*123+(frame-int(frame))*branches*10)*random_branch_size)             "}}
+  center {0 {format.t/2}}
+  black_outside false
+  name Transform3
+  xpos -251
+  ypos 4
+ }
+ Reformat {
+  type scale
+  scale {{length*(1-random(seed*71+(frame-int(frame))*branches*10)*random_length)} 1}
+  name Reformat5
+  xpos -251
+  ypos 30
+ }
+ Multiply {
+  channels {-rgba.red rgba.green -rgba.blue none}
+  value {1 {1-random_amplitude+random(seed*71+(frame-int(frame))*branches)*random_amplitude} 1 1}
+  value_panelDropped true
+  name Multiply1
+  xpos -251
+  ypos 56
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels {-rgba.red rgba.green -rgba.blue -rgba.alpha}
+  Bchannels {-rgba.red rgba.green -rgba.blue -rgba.alpha}
+  output {-rgba.red rgba.green -rgba.blue -rgba.alpha}
+  name Merge3
+  xpos -251
+  ypos 81
+ }
+ Multiply {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  value {{Transform3.scale.h/branch_size/branch_size*.5}}
+  name Multiply5
+  xpos -251
+  ypos 107
+ }
+ Crop {
+  box {0 0 {format.r} {format.t}}
+  crop false
+  name Crop4
+  xpos -251
+  ypos 145
+ }
+ IDistort {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  uv {-rgba.red rgba.green}
+  uv_scale {0 {amplitude/2*branch_amplitude}}
+  name IDistort2
+  xpos -251
+  ypos 171
+ }
+ Transform {
+  translate {{(random(seed*71+(frame-int(frame))*10*branches)*random_spacing+(frame-int(frame))*(1-random_spacing))*Crop1.box.r} {-(fBm((translate.x-int(frame)*flow)/100*frequency,seed*717,speed*int(frame)/100,complexity,1/secondary_frequency,secondary_amplitude)*smoothstep(0,soft_start*Crop1.box.r,translate.x)*smoothstep(0,soft_end*Crop1.box.r,Crop1.box.r-translate.x)/clamp((smoothstep(0,soft_start,.5)*smoothstep(0,soft_end,.5))*2,0,1)**2)*amplitude/2+(1-branch_amplitude)*amplitude/2}}
+  rotate {{(-1)**(int((frame-int(frame))*branches*10))*direction*90*(1-random(seed*111+((frame-int(frame))*branches*11))*random_direction*2)}}
+  center {0 {format.t/2}}
+  clamp true
+  name Transform4
+  xpos -251
+  ypos 197
+ }
+ Remove {
+  operation keep
+  channels {rgba.red -rgba.green -rgba.blue none}
+  name Remove1
+  xpos -251
+  ypos 223
+ }
+ Add {
+  value {{-size/branch_size*retract*.5}}
+  name Add3
+  xpos -251
+  ypos 261
+ }
+ Clamp {
+  maximum {{size/2*(1-retract)}}
+  name Clamp3
+  xpos -251
+  ypos 299
+ }
+ TimeBlur {
+  divisions {{branches-1}}
+  shutter 1
+  shutteroffset start
+  shuttercustomoffset 0
+  name TimeBlur2
+  xpos -251
+  ypos 337
+ }
+ Multiply {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  value {{branches}}
+  name Multiply2
+  xpos -251
+  ypos 363
+ }
+ Crop {
+  inputs 0
+  box {0 0 {hypot(point1.x-point2.x,point1.y-point2.y)} 1}
+  reformat true
+  intersect true
+  crop false
+  name Crop1
+  xpos -29
+  ypos 39
+ }
+set Nca46c00 [stack 0]
+ Noise {
+  output {-rgba.red rgba.green -rgba.blue none}
+  size {{100/frequency} 1}
+  zoffset {{speed*frame/100}}
+  octaves {{complexity}}
+  lacunarity {{1/secondary_frequency}}
+  gain {{secondary_amplitude}}
+  gamma 1
+  translate {{frame*flow} {-seed*717}}
+  scale {1 1}
+  xrotate 0
+  yrotate 0
+  name Noise1
+  xpos 96
+  ypos 39
+ }
+ Multiply {
+  value 2
+  name Multiply3
+  xpos 96
+  ypos 65
+ }
+ Add {
+  value -1
+  name Add1
+  xpos 96
+  ypos 103
+ }
+ Reformat {
+  type scale
+  scale {1 {max(amplitude,size+amplitude/2)}}
+  filter Impulse
+  name Reformat2
+  xpos 96
+  ypos 195
+ }
+push $Nca46c00
+ Expression {
+  channel0 none
+  expr0 "y<amplitude/2 "
+  expr1 smoothstep(0,soft_start*Crop1.box.r,x)*smoothstep(0,soft_end*Crop1.box.r,Crop1.box.r-x)/clamp((smoothstep(0,soft_start,.5)*smoothstep(0,soft_end,.5))*2,0,1)**2
+  expr2 ((-cx/2+.5))*size*(1-end_size)+end_size*size
+  channel3 none
+  expr3 fBm(x/100*frequency,seed*717,speed*frame/100,complexity,1/secondary_frequency,secondary_amplitude)*smoothstep(0,soft_start*Crop1.box.r,x)*smoothstep(0,soft_end*Crop1.box.r,Crop1.box.r-x)/clamp((smoothstep(0,soft_start,.5)*smoothstep(0,soft_end,.5))*2,0,1)**2
+  name Expression1
+  xpos -29
+  ypos 65
+ }
+ Reformat {
+  type scale
+  scale {1 {max(amplitude,size+amplitude/2)}}
+  filter Impulse
+  name Reformat1
+  xpos -29
+  ypos 91
+ }
+ Expression {
+  expr0 -abs(y-(max(amplitude,size+amplitude/2))/2)+b/2
+  name Expression4
+  xpos -29
+  ypos 117
+ }
+ NoTimeBlur {
+  rounding floor
+  name NoTimeBlur2
+  xpos -29
+  ypos 143
+ }
+ Remove {
+  operation keep
+  channels {rgba.red rgba.green -rgba.blue none}
+  name Remove3
+  xpos -29
+  ypos 169
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels {-rgba.red rgba.green -rgba.blue -rgba.alpha}
+  Bchannels {-rgba.red rgba.green -rgba.blue -rgba.alpha}
+  output {-rgba.red rgba.green -rgba.blue -rgba.alpha}
+  name Merge2
+  xpos -29
+  ypos 195
+ }
+ Clamp {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  maximum_enable false
+  name Clamp2
+  xpos -29
+  ypos 221
+ }
+ IDistort {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  uv {-rgba.red rgba.green}
+  uv_scale {0 {amplitude/2}}
+  name IDistort1
+  xpos -29
+  ypos 247
+ }
+ BlackOutside {
+  name BlackOutside1
+  xpos -29
+  ypos 273
+ }
+ Remove {
+  operation keep
+  channels {rgba.red -rgba.green -rgba.blue none}
+  name Remove4
+  xpos -29
+  ypos 299
+ }
+ Add {
+  value {{-size*retract}}
+  name Add4
+  xpos -29
+  ypos 325
+ }
+ Merge2 {
+  inputs 2
+  operation max
+  Achannels {rgba.red -rgba.green -rgba.blue none}
+  Bchannels {rgba.red -rgba.green -rgba.blue none}
+  output {rgba.red -rgba.green -rgba.blue none}
+  name Merge4
+  xpos -29
+  ypos 363
+ }
+set N22fd0400 [stack 0]
+push $N22fd0400
+ FrameHold {
+  first_frame {{frame+(frame-int(frame))*123}}
+  name FrameHold1
+  xpos -29
+  ypos 400
+ }
+ TimeBlur {
+  divisions {{parent.arcs}}
+  shutter 50
+  shutteroffset start
+  shuttercustomoffset 0
+  name TimeBlur3
+  xpos -29
+  ypos 438
+ }
+ Multiply {
+  value {{parent.arcs}}
+  name Multiply6
+  xpos -29
+  ypos 464
+ }
+ Switch {
+  inputs 2
+  which {{"arcs <= 1"}}
+  name Switch1
+  xpos -29
+  ypos 502
+ }
+ Transform {
+  translate {{point1.x} {point1.y-amplitude/2}}
+  rotate {{-atan2(point1.y-point2.y,-point1.x+point2.x)/2/pi*360}}
+  center {0 {amplitude/2}}
+  black_outside false
+  name Transform1
+  xpos -29
+  ypos 528
+ }
+set N88a4800 [stack 0]
+ Dot {
+  name Dot2
+  xpos 548
+  ypos 532
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle1
+  xpos 514
+  ypos 1204
+ }
+push $N88a4800
+ Crop {
+  box {{parent.Crop2.box.x} {parent.Crop2.box.y} {parent.Crop2.box.r} {parent.Crop2.box.t}}
+  intersect true
+  crop false
+  name Crop5
+  xpos -29
+  ypos 554
+ }
+ Reformat {
+  type scale
+  scale 0.5
+  pbb true
+  name Reformat6
+  xpos -29
+  ypos 580
+  disable {{"1-(mode == 1)"}}
+ }
+ Expression {
+  expr0 2*r/(r+1)
+  name Expression5
+  xpos -29
+  ypos 606
+ }
+ Multiply {
+  value {{parent.global_intensity}}
+  name Multiply9
+  xpos -29
+  ypos 632
+ }
+set Nac4a400 [stack 0]
+ Gamma {
+  value 0.5
+  name Gamma2
+  xpos 111
+  ypos 632
+ }
+ Dot {
+  name Dot14
+  xpos 254
+  ypos 642
+ }
+set N345a1800 [stack 0]
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  size {{"glow*(1-(mode == 1)*.5)"}}
+  filter quadratic
+  quality {{"mode == 2 ? ceil(size) : 10"}}
+  name Blur5
+  xpos 294
+  ypos 638
+ }
+ Dot {
+  name Dot20
+  xpos 438
+  ypos 642
+ }
+push $N345a1800
+ Dot {
+  name Dot15
+  xpos 254
+  ypos 664
+ }
+set N5bdcc00 [stack 0]
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  size {{"glow/2*(1-(mode == 1)*.5)"}}
+  filter quadratic
+  quality {{"mode == 2 ? ceil(size) : 10"}}
+  name Blur4
+  xpos 294
+  ypos 660
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox A
+  Achannels {rgba.red -rgba.green -rgba.blue none}
+  Bchannels {rgba.red -rgba.green -rgba.blue none}
+  output {rgba.red -rgba.green -rgba.blue none}
+  name Merge12
+  xpos 404
+  ypos 660
+ }
+push $N5bdcc00
+ Dot {
+  name Dot16
+  xpos 254
+  ypos 690
+ }
+set N393ac400 [stack 0]
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  size {{"glow/4*(1-(mode == 1)*.5)"}}
+  filter quadratic
+  quality {{"mode == 2 ? ceil(size) : 10"}}
+  name Blur3
+  xpos 294
+  ypos 686
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox A
+  Achannels {rgba.red -rgba.green -rgba.blue none}
+  Bchannels {rgba.red -rgba.green -rgba.blue none}
+  output {rgba.red -rgba.green -rgba.blue none}
+  name Merge13
+  xpos 404
+  ypos 686
+ }
+push $N393ac400
+ Dot {
+  name Dot23
+  xpos 254
+  ypos 716
+ }
+set N54bf000 [stack 0]
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  size {{"glow/16*(1-(mode == 1)*.5)"}}
+  filter quadratic
+  quality {{"mode == 2 ? ceil(size) : 10"}}
+  name Blur7
+  xpos 294
+  ypos 712
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox A
+  Achannels {rgba.red -rgba.green -rgba.blue none}
+  Bchannels {rgba.red -rgba.green -rgba.blue none}
+  output {rgba.red -rgba.green -rgba.blue none}
+  name Merge18
+  xpos 404
+  ypos 712
+ }
+push $N54bf000
+ Dot {
+  name Dot18
+  xpos 254
+  ypos 742
+ }
+set Nf550ac00 [stack 0]
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  size {{"glow/32*(1-(mode == 1)*.5)"}}
+  filter quadratic
+  quality {{"mode == 2 ? ceil(size) : 10"}}
+  name Blur2
+  xpos 294
+  ypos 738
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox A
+  Achannels {rgba.red -rgba.green -rgba.blue none}
+  Bchannels {rgba.red -rgba.green -rgba.blue none}
+  output {rgba.red -rgba.green -rgba.blue none}
+  name Merge14
+  xpos 404
+  ypos 738
+ }
+push $Nf550ac00
+ Dot {
+  name Dot19
+  xpos 254
+  ypos 768
+ }
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  size {{"glow/64*(1-(mode == 1)*.5)"}}
+  filter quadratic
+  quality {{"mode == 2 ? ceil(size) : 10"}}
+  name Blur1
+  xpos 294
+  ypos 764
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox A
+  Achannels {rgba.red -rgba.green -rgba.blue none}
+  Bchannels {rgba.red -rgba.green -rgba.blue none}
+  output {rgba.red -rgba.green -rgba.blue none}
+  name Merge15
+  xpos 404
+  ypos 764
+ }
+ Crop {
+  box {{parent.Crop2.box.x} {parent.Crop2.box.y} {parent.Crop2.box.r} {parent.Crop2.box.t}}
+  intersect true
+  crop false
+  name Crop6
+  xpos 404
+  ypos 790
+ }
+ Multiply {
+  channels rgba
+  value {{parent.intensity}}
+  name Multiply7
+  xpos 404
+  ypos 816
+ }
+set N9f1f400 [stack 0]
+ Noise {
+  output {rgba.red -rgba.green -rgba.blue none}
+  cliptype bbox
+  replace true
+  size {{parent.Noise1.size.0*((mode==2)+1)}}
+  zoffset {{parent.Noise1.zoffset}}
+  octaves {{parent.Noise1.octaves}}
+  lacunarity {{parent.Noise1.lacunarity}}
+  gain {{parent.Noise1.gain}}
+  gamma 1
+  rotate {{parent.Transform1.rotate}}
+  center {{parent.point1.x} {parent.point1.y}}
+  name Noise3
+  xpos 294
+  ypos 816
+ }
+set Nd7e6b000 [stack 0]
+ Multiply {
+  value {{parent.noise}}
+  name Multiply8
+  xpos 294
+  ypos 844
+ }
+ Add {
+  value 1
+  name Add5
+  xpos 294
+  ypos 882
+ }
+ Shuffle {
+  in rgb
+  green red
+  blue red
+  out rgb
+  name Shuffle4
+  xpos 294
+  ypos 920
+ }
+push $N9f1f400
+ Shuffle {
+  in rgb
+  green red
+  blue red
+  alpha black
+  out rgb
+  name Shuffle2
+  xpos 404
+  ypos 842
+ }
+ Grade {
+  multiply {{parent.primary_color.r} {parent.primary_color.g} {parent.primary_color.b} 0}
+  multiply_panelDropped true
+  gamma {{parent.secondary_color.r} {parent.secondary_color.g} {parent.secondary_color.b} 0}
+  name Grade1
+  xpos 404
+  ypos 868
+ }
+ Gamma {
+  channels rgb
+  value {{gamma}}
+  name Gamma1
+  xpos 404
+  ypos 894
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Multiply
+  xpos 404
+  ypos 920
+  disable {{parent.noise==0}}
+ }
+ Expression {
+  expr0 r/(r+1)*1.2
+  expr1 g/(g+1)*1.2
+  expr2 b/(b+1)*1.2
+  name Expression6
+  xpos 404
+  ypos 946
+  disable {{1-parent.soft_highlights}}
+ }
+push $Nd7e6b000
+ Blur {
+  size {{15*(1+(mode==2))}}
+  name Blur8
+  xpos 191
+  ypos 810
+ }
+ Dot {
+  name Dot3
+  xpos 225
+  ypos 848
+ }
+set N939a400 [stack 0]
+ Matrix {
+  channels rgba
+  matrix {
+      {0 0 0}
+      {-100 0 100}
+      {0 0 0}
+    }
+  name Matrix1
+  xpos 191
+  ypos 876
+ }
+push $N939a400
+ Matrix {
+  channels rgba
+  matrix {
+      {0 -100 0}
+      {0 0 0}
+      {0 100 0}
+    }
+  name Matrix2
+  xpos 81
+  ypos 844
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.green
+  name Copy1
+  xpos 81
+  ypos 870
+ }
+push $Nac4a400
+ Blur {
+  size 2
+  filter box
+  maskChannelInput -rgba.red
+  name Blur6
+  xpos -29
+  ypos 748
+  disable {{"1- (mode==2)"}}
+ }
+ FilterErode {
+  channels {none none none rgba.red}
+  filter gaussian
+  maskChannelInput -rgba.red
+  invert_mask true
+  fringe true
+  name FilterErode1
+  xpos -29
+  ypos 786
+  disable {{"1- (mode==2)"}}
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle3
+  xpos -29
+  ypos 885
+ }
+ Grade {
+  multiply {{parent.primary_color.r} {parent.primary_color.g} {parent.primary_color.b} 0}
+  multiply_panelDropped true
+  gamma {{parent.secondary_color.r} {parent.secondary_color.g} {parent.secondary_color.b} 0}
+  name Grade2
+  xpos -29
+  ypos 970
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 forward.u
+  from1 rgba.green
+  to1 forward.v
+  name Copy2
+  xpos 81
+  ypos 957
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox A
+  Achannels {rgba.red rgba.green rgba.blue none}
+  Bchannels {rgba.red rgba.green rgba.blue none}
+  output {rgba.red rgba.green rgba.blue none}
+  name Merge5
+  xpos 404
+  ypos 970
+ }
+ Saturation {
+  saturation {{parent.saturation}}
+  mode Average
+  name Saturation1
+  xpos 404
+  ypos 996
+ }
+ VectorBlur {
+  channels {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  uv motion
+  scale {{parent.chromatic_aberration*(1+(mode==2)*3)}}
+  offset -1
+  name VectorBlur1
+  xpos 404
+  ypos 1022
+ }
+ VectorBlur {
+  channels {-rgba.red rgba.green -rgba.blue none}
+  uv motion
+  scale {{parent.VectorBlur1.scale}}
+  name VectorBlur2
+  xpos 404
+  ypos 1048
+ }
+ VectorBlur {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  uv motion
+  scale {{parent.VectorBlur1.scale}}
+  offset 0
+  name VectorBlur3
+  xpos 404
+  ypos 1074
+ }
+set Nac4bc00 [stack 0]
+ Sharpen {
+  channels rgb
+  amount {{parent.sharpening}}
+  filter quadratic
+  name Sharpen1
+  xpos 294
+  ypos 1074
+ }
+ Dot {
+  name Dot4
+  xpos 328
+  ypos 1104
+ }
+push $Nac4bc00
+ Merge2 {
+  inputs 2
+  operation max
+  mix {{1-1/parent.Sharpen1.amount}}
+  name Merge6
+  xpos 404
+  ypos 1100
+ }
+ Reformat {
+  type scale
+  scale 2
+  pbb true
+  name Reformat7
+  xpos 404
+  ypos 1126
+  disable {{"1-(mode == 1)"}}
+ }
+ Crop {
+  box {{parent.Crop2.box.x} {parent.Crop2.box.y} {parent.Crop2.box.r} {parent.Crop2.box.t}}
+  intersect true
+  crop false
+  name Crop7
+  xpos 404
+  ypos 1152
+ }
+ BlackOutside {
+  name BlackOutside2
+  xpos 404
+  ypos 1178
+ }
+ Switch {
+  inputs 2
+  which {{"mode == 0"}}
+  name Switch2
+  xpos 404
+  ypos 1204
+ }
+ Reformat {
+  format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+  resize none
+  center false
+  filter Impulse
+  pbb true
+  name Reformat8
+  xpos 404
+  ypos 1232
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos 646
+  ypos 1097
+ }
+ Crop {
+  box {{format.x} {format.y} {format.r} {format.t}}
+  crop false
+  name Crop2
+  xpos 646
+  ypos 1145
+  disable true
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 646
+  ypos 1232
+ }
+ Output {
+  name Output1
+  xpos 646
+  ypos 1320
+ }
+push $Nac4a400
+ Viewer {
+  frame_range 1-120
+  colour_sample_bbox {-0.1572265625 0.1630859375 -0.15625 0.1640625}
+  samplepoints {{-0.1572265625 0.1630859375}
+    }
+  name Viewer1
+  xpos 514
+  ypos 1133
+ }
+end_group
+ReadGeo2 {
+ file C:/Users/artis/Desktop/Tunnel.abc
+ read_on_each_frame true
+ use_geometry_colors false
+ selectable false
+ scene_view {{0} imported: 0 selected: 0 items: /root/pCylinder1/pCylinderShape1}
+ name ReadGeo1
+ xpos 1343
+ ypos -232
+}
+CheckerBoard2 {
+ inputs 0
+ name CheckerBoard1
+ xpos 1209
+ ypos -663
+}
+Camera2 {
+ inputs 0
+ name Camera1
+ xpos 1312
+ ypos -509
+}
+Noise {
+ inputs 0
+ size 1
+ zoffset {{frame*.05}}
+ lacunarity 3.36
+ gain 0.51
+ gamma 0.055
+ center {960 540}
+ name Noise6
+ xpos 1531
+ ypos -643
+}
+Cylinder {
+ receive_shadow false
+ rotate {90 0 0}
+ scaling {462 450 1}
+ uniform_scale 2
+ name Cylinder1
+ xpos 1531
+ ypos -572
+}
+push 0
+ScanlineRender {
+ inputs 3
+ conservative_shader_sampling false
+ motion_vectors_type distance
+ name ScanlineRender2
+ xpos 1531
+ ypos -489
+}
+Viewer {
+ frame 13
+ frame_range 1-15
+ frame_range_lock true
+ grid_display false
+ name Viewer2
+ xpos 1563
+ ypos -292
+}
