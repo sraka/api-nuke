@@ -1,16 +1,5 @@
-'''
-load nodePresets
-    for each in os.listdir(os.path.join(init.NUKE_API_PRESETS,'node_presets').replace('\\','/')):
-    if each.endswith('.py'):
-        file_name = each.split('.')[0]
-        print 'import {0};{0}.{0}()'.format(file_name)
-
-    python('import nukeGui')
-'''
 __ver__=1.0
 __author__='sraka'
-
-
 
 import os , sys , nuke , nukescripts
 import config as init
@@ -38,12 +27,12 @@ def main_launch_pad():
     init_load_modules()
 
 def init_load_modules():
-    import nukeClasses as nukeClasses;reload(nukeClasses)
+    import dcc.nuke.nukeClasses as nukeClasses;reload(nukeClasses)
     nukenode = nukeClasses.NukeNode()
     nukescene = nukeClasses.NukeSession()
     nukevray = nukeClasses.NukeVray()
 
-    import nukeGui as nukeGui;reload(nukeGui)
+    import dcc.nuke.nukeGui as nukeGui;reload(nukeGui)
 
 
 #################################################################################################################################

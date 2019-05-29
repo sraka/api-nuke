@@ -2,10 +2,7 @@ import os
 import nuke
 import nukescripts
 
-
 print "Importing Menu Functions = " , __file__
-
-
 
 
 def set_Viewer_Channels():

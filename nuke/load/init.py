@@ -35,17 +35,18 @@ print "Nuke : {nuke} / Python : {python} / PySide : {pyside} / QtCore : {qtcore}
 nuke.pluginAddPath(init.CORE_LIBRARY)
 
 # ::_______Append Path - "pipeline/CoreLibrary" Paths at Launch (All Core-Lib's)
-        '''Example     :   nuke.pluginAddPath('./../CoreLibrary/moduleNuke')'''
+# '''Example     :   nuke.pluginAddPath('./../CoreLibrary/moduleNuke')'''
 for each in os.listdir(init.CORE_LIBRARY):
     folder_path = os.path.join(init.CORE_LIBRARY,each)
     if os.path.isdir(folder_path):
         nuke.pluginAddPath(folder_path)
 
 # ::_______Append Path - nuke. folder paths (nuketools.Scripts)
-        '''Example     :   nuke.pluginAddPath('./../nuke.Gizmos')'''
-for each in os.listdir(os.path.join(init.NUKE_API , init.NUKE_API_01)):
+#     '''Example     :   nuke.pluginAddPath('./../nuke.Gizmos')'''
+for each in os.listdir(init.SELF_PATH):
     if each.startswith('nuke.'):
-        nuke.pluginAddPath('./../{}'.format(each))
+        each_path = os.path.join(init.SELF_PATH, each)
+        nuke.pluginAddPath(each_path)
 
 #================================================================================================================================
 #                       LOAD_MODULES
