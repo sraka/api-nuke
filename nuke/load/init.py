@@ -9,7 +9,6 @@ print "Load init from = " , __file__
 
 import os
 import sys
-import PySide2
 import platform
 
 from Qt import QtCore

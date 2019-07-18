@@ -20,11 +20,15 @@ def init_load_modules():
     to easily access the module functions in nuke script editor.
     :return:
     '''
-    import dcc.nuke.nukeGui as nukeGui;reload(nukeGui)
+    print "---AA---"
+
     import dcc.nuke.nukeClasses as nukeClasses;reload(nukeClasses)
     nukenode = nukeClasses.NukeNode()
     nukescene = nukeClasses.NukeSession()
     nukevray = nukeClasses.NukeVray()
+
+
+    import dcc.nuke.nukeGui as nukeGui;reload(nukeGui)
 
 
 def main():
@@ -40,7 +44,7 @@ def main():
     load_menu_EditMenu()
     load_menu_viewer()
 
-    # init_load_modules()
+    init_load_modules()
 
 
 #################################################################################################################################
