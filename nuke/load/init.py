@@ -9,22 +9,21 @@ print "Load init from = " , __file__
 
 import os
 import sys
-import PySide
+import PySide2
 import platform
-from PySide import QtCore
+
+from Qt import QtCore
 
 import config as init;reload(init)
-
 print "Load init from = " , __file__
 
 #================================================================================================================================
 #                       INFO
 #================================================================================================================================
-print "Nuke : {nuke} / Python : {python} / PySide : {pyside} / QtCore : {qtcore}".format(
+print "Nuke : {nuke} / Python : {python} ".format(
    nuke=nuke.NUKE_VERSION_STRING,
-   python=platform.python_version(),
-   pyside=PySide.__version__,
-   qtcore=QtCore.qVersion())
+   python=platform.python_version())
+
    
 #================================================================================================================================
 #                       ADD_PLUGIN_PATH'S

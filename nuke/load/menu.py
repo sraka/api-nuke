@@ -6,51 +6,46 @@ import config as init
 import menu_functions as menu_functions;reload(menu_functions)
 
 def make_menubar_menu():
+    '''
+    Makes the menus at launch
+    :return:
+    '''
     menu_functions.make_menu_from_dir(''.join([init.NUKE_API_SCRIPTS,'/Menu_Bar']), 'Common_Functions' , '|Common_Functions|')
     menu_functions.make_menu_from_dir(''.join([init.NUKE_API_SCRIPTS,'/Menu_Bar']), 'General_Utils' , '|General_Utils|')
     menu_functions.make_menu_from_dir(''.join([init.NUKE_API_SCRIPTS,'/Menu_Bar']), 'third_party' , '|third_party|')
 
-
-def main_launch_pad():
-    nuke.addOnScriptLoad(menu_functions.kill_viewers)       # Delete viewer nodes while opening any script/nukefile
-    
-    # Create MENU_BAR Menu's - All paths of the dir get appended by when calling the function
-    make_menubar_menu()
-
-    load_formats()
-    load_shortcuts()
-    load_knob_defaults()
-
-    load_menu_EditMenu()
-    load_menu_viewer()
-
-    init_load_modules()
-
 def init_load_modules():
+    '''
+    loads all the req corelib modules in nuke at launch
+    to easily access the module functions in nuke script editor.
+    :return:
+    '''
+    import dcc.nuke.nukeGui as nukeGui;reload(nukeGui)
     import dcc.nuke.nukeClasses as nukeClasses;reload(nukeClasses)
     nukenode = nukeClasses.NukeNode()
     nukescene = nukeClasses.NukeSession()
     nukevray = nukeClasses.NukeVray()
 
-    import dcc.nuke.nukeGui as nukeGui;reload(nukeGui)
+
+def main():
+    nuke.addOnScriptLoad(menu_functions.kill_viewers)       # Delete viewer nodes while opening any script/nukefile
+
+    # Create MENU_BAR Menu's - All paths of the dir get appended by when calling the function
+    make_menubar_menu()
+
+    custom_formats_load()
+    custom_shortcuts_load()
+    custom_knob_defaults_load()
+
+    load_menu_EditMenu()
+    load_menu_viewer()
+
+    # init_load_modules()
 
 
 #################################################################################################################################
-#################################################################################################################################
-#################################################################################################################################
-#################################################################################################################################
-'''
-> Custom Formats
-> Custom ShortCuts
-> Knob Defaults
 
-'''
-
-#================================================================================================================================
-#                       > Custom Formats
-#================================================================================================================================
-
-def load_formats():
+def custom_formats_load():
     nuke.addFormat ("720 540 0 0 720 540 1.0 NTSC_square")
     nuke.addFormat ("960 540 0 0 960 540 1.0 540p")
     nuke.addFormat ("1280 720 0 0 1280 720 1.0 720p")
@@ -64,18 +59,10 @@ def load_formats():
     nuke.addFormat ("2048 1157 0 0 2048 1157 1.0 2k_3perf_crop")
     nuke.addFormat ("2048 872 0 0 2048 872 1.0 2k_235_crop")
 
-#================================================================================================================================
-#                       > Custom ShortCuts
-#================================================================================================================================
-
-def load_shortcuts():
+def custom_shortcuts_load():
     nuke.menu( 'Nuke' ).addCommand( 'File/Clear',"nuke.scriptClear()", 'ctrl+Alt+c')
 
-#================================================================================================================================
-#                       > Knob Defaults
-#================================================================================================================================
-
-def load_knob_defaults():
+def custom_knob_defaults_load():
     #                       FILE NAME  
     nuke.knobDefault("Roto.output","rgba")
     nuke.knobDefault('Bezier.linear', 'true' )
@@ -124,9 +111,6 @@ def load_knob_defaults():
     # toolbar.addCommand("3D/Lights/Direct", "nuke.createNode('DirectLight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")     #modify DirectLight to have Add Constrain Tab
     # toolbar.addCommand("3D/Lights/Spotlight", "nuke.createNode('Spotlight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")    #modify Spotlight to have Add Constrain Tab
 
-#################################################################################################################################
-#################################################################################################################################
-#################################################################################################################################
 #################################################################################################################################
 
 '''
@@ -218,4 +202,4 @@ def load_menu_viewer():
 
 
 if __name__ == '__main__':
-    main_launch_pad()
+    main()
