@@ -12,7 +12,7 @@ echo "SELF_PATH = ${SELF_PATH}"
 export CORE_LIBRARY=$script_dir/../../python-corelib/core-lib/
 echo "CORE_LIBRARY = ${CORE_LIBRARY}"
 
-export NUKE_PATH=${script_dir}/load/:$NUKE_PATH
+export NUKE_PATH=${script_dir}/load/
 echo "NUKE_PATH = ${NUKE_PATH}"
 
 # Launch NUKE

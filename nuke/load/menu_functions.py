@@ -42,6 +42,8 @@ def make_menu(path,menu_name):
 def make_menu_from_dir(src_path , folder_name , menu_name):
     '''
     Description     :   make's the menu with the specified menu name and add all the python files as menuitems and load them (to execute)
+                        file name = function_name
+                        This is a Quick Auto Load Function
     
     Note            :   - file name = def name
                         - Only .py files will be loaded as menu items    
@@ -65,5 +67,6 @@ def make_menu_from_dir(src_path , folder_name , menu_name):
                     each_file = os.path.splitext(each_file)[0]
                     MenuItem.addCommand( '%s/%s'% (menu_name,file), "import {0} as {0};reload({0});{0}.{0}()".format(each_file), icon='ohu_icon.png' )
 
+#################################################################################################################################
 
-                    
+

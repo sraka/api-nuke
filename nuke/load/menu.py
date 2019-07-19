@@ -5,14 +5,18 @@ import os , sys , nuke , nukescripts
 import config as init
 import menu_functions as menu_functions;reload(menu_functions)
 
+from callbacks import Callbacks
+
+
+
 def make_menubar_menu():
     '''
     Makes the menus at launch
     :return:
     '''
-    menu_functions.make_menu_from_dir(''.join([init.NUKE_API_SCRIPTS,'/Menu_Bar']), 'Common_Functions' , '|Common_Functions|')
-    menu_functions.make_menu_from_dir(''.join([init.NUKE_API_SCRIPTS,'/Menu_Bar']), 'General_Utils' , '|General_Utils|')
-    menu_functions.make_menu_from_dir(''.join([init.NUKE_API_SCRIPTS,'/Menu_Bar']), 'third_party' , '|third_party|')
+    menu_functions.make_menu_from_dir(''.join([init.NUKE_API_SCRIPTS,'/ui/Menu_Bar']), 'Common_Functions' , '|Common_Functions|')
+    menu_functions.make_menu_from_dir(''.join([init.NUKE_API_SCRIPTS,'/ui/Menu_Bar']), 'General_Utils' , '|General_Utils|')
+    menu_functions.make_menu_from_dir(''.join([init.NUKE_API_SCRIPTS,'/ui/Menu_Bar']), 'third_party' , '|third_party|')
 
 def init_load_modules():
     '''
@@ -42,6 +46,8 @@ def main():
 
     # init_load_modules()
 
+    #load_callbacks()
+
 
 #################################################################################################################################
 
@@ -51,7 +57,7 @@ def custom_formats_load():
     nuke.addFormat ("1280 720 0 0 1280 720 1.0 720p")
     nuke.addFormat ("1920 1080 0 0 1920 1080 1.0 1080p")
 
-    nuke.addFormat ("1920 1440 0 0 1920 1440 1.0 1920_4x3")     
+    nuke.addFormat ("1920 1440 0 0 1920 1440 1.0 1920_4x3")
     nuke.addFormat ("960 720 0 0 960 720 1.0 1920_4x3_half")
     nuke.addFormat ("3840 2160 0 0 3840 2160 1.0 HD_double")
     nuke.addFormat ("4096 4096 0 0 4096 4096 1.0 4k_square")
@@ -63,7 +69,7 @@ def custom_shortcuts_load():
     nuke.menu( 'Nuke' ).addCommand( 'File/Clear',"nuke.scriptClear()", 'ctrl+Alt+c')
 
 def custom_knob_defaults_load():
-    #                       FILE NAME  
+    #                       FILE NAME
     nuke.knobDefault("Roto.output","rgba")
     nuke.knobDefault('Bezier.linear', 'true' )
     nuke.knobDefault("RotoPaint.output","all")
@@ -71,17 +77,17 @@ def custom_knob_defaults_load():
     nuke.knobDefault('Blur.label', '[value size]')
 
     nuke.knobDefault("Grade.channels","rgba")
-    nuke.knobDefault('Grade.black_clamp','false')# this turns off black clamp on Grade nodes
+    nuke.knobDefault('Grade.black_clamp','false')                                               # this turns off black clamp on Grade nodes
 
-    #                       FILE NAME  
+    #                       FILE NAME
     nuke.knobDefault("Shuffle.label","[value in]")
     nuke.knobDefault("ShuffleCopy.label","[value in]- [value out]")
 
-    #                       FILE NAME  
+    #                       FILE NAME
     nuke.knobDefault("PostageStamp.hide_input",'1')
     nuke.knobDefault('Switch.label', '[value which]')
 
-    #                       FILE NAME  
+    #                       FILE NAME
     nuke.knobDefault("Exposure.mode",'Stops')
     nuke.knobDefault('Dissolve.label', '[value which]')
     nuke.knobDefault('Tracker.label', '[value transform] / ref:[value reference_frame]')
@@ -91,16 +97,16 @@ def custom_knob_defaults_load():
     #nuke.knobDefault('root.ViewerProcess','rec709')
 
     #-------------------------------
-    #			WRITE_NODE                     
+    #			WRITE_NODE
 
     nuke.knobDefault("Write.channels", "rgba")
-    nuke.knobDefault("Write.file_type","jpg") 
+    nuke.knobDefault("Write.file_type","jpg")
     nuke.knobDefault("Write._jpeg_quality", "1")
     nuke.knobDefault("Write._jpeg_sub_sampling", "1")
     #nuke.knobDefault('Write.beforeRender' , 'readList.updatereadList()')
 
     #-------------------------------
-    #			3D DEFAULTS 
+    #			3D DEFAULTS
 
     # toolbar.addCommand("3D/Camera", "nuke.createNode('Camera2');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")                #modify camera to have Add Constrain Tab
     # toolbar.addCommand("3D/Axis", "nuke.createNode('Axis2');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")                    #modify camera to have Add Constrain Tab
@@ -112,6 +118,95 @@ def custom_knob_defaults_load():
     # toolbar.addCommand("3D/Lights/Spotlight", "nuke.createNode('Spotlight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")    #modify Spotlight to have Add Constrain Tab
 
 #################################################################################################################################
+
+def load_callbacks():
+
+    cb = Callbacks()
+    # OnUserCreate
+    nuke.addOnUserCreate(cb.function)
+    nuke.removeOnUserCreate(cb.function)
+
+    # onCreate
+    nuke.addOnCreate(cb.function)
+    nuke.removeOnCreate(cb.function)
+
+    # onScriptLoad
+    nuke.addOnScriptLoad(cb.function)
+    nuke.removeOnScriptLoad(cb.function)
+
+    # onScriptSave
+    nuke.addOnScriptSave(cb.function)
+    nuke.removeOnScriptSave(cb.function)
+
+    # onScriptClose
+    nuke.addOnScriptClose(cb.function)
+    nuke.removeOnScriptClose(cb.function)
+
+    # onDestroy
+    nuke.addOnDestroy(cb.function)
+    nuke.removeOnDestroy(cb.function)
+
+    # knobChanged
+    nuke.addKnobChanged(cb.function)
+    nuke.removeKnobChanged(cb.function)
+
+    # updateUI
+    nuke.addUpdateUI(cb.function)
+    nuke.removeUpdateUI(cb.function)
+
+    # autolabel
+    nuke.addAutolabel(cb.function)
+    nuke.removeAutolabel(cb.function)
+
+    # beforeRender
+    nuke.addBeforeRender(cb.function)
+    nuke.removeBeforeRender(cb.function)
+
+    # afterRender
+    nuke.addAfterRender(cb.function)
+    nuke.removeAfterRender(cb.function)
+
+    # beforeFrameRender
+    nuke.addBeforeFrameRender(cb.function)
+    nuke.removeBeforeFrameRender(cb.function)
+
+    # afterFrameRender
+    nuke.addAfterFrameRender(cb.function)
+    nuke.removeAfterFrameRender(cb.function)
+
+    # afterBackgroundRender
+    nuke.addAfterBackgroundRender(cb.function)
+    nuke.removeAfterBackgroundRender(cb.function)
+
+    # afterBackgroundFrameRender
+    nuke.addBackgroundFrameRender(cb.function)
+    nuke.removeAfterBackgroundFrameRender(cb.function)
+
+    # filenameFilter
+    nuke.addFilenameFilter(cb.function)
+    nuke.removeFilenameFilter(cb.function)
+
+    # validateFilename
+    nuke.addValidateFilename(cb.function)
+    nuke.removeValidateFilename(cb.function)
+
+    # autoSaveFilter
+    nuke.addAutoSaveFilter(cb.function)
+    nuke.removeAutoSaveFilter(cb.function)
+
+    # autoSaveRestoreFilter
+    nuke.addAutoSaveRestoreFilter(cb.function)
+    nuke.removeAutoSaveRestoreFilter(cb.function)
+
+
+
+#################################################################################################################################
+
+
+
+
+
+
 
 '''
 > Menu Bar
@@ -125,7 +220,7 @@ def custom_knob_defaults_load():
 
 
 # ________________________________________________________________________________________________________________________________
-#			MENU BAR              
+#			MENU BAR
 #________________________________________________________________________________________________________________________________
 
 # nMenuItem = nuke.menu('Nuke')
@@ -151,7 +246,7 @@ def load_menu_EditMenu():
 
 
 # ________________________________________________________________________________________________________________________________
-#			VIEWER             
+#			VIEWER
 #________________________________________________________________________________________________________________________________
 
 # nViewer = nuke.menu( 'Viewer' )
