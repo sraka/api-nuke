@@ -9,7 +9,7 @@ import nukescripts
 from random import randint
 
 def nodecount():
-    
+    print "AA"
     an = len(nuke.allNodes())
     sn = len(nuke.selectedNodes())
 
@@ -24,3 +24,4 @@ def nodecount():
     else: tx = "Good luck on rendering this fat baby."
 
     nuke.message(tx + "\n Total nodes: " + str(an) + "\n Selected " + tns + ": " +str(sn))
+nodecount()

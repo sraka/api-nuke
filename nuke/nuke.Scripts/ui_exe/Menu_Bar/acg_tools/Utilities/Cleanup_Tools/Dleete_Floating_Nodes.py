@@ -5,3 +5,4 @@ def delete_floating_nodes():
     skipNodeTypes = ['Viewer','BackdropNode']
     [nuke.delete(node) for node in nuke.allNodes() if not node.dependent() and not node.dependencies() and not node.Class() in skipNodeTypes]
 
+delete_floating_nodes()
