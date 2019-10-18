@@ -2,19 +2,17 @@
 # This wrapper is to launch NUKE for Testing in dev-zone
 
 set -e
-script_dir=`dirname $0`
+script_dir="$( cd "$(dirname "$0")" ; pwd -P )"
 platform=`uname`
-echo "Current platform =  ${platform}"
 
-
-export SELF_PATH=$script_dir
-export CORE_LIBRARY=$script_dir/../../python-corelib/core-lib/
+export SELF_PATH=${script_dir}
+export CORE_LIBRARY=${script_dir}/../../python-corelib/core-lib/
 export NUKE_PATH=${script_dir}/_setup/
 
-echo "SELF_PATH = ${SELF_PATH}"
-echo "CORE_LIBRARY = ${CORE_LIBRARY}"
-echo "NUKE_PATH = ${NUKE_PATH}"
-
+echo "Current platform =  ${platform}"
+echo "added SELF_PATH = ${SELF_PATH}"
+echo "added CORE_LIBRARY = ${CORE_LIBRARY}"
+echo "added NUKE_PATH = ${NUKE_PATH}"
 
 # Launch NUKE
 /usr/bin/VGLrun /usr/bin/env foundry_LICENSE=4101@ws05.hyd.taufilms.com:4101@ws188.kul.taufilms.com "/usr/local/Nuke11.3v2/Nuke11.3" -b
