@@ -2,7 +2,7 @@
 # This wrapper is to launch NUKE for Testing in dev-zone
 
 set -e
-script_dir="$( cd "$(dirname "$0")" ; pwd -P )"
+script_dir=`dirname $0 | xargs realpath `
 platform=`uname`
 
 export SELF_PATH=${script_dir}
