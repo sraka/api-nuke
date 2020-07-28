@@ -89,7 +89,8 @@ def load_custom_menus_icons_shortcuts():
     custom_icons_dict = {
         "|ACG Tools|": {
             "External": ["Hide_Output.png", 'None'],
-            "File": ['None', 'F10'],
+            "Browse File": ['default', 'Shift+F10'],
+            "Hide Input": ['default', 'Shift+H'],
             "Shortcut Editor": ['d.png', 'F8']
         },
         "|UIs|": {
@@ -128,7 +129,7 @@ def load_custom_menus_icons_shortcuts():
             print("Values Defined in Dict : >> ", obj_icon, obj_shortcut)
             icon_file_path = os.path.join(init.NUKE_API_ICONS, obj_icon)
 
-            if obj_icon == "None":
+            if obj_icon == "default":
                 set_default_icon(obj)
             elif os.path.exists(icon_file_path):
                 print("set Icon - Custom from DICT. {}".format(icon_file_path))

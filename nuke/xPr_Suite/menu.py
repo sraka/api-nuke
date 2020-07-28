@@ -85,7 +85,7 @@ if os.path.exists(platform_pref_path()):  # Preferences Available
     # Python - Nuke Menu
     if pref.node_graph_grid is True:
         from PrPy.NodeGraphGrid import node_graph_grid
-        top.addCommand("Node Graph Grid", "node_graph_grid()", "Shift+H", icon="Node_Graph_Grid_v01.png")
+        top.addCommand("Node Graph Grid", "node_graph_grid()", "Shift+G", icon="Node_Graph_Grid_v01.png")
     if pref.bring_down_viewer is True:
         from PrPy.BringDownViewer import bring_down_viewer
         top.addCommand("Bring Down Viewer", "bring_down_viewer()", "Shift+V", icon="Bring_Down_Viewer_v01.png")
@@ -209,7 +209,7 @@ else:  # Default Preferences
 
     # Python - Nuke Menu
     from PrPy.NodeGraphGrid import node_graph_grid
-    top.addCommand("Node Graph Grid", "node_graph_grid()", "Shift+H", icon="Node_Graph_Grid_v01.png")
+    top.addCommand("Node Graph Grid", "node_graph_grid()", "Shift+G", icon="Node_Graph_Grid_v01.png")
     from PrPy.BringDownViewer import bring_down_viewer
     top.addCommand("Bring Down Viewer", "bring_down_viewer()", "Shift+V", icon="Bring_Down_Viewer_v01.png")
     from PrPy.SmartFloatingNotepad import launch as sfn_launch
