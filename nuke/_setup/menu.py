@@ -55,19 +55,18 @@ def main():
 
     # Create MENU_BAR items - All paths of the menu scripts dir get appended by when calling the function
     load_custom_menus()
-    custom_formats_load()
-    custom_shortcuts_load()
-    custom_knob_defaults_load()
+    load_custom_menus_icons_shortcuts()
+    load_custom_shortcuts()
+    load_custom_formats()
+    load_custom_knob_defaults()
 
     load_menu_EditMenu()
     load_menu_viewer()
 
     # TODO
     # load_custom_workspaces()
-    # load_custom_icons()
     # load_callbacks()
 
-    load_custom_menu_icons_shortcuts()
 
     if os.getenv("CORE_LIBRARY"):
         load_nukelib_modules()
@@ -75,7 +74,7 @@ def main():
 
 #################################################################################################################################
 
-def load_custom_menu_icons_shortcuts():
+def load_custom_menus_icons_shortcuts():
     """
     To load shortcuts and icons for menu's that are recursively created by the load_custom_menus() function.
     Define the name of the menu in the dict ,
@@ -173,9 +172,8 @@ def load_custom_menu_icons_shortcuts():
             # set icon for every menu item in a custom menu, eg, for menus in |ACG Tools|
             for each in nuke_menu_obj.findItem(each_custom_menu_obj.name()).items():
                 list_menus(each_custom_menu_obj, each)
-
-
-def custom_formats_load():
+                
+def load_custom_formats():
     nuke.addFormat("720 540 0 0 720 540 1.0 NTSC_square")
     nuke.addFormat("960 540 0 0 960 540 1.0 540p")
     nuke.addFormat("1280 720 0 0 1280 720 1.0 720p")
@@ -190,11 +188,11 @@ def custom_formats_load():
     nuke.addFormat("2048 872 0 0 2048 872 1.0 2k_235_crop")
 
 
-def custom_shortcuts_load():
+def load_custom_shortcuts():
     nuke.menu('Nuke').addCommand('File/Clear', "nuke.scriptClear()", 'ctrl+Alt+c')
 
 
-def custom_knob_defaults_load():
+def load_custom_knob_defaults():
     """
     Add default knob values for various nodes present in nuke, for faster workflow.
     When you create the below nodes in nuke, the knob mentioned will have the mentioned value selected by default
