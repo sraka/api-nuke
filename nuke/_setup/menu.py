@@ -99,6 +99,9 @@ def load_custom_menus_icons_shortcuts():
         },
         "|UIs|": {
 
+        },
+        "|Nukepedia|": {
+
         }
     }
 
