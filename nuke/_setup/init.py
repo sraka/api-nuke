@@ -30,15 +30,16 @@ print "Nuke : {nuke} / Python : {python} ".format(
 #                       ADD_PLUGIN_PATH'S
 #=======================================================================================================================
 
-# ::_______Append Path  "../CoreLibrary"
-# nuke.pluginAddPath(init.CORE_LIBRARY)
+if os.getenv("CORE_LIBRARY"):
+    # ::_______Append Path  "../CoreLibrary"
+    nuke.pluginAddPath(init.CORE_LIBRARY)
 
-# ::_______Append Path  "pipeline/CoreLibrary" Folders (All Core-Lib's)
-# '''Example     :   nuke.pluginAddPath('./../CoreLibrary/dcc')'''
-# for each in os.listdir(init.CORE_LIBRARY):
-#     folder_path = os.path.join(init.CORE_LIBRARY,each)
-#     if os.path.isdir(folder_path):
-#         nuke.pluginAddPath(folder_path)
+    # ::_______Append Path  "pipeline/CoreLibrary" Folders (All Core-Lib's)
+    # '''Example     :   nuke.pluginAddPath('./../CoreLibrary/dcc')'''
+    for each in os.listdir(init.CORE_LIBRARY):
+        folder_path = os.path.join(init.CORE_LIBRARY,each)
+        if os.path.isdir(folder_path):
+            nuke.pluginAddPath(folder_path)
 
 # ::_______Append Path  -  nuke.*  - all folder paths (nuke.Scripts)
 #  '''Example     :   nuke.pluginAddPath('./../nuke.Gizmos')'''

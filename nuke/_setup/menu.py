@@ -9,6 +9,7 @@ import sys
 import nuke
 import nukescripts
 
+# TODO : convert all the print statements into logger.debug statments
 # Import Custom written nuke modules from _setup folder
 import config as init
 import menu_functions as menu_functions
@@ -64,12 +65,115 @@ def main():
     # TODO
     # load_custom_workspaces()
     # load_custom_icons()
+    # load_callbacks()
+
+    load_custom_menu_icons_shortcuts()
+
     if os.getenv("CORE_LIBRARY"):
         load_nukelib_modules()
-    # load_callbacks()
 
 
 #################################################################################################################################
+
+def load_custom_menu_icons_shortcuts():
+    """
+    To load shortcuts and icons for menu's that are recursively created by the load_custom_menus() function.
+    Define the name of the menu in the dict ,
+        menu_name : [<icon_name>, <shortcut>]
+
+    if defined in dict - it will load that
+    else - icon with same name in nuke.Icons dir will be loaded, if this file is not found then no icon is loaded
+            default - only png file formats are loaded
+    :return:
+    """
+
+    custom_icons_dict = {
+        "|ACG Tools|": {
+            "External": ["Hide_Output.png", 'None'],
+            "File": ['None', 'F10'],
+            "Shortcut Editor": ['d.png', 'F8']
+        },
+        "|UIs|": {
+
+        }
+    }
+
+    def addIcon(custom_menu_obj, obj):
+        """
+        Set Icon and Shortcut,
+        if icon is NOT defined in dict , then load the icon with same name from nuke.Icons dir ,
+        if that is also not present then no icon for menuItem
+
+        DICT Conditions:
+            if "None" in icon - then the default icon (icon file with same name in nuke.Icons dir)
+            if "None" in shortcut - then add no shortcut
+
+
+        :param custom_menu_obj: custom_menu_obj.name() = |ACG Tools|
+        :param obj: obj.name() = External
+        :return:
+        """
+        print("---------------",  custom_menu_obj.name()), "---------------", obj.name()
+
+        # Apply the icon and shortcut as per the json data
+        # Check if the main custom UI is present in json data
+
+        def set_default_icon(obj):
+            icon_file_path = os.path.join(init.NUKE_API_ICONS, (obj.name()+'.png'))
+            print("set Icon - Default {}".format(icon_file_path))
+            if os.path.exists(icon_file_path):
+                obj.setIcon(icon_file_path)
+
+        if obj.name() in custom_icons_dict[custom_menu_obj.name()]:
+            obj_icon, obj_shortcut = custom_icons_dict[custom_menu_obj.name()][obj.name()]
+            print("Values Defined in Dict : >> ", obj_icon, obj_shortcut)
+            icon_file_path = os.path.join(init.NUKE_API_ICONS, obj_icon)
+
+            if obj_icon == "None":
+                set_default_icon(obj)
+            elif os.path.exists(icon_file_path):
+                print("set Icon - Custom from DICT. {}".format(icon_file_path))
+                obj.setIcon(icon_file_path)
+            else:
+                print("Icon file does not exists. {}".format(icon_file_path))
+
+            if obj_shortcut != "None":
+                print("set ShortCut - Custom from DICT. {}".format(obj_shortcut))
+                obj.setShortcut(obj_shortcut)
+        else:
+            set_default_icon(obj)
+
+    def list_menus(custom_menu_obj, men_obj):
+        """
+        This is to recursively list and add icon to all the menus and menuItems.
+        :param custom_menu_obj:
+        :param men_obj:
+        :return:
+        """
+        # print("setting Icon for MENUs", men_obj.name())
+        addIcon(custom_menu_obj, men_obj)
+
+        for each in men_obj.items():
+            if each.__doc__ == "Menu":
+                # Recursively check for all menu items
+                list_menus(custom_menu_obj, each)
+            elif each.__doc__ == "MenuItem":
+                # add icons for menuItems
+                # print("setting Icon for MENU-Items", each.name())
+                addIcon(custom_menu_obj, each)
+
+    nuke_menu_obj = nuke.menu('Nuke')
+    nuke_menu_list = [e.name() for e in nuke_menu_obj.items()]
+
+    # for each menu on all the custom menus defined in the dict json
+    for each_custom_menu in custom_icons_dict.keys():
+        if each_custom_menu in nuke_menu_list:
+            each_custom_menu_obj = nuke_menu_obj.findItem(str(each_custom_menu))
+            # print(each_custom_menu , each_custom_menu_obj.name())
+            # set icon for every menu item in a custom menu, eg, for menus in |ACG Tools|
+            for each in nuke_menu_obj.findItem(each_custom_menu_obj.name()).items():
+                list_menus(each_custom_menu_obj, each)
+
 
 def custom_formats_load():
     nuke.addFormat("720 540 0 0 720 540 1.0 NTSC_square")
@@ -274,7 +378,9 @@ def load_menu_viewer():
     nuke.menu('Viewer').addCommand('MyStuff/aaaaa', "nuke.createNode('Blur')")
     nuke.menu('Viewer').addCommand('Reset Viewing channel', "menu_functions.set_Viewer_Channels()", "`")
 
-
+# def load_acg_tools_men():
+#     menubar = nuke.menu("Nuke")
+#     acg = menubar.addMenu("|ACG Tools|")
 # ________________________________________________________________________________________________________________________________
 #			MENU BAR              
 # ________________________________________________________________________________________________________________________________

@@ -73,8 +73,10 @@ def make_menu_from_dir(src_path , folder_name , menu_name):
 def make_menu_recursive(src_path, folder_name, menu_name):
     """
     This is a Quick Auto Load Function for all python files(.py) present in the src_path
-    Auto Load LOGO : if the .png file of the same name as the python_script is found in nuke.Icons dir ,
+    Auto Load LOGO :
+    if the .png file of the same name as the python_script is found in nuke.Icons dir ,
     then the logo gets loaded automatically
+    This only applies to all menuItems, not for menus themselves, for loading icons on menu's , check menu.py
 
     """
     MenuItem = nuke.menu('Nuke')
@@ -92,7 +94,7 @@ def make_menu_recursive(src_path, folder_name, menu_name):
                         '{MENU_NAME}/{MENU_FILE_NAME}'.format(MENU_NAME=menu_name, MENU_FILE_NAME=menu_file_path))
                     MenuItem.addCommand(
                         '{MENU_NAME}/{MENU_FILE_NAME}'.format(MENU_NAME=menu_name, MENU_FILE_NAME=menu_file_path),
-                        "import {0} as {0};reload({0})".format(each_file_name), icon='{}.png'.format(each_file_name))
+                        "import {0} as {0};reload({0})".format(each_file_name))
                     
                     
 #################################################################################################################################
