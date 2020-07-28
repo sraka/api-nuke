@@ -30,6 +30,10 @@ def load_custom_menus():
                                        folder_name='UIs',
                                        menu_name='|UIs|'
                                        )
+    menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
+                                       folder_name='Nukepedia',
+                                       menu_name='|Nukepedia|'
+                                       )
 
 
 def load_nukelib_modules():
