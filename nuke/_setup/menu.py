@@ -17,26 +17,32 @@ from callbacks import Callbacks
 
 reload(menu_functions)
 
-def load_custom_menus():
+acg_menu='|ACG Tools|'
+uis_menu='|UIs|'
+nukepedia_menu='|Nukepedia|'
+utilities_menu='|Utilities|'
+menubar = nuke.menu("Nuke")             # All the menu's in Nuke
+
+def load_custom_menus_recursively():
     """
     To Create a Menu in nuke
     """
 
     menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
                                        folder_name='acg_tools',
-                                       menu_name='|ACG Tools|'
+                                       menu_name=acg_menu
                                        )
     menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
                                        folder_name='UIs',
-                                       menu_name='|UIs|'
+                                       menu_name=uis_menu
                                        )
     menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
                                        folder_name='Nukepedia',
-                                       menu_name='|Nukepedia|'
+                                       menu_name=nukepedia_menu
                                        )
     menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
                                        folder_name='Utilities',
-                                       menu_name='|Utilities|'
+                                       menu_name=utilities_menu
                                        )
 
 
@@ -62,13 +68,18 @@ def main():
     nuke.addOnScriptLoad(menu_functions.kill_viewers)  # Delete viewer nodes while opening any script/nukefile
 
     # Create MENU_BAR items - All paths of the menu scripts dir get appended by when calling the function
-    load_custom_menus()
+    load_custom_menus_recursively()
     load_custom_menus_icons_shortcuts()
+    # always execute this after load_custom_menus_icons_shortcuts()
+    # as it is failing when trying to add the icon for a seperator
+    add_tools_manually_to_acg_menu()
+    add_tools_manually_to_utilities_menu()
+
     load_custom_shortcuts()
     load_custom_formats()
     load_custom_knob_defaults()
 
-    load_menu_EditMenu()
+    load_menu_Edit()
     load_menu_viewer()
 
     # TODO
@@ -81,6 +92,16 @@ def main():
 
 
 #################################################################################################################################
+
+def add_tools_manually_to_acg_menu():
+    acg = menubar.addMenu(acg_menu)
+    acg.addSeparator()
+    acg.addCommand('aaaaa', "nuke.createNode('Blur')")
+
+def add_tools_manually_to_utilities_menu():
+    acg = menubar.addMenu(utilities_menu)
+    acg.addSeparator()
+    acg.addCommand('aaaaa', "nuke.createNode('Blur')")
 
 def load_custom_menus_icons_shortcuts():
     """
@@ -377,7 +398,7 @@ def load_callbacks():
 # nMenuItem.addCommand( '%s/CreateCC'% (menu_name_03), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
 # nMenuItem.findItem( '%s' % (menu_name_03) ).addSeparator()
 
-def load_menu_EditMenu():
+def load_menu_Edit():
     menubar = nuke.menu("Nuke")
     m = menubar.addMenu("Edit")
     m.addCommand('Reload All Custom MenuBars', 'make_menubar_menu()')
@@ -390,12 +411,13 @@ def load_menu_EditMenu():
 # nViewer = nuke.menu( 'Viewer' )
 # nViewer.addMenu( 'MyStuff',"nuke.createNode('NoOp')", icon='logo08.png' )
 def load_menu_viewer():
-    nuke.menu('Viewer').addCommand('MyStuff/aaaaa', "nuke.createNode('Blur')")
-    nuke.menu('Viewer').addCommand('Reset Viewing channel', "menu_functions.set_Viewer_Channels()", "`")
+    menubar = nuke.menu("Nuke")
+    v = menubar.addMenu("Viewer")
+    v.addCommand('MyStuff/aaaaa', "nuke.createNode('Blur')")
+    v.addCommand('MyStuffdddd', "nuke.createNode('NoOp')", icon='logo08.png')
+    v.addCommand('Reset Viewing channel', "menu_functions.set_Viewer_Channels()", "`")
 
-# def load_acg_tools_men():
-#     menubar = nuke.menu("Nuke")
-#     acg = menubar.addMenu("|ACG Tools|")
+
 # ________________________________________________________________________________________________________________________________
 #			MENU BAR              
 # ________________________________________________________________________________________________________________________________
