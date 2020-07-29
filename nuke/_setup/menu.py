@@ -94,11 +94,19 @@ def main():
 #################################################################################################################################
 
 def add_tools_manually_to_acg_menu():
+    """
+    Function to manually add tools to acg custom menu in Nuke.
+    :return:
+    """
     acg = menubar.addMenu(acg_menu)
     acg.addSeparator()
     acg.addCommand('aaaaa', "nuke.createNode('Blur')")
 
 def add_tools_manually_to_utilities_menu():
+    """
+    Function to manually add tools to utilities custom menu in Nuke.
+    :return:
+    """
     acg = menubar.addMenu(utilities_menu)
     acg.addSeparator()
     acg.addCommand('aaaaa', "nuke.createNode('Blur')")
@@ -156,6 +164,11 @@ def load_custom_menus_icons_shortcuts():
         # Check if the main custom UI is present in json data
 
         def set_default_icon(obj):
+            """
+            Set Default Icon = The Icon file with same name as the menuItem
+            :param obj:
+            :return:
+            """
             icon_file_path = os.path.join(init.NUKE_API_ICONS, (obj.name()+'.png'))
             print("set Icon - Default {}".format(icon_file_path))
             if os.path.exists(icon_file_path):
@@ -225,10 +238,8 @@ def load_custom_formats():
     nuke.addFormat("2048 1157 0 0 2048 1157 1.0 2k_3perf_crop")
     nuke.addFormat("2048 872 0 0 2048 872 1.0 2k_235_crop")
 
-
 def load_custom_shortcuts():
     nuke.menu('Nuke').addCommand('File/Clear', "nuke.scriptClear()", 'ctrl+Alt+c')
-
 
 def load_custom_knob_defaults():
     """
@@ -283,7 +294,6 @@ def load_custom_knob_defaults():
     # toolbar.addCommand("3D/Lights/Light", "nuke.createNode('Light2');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")           #modify Light to have Add Constrain Tab
     # toolbar.addCommand("3D/Lights/Direct", "nuke.createNode('DirectLight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")     #modify DirectLight to have Add Constrain Tab
     # toolbar.addCommand("3D/Lights/Spotlight", "nuke.createNode('Spotlight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")    #modify Spotlight to have Add Constrain Tab
-
 
 #################################################################################################################################
 
@@ -369,14 +379,9 @@ def load_callbacks():
     nuke.addAutoSaveRestoreFilter(cb.function)
     nuke.removeAutoSaveRestoreFilter(cb.function)
 
-
 #################################################################################################################################
 
 
-"""
-> Menu Bar
-> Viewer
-"""
 
 
 # ________________________________________________________________________________________________________________________________
@@ -393,49 +398,53 @@ def load_callbacks():
 # nMenuItem.addCommand( '%s/CreateCC'% (menu_name_02), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
 # nMenuItem.findItem( '%s' % (menu_name_02) ).addSeparator()
 
-
 # menu_name_03 = 'Tools'
 # nMenuItem.addCommand( '%s/CreateCC'% (menu_name_03), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
 # nMenuItem.findItem( '%s' % (menu_name_03) ).addSeparator()
 
-def load_menu_Edit():
-    menubar = nuke.menu("Nuke")
-    m = menubar.addMenu("Edit")
+
+"""
+> Menu Bar
+> Viewer
+"""
+def load_menu_file():
+    f = menubar.findItem("File")
+
+def load_menu_edit():
+    m = menubar.findItem("Edit")
     m.addCommand('Reload All Custom MenuBars', 'make_menubar_menu()')
 
-
-# ________________________________________________________________________________________________________________________________
-#			VIEWER
-# ________________________________________________________________________________________________________________________________
+def load_menu_workspace():
+    f = menubar.findItem("Workspace")
 
 # nViewer = nuke.menu( 'Viewer' )
 # nViewer.addMenu( 'MyStuff',"nuke.createNode('NoOp')", icon='logo08.png' )
 def load_menu_viewer():
-    menubar = nuke.menu("Nuke")
-    v = menubar.addMenu("Viewer")
+    v = menubar.findItem("Viewer")
     v.addCommand('MyStuff/aaaaa', "nuke.createNode('Blur')")
     v.addCommand('MyStuffdddd', "nuke.createNode('NoOp')", icon='logo08.png')
     v.addCommand('Reset Viewing channel', "menu_functions.set_Viewer_Channels()", "`")
 
+def load_menu_render():
+    r = menubar.findItem("Render")
 
-# ________________________________________________________________________________________________________________________________
-#			MENU BAR              
-# ________________________________________________________________________________________________________________________________
+def load_menu_cache():
+    c = menubar.findItem("Cache")
 
-
-# ________________________________________________________________________________________________________________________________
-#			MENU BAR              
-# ________________________________________________________________________________________________________________________________
-
-
-# ________________________________________________________________________________________________________________________________
-#			MENU BAR              
-# ________________________________________________________________________________________________________________________________
+def load_menu_help():
+    h = menubar.findItem("Help")
 
 
-# ________________________________________________________________________________________________________________________________
-#			MENU BAR              
-# ________________________________________________________________________________________________________________________________
+
+
+def load_menu_nodes():
+    n = menubar.findItem("Nodes")
+
+def load_menu_layout():
+    l = menubar.findItem("Layout")
+
+def load_menu_view():
+    v = menubar.findItem("View")
 
 
 if __name__ == '__main__':
