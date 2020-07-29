@@ -77,7 +77,7 @@ nuke.addBeforeRender( createWriteDir )
 #setup stereo views automatically
 
 
-import nodeOps#I need this to render for some reason, will figure out why later
+# import nodeOps #I need this to render for some reason, will figure out why later
 
 #creates directory when you render to one which doesn't exist
 #def createWriteDir():

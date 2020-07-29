@@ -34,6 +34,10 @@ def load_custom_menus():
                                        folder_name='Nukepedia',
                                        menu_name='|Nukepedia|'
                                        )
+    menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
+                                       folder_name='Utilities',
+                                       menu_name='|Utilities|'
+                                       )
 
 
 def load_nukelib_modules():
@@ -102,6 +106,11 @@ def load_custom_menus_icons_shortcuts():
         },
         "|Nukepedia|": {
 
+        },
+        "|Utilities|": {
+            "Cleanup Tools": ['Folder BlackRed.png', 'None'],
+            "Common": ['Folder BlackRed.png', 'None'],
+            "File": ['Folder BlackRed.png', 'None']
         }
     }
 
