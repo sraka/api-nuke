@@ -1,0 +1,1192 @@
+#! C:/Program Files/Nuke12.0v4/nuke-12.0.4.dll -nx
+version 12.0 v4
+Gizmo {
+ knobChanged "\nthis_node = nuke.thisNode()\nthis_knob = nuke.thisKnob()\nif this_knob.name() == \"inputChange\" and this_node.inputs():\n    input_node = this_node.input(0)\n    channel_array = list(set(\[channel_name.split('.')\[0] for channel_name in input_node.channels()]))\n    lighting_grp_types = list(set(\[channel_name.split('_', 1)\[1] for channel_name in channel_array if channel_name.startswith('Beauty')]))\n    lighting_grp_types.sort()\n    nuke.thisNode()\['LightingGrpArray'].setValues(lighting_grp_types)\n    lighting_grp_type = this_node.knob('LightingGrpArray').value()\n    pass_channels = \['DiffuseLighting', 'GI', 'Reflections', 'Refractions', 'SSS', 'SpecularLighting', 'Emission',  'VolumeLighting', 'Beauty']\n    for pass_channel in pass_channels:\n        channel_name = '_'.join(\[pass_channel, lighting_grp_type])\n        keep_node= this_node.node('_'.join(\[pass_channel, 'keep']))\n        keep_node.knob('channels').setValue(channel_name)\n        shuffe_node = this_node.node('_'.join(\[pass_channel, 'shuffle']))\n        shuffe_node.knob('in').setValue(channel_name)    \n\nif this_knob.name() == \"LightingGrpArray\":\n    lighting_grp_type = this_knob.value()\n    pass_channels = \['DiffuseLighting', 'GI', 'Reflections', 'Refractions', 'SSS', 'SpecularLighting', 'Emission', 'VolumeLighting', 'Beauty']\n    for pass_channel in pass_channels:\n        channel_name = '_'.join(\[pass_channel, lighting_grp_type])\n        keep_node= this_node.node('_'.join(\[pass_channel, 'keep']))\n        keep_node.knob('channels').setValue(channel_name)\n        shuffe_node = this_node.node('_'.join(\[pass_channel, 'shuffle']))\n        shuffe_node.knob('in').setValue(channel_name)\n"
+ tile_color 0xff3fff
+ label "\[python nuke.thisNode().knob('LightingGrpArray').value()]"
+ addUserKnob {20 User}
+ addUserKnob {22 CopyValues l INVISIBLE +INVISIBLE +STARTLINE}
+ addUserKnob {22 PasteValues l INVISIBLE -STARTLINE +INVISIBLE}
+ addUserKnob {22 ResetValues l INVISIBLE -STARTLINE +INVISIBLE}
+ addUserKnob {22 ExportValues l INVISIBLE -STARTLINE +INVISIBLE}
+ addUserKnob {26 d l INVISIBLE +INVISIBLE}
+ addUserKnob {6 ByPassAll l INVISIBLE +INVISIBLE +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {20 LightingGroup l LightingGroupType n 1}
+ addUserKnob {4 LightingGrpArray l LightingGrpType M {Candle1 Candle2 Candle3 Lighting_Key layer2}}
+ LightingGrpArray Candle2
+ addUserKnob {20 LightingGrpEndGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 ArtDirected l "Color " n 1}
+ addUserKnob {4 colorMode l "Color Mode" M {Color Temperature "Temperature & Color" ""}}
+ addUserKnob {26 ColorHelp l "" +STARTLINE T "(Color Only for Env & Portals, Color/Temperature ONLY IES Lights)"}
+ addUserKnob {6 ByPassColor l "By Pass" +STARTLINE}
+ addUserKnob {18 LightColor l "Color(USE COLOR WHEEL)" t "(USE COLOR WHEEL)"}
+ LightColor {1 1 1}
+ addUserKnob {6 LightColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ LightColor_panelDropped true
+ addUserKnob {26 ""}
+ addUserKnob {41 ChooseLight l ColorTemperature T Color_Temperature_tool7.ChooseLight}
+ addUserKnob {26 hint l "(DO NOT use on ENV and PORTAL LIGHTS)" -STARTLINE}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 LightAdjust l "Light Adjust" n 1}
+ addUserKnob {6 ByPassIntensity l "By Pass" +STARTLINE}
+ addUserKnob {16 Intensity}
+ Intensity 1
+ addUserKnob {7 Exposure l INVISIBLE +INVISIBLE R -1 1}
+ addUserKnob {26 ""}
+ addUserKnob {26 AdjustLightAOVs l "Adjust Light AOVs"}
+ addUserKnob {6 BeautySwitch l INVISIBLE +INVISIBLE +STARTLINE}
+ addUserKnob {16 Volume l "Volume Light"}
+ Volume 1
+ addUserKnob {16 Diffuse}
+ Diffuse 1
+ addUserKnob {16 Specular}
+ Specular 1
+ addUserKnob {16 SSS}
+ SSS 1
+ addUserKnob {16 GI}
+ GI 1
+ addUserKnob {26 NOT l "NoT Transferable To Maya"}
+ addUserKnob {16 Emission}
+ Emission 1
+ addUserKnob {16 Reflection}
+ Reflection 1
+ addUserKnob {16 Refraction}
+ Refraction 1
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {26 ArtiDirected l INVISIBLE +INVISIBLE}
+ addUserKnob {26 NOTE l INVISIBLE +INVISIBLE}
+ addUserKnob {41 random l INVISIBLE +INVISIBLE T randomizegrade.random}
+ addUserKnob {26 Redshift_nukelightingtool l "" +STARTLINE T "Redshift Light_v007,  AQ"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode9
+  tile_color 0x465259ff
+  label "\n\n\n"
+  note_font_size 42
+  xpos -114
+  ypos -686
+  bdwidth 2274
+  bdheight 904
+ }
+ Group {
+  inputs 0
+  name Group2
+  xpos 2207
+  ypos 327
+  addUserKnob {20 User}
+  addUserKnob {7 intensity l Intensity R 0 10}
+  intensity {{pow(2,Group1.exposure)}}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 0
+  }
+  Output {
+   name Output1
+   xpos 0
+   ypos 300
+  }
+ end_group
+ Group {
+  inputs 0
+  name Group1
+  xpos 2064
+  ypos 331
+  addUserKnob {20 User}
+  addUserKnob {7 exposure l Exposure R -5 5}
+  exposure {{parent.Exposure}}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 0
+  }
+  Output {
+   name Output1
+   xpos 0
+   ypos 300
+  }
+ end_group
+ Input {
+  inputs 0
+  name RGBA
+  xpos -11
+  ypos -649
+ }
+ OCIOColorSpace {
+  channels all
+  in_colorspace "ACES - ACEScg"
+  out_colorspace "Utility - Linear - sRGB"
+  name OCIOColorSpace2
+  xpos -11
+  ypos -607
+  disable true
+ }
+ Dot {
+  name Dot414
+  xpos 23
+  ypos -549
+ }
+set Nfddbc000 [stack 0]
+ Dot {
+  name Dot415
+  xpos 124
+  ypos -549
+ }
+set Nfddbc400 [stack 0]
+ Dot {
+  name Dot416
+  xpos 283
+  ypos -549
+ }
+set Nfddbc800 [stack 0]
+ Dot {
+  name Dot417
+  xpos 384
+  ypos -549
+ }
+set Nfddbcc00 [stack 0]
+ Dot {
+  name Dot418
+  xpos 558
+  ypos -549
+ }
+set Nff322c00 [stack 0]
+ Dot {
+  name Dot419
+  xpos 674
+  ypos -549
+ }
+set N85e05c00 [stack 0]
+ Dot {
+  name Dot420
+  xpos 792
+  ypos -549
+ }
+set Nfb8a1800 [stack 0]
+ Dot {
+  name Dot421
+  xpos 913
+  ypos -549
+ }
+set Nfc121c00 [stack 0]
+ Dot {
+  name Dot422
+  xpos 1023
+  ypos -549
+ }
+set Nfc121800 [stack 0]
+ Dot {
+  name Dot423
+  xpos 1144
+  ypos -549
+ }
+set N83813400 [stack 0]
+ Dot {
+  name Dot424
+  xpos 1290
+  ypos -549
+ }
+set N83813000 [stack 0]
+ Dot {
+  name Dot425
+  xpos 1369
+  ypos -549
+ }
+set N83813800 [stack 0]
+ Dot {
+  name Dot1
+  xpos 1513
+  ypos -549
+ }
+set N89b8f000 [stack 0]
+ Dot {
+  name Dot2
+  xpos 1592
+  ypos -549
+ }
+set N89b8e800 [stack 0]
+ Dot {
+  name Dot426
+  xpos 1702
+  ypos -548
+ }
+set N89b8e400 [stack 0]
+ Dot {
+  name Dot427
+  xpos 1802
+  ypos -548
+ }
+set N89b8ec00 [stack 0]
+ Dot {
+  name Dot428
+  xpos 1886
+  ypos -548
+ }
+set N89b8e000 [stack 0]
+ Dot {
+  name Dot8
+  xpos 1987
+  ypos -548
+ }
+set N89bb9800 [stack 0]
+ Dot {
+  name Dot429
+  xpos 2097
+  ypos -548
+ }
+ Dot {
+  name Dot430
+  xpos 2097
+  ypos -14
+ }
+push $N89bb9800
+ Dot {
+  name Dot9
+  xpos 1987
+  ypos -418
+ }
+push $N89b8e000
+add_layer {Beauty_Candle2 Beauty_Candle2.red Beauty_Candle2.green Beauty_Candle2.blue Beauty_Candle2.alpha}
+ Remove {
+  operation keep
+  channels Beauty_Candle2
+  name Beauty_keep
+  xpos 1852
+  ypos -497
+ }
+ Shuffle {
+  in Beauty_Candle2
+  name Beauty_shuffle
+  label "\[python nuke.thisNode().knob('in').value()]"
+  xpos 1852
+  ypos -459
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy2
+  xpos 1852
+  ypos -421
+ }
+ Dot {
+  name Dot7
+  xpos 1886
+  ypos -76
+ }
+set Nff228400 [stack 0]
+push $N89b8ec00
+ Dot {
+  name Dot431
+  xpos 1802
+  ypos -375
+ }
+push $N89b8e400
+ Remove {
+  operation keep
+  channels none
+  name VolumeLighting_keep
+  xpos 1668
+  ypos -515
+ }
+ Shuffle {
+  in none
+  name VolumeLighting_shuffle
+  label "\[python nuke.thisNode().knob('in').value()]"
+  xpos 1668
+  ypos -472
+ }
+ Clamp {
+  name Clamp1
+  xpos 1668
+  ypos -434
+  disable true
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy123
+  xpos 1668
+  ypos -379
+ }
+ Unpremult {
+  name Unpremult106
+  xpos 1668
+  ypos -339
+  disable true
+ }
+ Grade {
+  channels all
+  white {{parent.Volume}}
+  name DO_NOT_EDIT_VOL3
+  tile_color 0x963366ff
+  xpos 1668
+  ypos -297
+  disable {{parent.ByPassIntensity}}
+ }
+push $N89b8e800
+ Dot {
+  name Dot3
+  xpos 1592
+  ypos -377
+ }
+push $N89b8f000
+ Remove {
+  operation keep
+  channels none
+  name Emission_keep
+  xpos 1479
+  ypos -490
+ }
+ Shuffle {
+  in none
+  name Emission_shuffle
+  label "\[python nuke.thisNode().knob('in').value()]"
+  xpos 1479
+  ypos -431
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos 1479
+  ypos -381
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 1479
+  ypos -348
+  disable true
+ }
+ Grade {
+  channels all
+  white {{parent.Emission}}
+  name DO_NOT_EDIT_Emit
+  tile_color 0x963366ff
+  xpos 1479
+  ypos -296
+  disable {{parent.ByPassIntensity}}
+ }
+ Grade {
+  channels all
+  white {{parent.Intensity}}
+  name Grade_emission_intensity
+  xpos 1479
+  ypos -225
+ }
+push $N83813800
+ Dot {
+  name Dot432
+  xpos 1369
+  ypos -377
+ }
+push $N83813000
+ Remove {
+  operation keep
+  channels none
+  name SpecularLighting_keep
+  xpos 1256
+  ypos -490
+ }
+ Shuffle {
+  in none
+  name SpecularLighting_shuffle
+  label "\[python nuke.thisNode().knob('in').value()]"
+  xpos 1256
+  ypos -431
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy124
+  xpos 1256
+  ypos -381
+ }
+ Unpremult {
+  name Unpremult107
+  xpos 1256
+  ypos -348
+  disable true
+ }
+ Grade {
+  channels all
+  white {{parent.Specular}}
+  name DO_NOT_EDIT_SPEC3
+  tile_color 0x963366ff
+  xpos 1256
+  ypos -296
+  disable {{parent.ByPassIntensity}}
+ }
+push $N83813400
+ Dot {
+  name Dot433
+  xpos 1144
+  ypos -364
+ }
+push $Nfc121800
+ Remove {
+  operation keep
+  channels none
+  name SSS_keep
+  xpos 989
+  ypos -463
+ }
+ Shuffle {
+  in none
+  name SSS_shuffle
+  label "\[python nuke.thisNode().knob('in').value()]"
+  xpos 989
+  ypos -419
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy125
+  xpos 989
+  ypos -368
+ }
+ Unpremult {
+  name Unpremult108
+  xpos 989
+  ypos -342
+  disable true
+ }
+ Grade {
+  channels all
+  white {{parent.SSS}}
+  name DO_NOT_EDIT_SSS3
+  tile_color 0x963366ff
+  xpos 989
+  ypos -306
+  disable {{parent.ByPassIntensity}}
+ }
+push $Nfc121c00
+ Dot {
+  name Dot434
+  xpos 913
+  ypos -371
+ }
+push $Nfb8a1800
+ Remove {
+  operation keep
+  channels none
+  name Refractions_keep
+  xpos 758
+  ypos -460
+ }
+ Shuffle {
+  in none
+  name Refractions_shuffle
+  label "\[python nuke.thisNode().knob('in').value()]"
+  xpos 758
+  ypos -422
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy126
+  xpos 758
+  ypos -374
+ }
+ Unpremult {
+  name Unpremult109
+  xpos 758
+  ypos -348
+  disable true
+ }
+ Grade {
+  channels all
+  white {{parent.DO_NOT_EDIT_DIF3.white}}
+  name Diff_compensate
+  tile_color 0x963366ff
+  xpos 758
+  ypos -307
+  disable true
+ }
+ Grade {
+  channels all
+  white {{parent.Refraction}}
+  name DO_NOT_EDIT_REFRACT3
+  tile_color 0x963366ff
+  xpos 758
+  ypos -257
+  disable {{parent.ByPassIntensity}}
+ }
+push $N85e05c00
+ Dot {
+  name Dot435
+  xpos 674
+  ypos -378
+ }
+push $Nff322c00
+ Remove {
+  operation keep
+  channels none
+  name Reflections_keep
+  xpos 524
+  ypos -464
+ }
+ Shuffle {
+  in none
+  name Reflections_shuffle
+  label "\[python nuke.thisNode().knob('in').value()]"
+  xpos 524
+  ypos -426
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy127
+  xpos 524
+  ypos -382
+ }
+ Unpremult {
+  name Unpremult110
+  xpos 524
+  ypos -356
+  disable true
+ }
+ Grade {
+  channels all
+  white {{parent.DO_NOT_EDIT_SPEC3.white}}
+  name Specular_compensate1
+  tile_color 0x963366ff
+  xpos 524
+  ypos -330
+  disable {{parent.ByPassIntensity}}
+ }
+ Grade {
+  channels all
+  white {{parent.Reflection}}
+  name DO_NOT_EDIT_REF3
+  tile_color 0x963366ff
+  xpos 524
+  ypos -256
+  disable {{parent.ByPassIntensity}}
+ }
+push $Nfddbcc00
+ Dot {
+  name Dot436
+  xpos 384
+  ypos -389
+ }
+push $Nfddbc800
+ Remove {
+  operation keep
+  channels none
+  name GI_keep
+  xpos 249
+  ypos -484
+ }
+ Shuffle {
+  in none
+  name GI_shuffle
+  label "\[python nuke.thisNode().knob('in').value()]"
+  xpos 249
+  ypos -446
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy128
+  xpos 249
+  ypos -392
+ }
+ Unpremult {
+  name Unpremult111
+  xpos 249
+  ypos -348
+  disable true
+ }
+ Grade {
+  channels all
+  white {{parent.GI}}
+  name DO_NOT_EDIT_GI3
+  tile_color 0x963366ff
+  xpos 249
+  ypos -296
+  disable {{parent.ByPassIntensity}}
+ }
+ Grade {
+  channels all
+  white {{parent.DO_NOT_EDIT_DIF3.white}}
+  name Grade1
+  xpos 249
+  ypos -238
+  disable {{parent.ByPassIntensity}}
+ }
+push $Nfddbc400
+ Dot {
+  name Dot437
+  xpos 124
+  ypos -389
+ }
+push $Nfddbc000
+ Remove {
+  operation keep
+  channels none
+  name DiffuseLighting_keep
+  xpos -11
+  ypos -468
+ }
+ Shuffle {
+  in none
+  name DiffuseLighting_shuffle
+  label "\[python nuke.thisNode().knob('in').value()]"
+  xpos -11
+  ypos -430
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy129
+  xpos -11
+  ypos -392
+ }
+ Unpremult {
+  name Unpremult112
+  xpos -11
+  ypos -355
+  disable true
+ }
+ Grade {
+  channels all
+  white {{parent.Diffuse}}
+  name DO_NOT_EDIT_DIF3
+  tile_color 0x963366ff
+  xpos -11
+  ypos -329
+  disable {{parent.ByPassIntensity}}
+ }
+ Dot {
+  name Dot438
+  xpos 23
+  ypos -127
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  also_merge all
+  name Merge117
+  xpos 249
+  ypos -131
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  also_merge all
+  name Merge118
+  xpos 524
+  ypos -131
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  also_merge all
+  name Merge119
+  xpos 758
+  ypos -131
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  also_merge all
+  name Merge120
+  xpos 989
+  ypos -131
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  also_merge all
+  name Merge121
+  xpos 1256
+  ypos -131
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  also_merge all
+  name Merge1
+  xpos 1479
+  ypos -131
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  also_merge all
+  name Merge122
+  xpos 1668
+  ypos -131
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels none
+  also_merge all
+  name Merge2
+  xpos 1668
+  ypos -79
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy130
+  xpos 1668
+  ypos -17
+ }
+ Premult {
+  name Premult16
+  xpos 1668
+  ypos 67
+  disable true
+ }
+ Grade {
+  name Grade2
+  xpos 2015
+  ypos 67
+ }
+set Nfb7fb800 [stack 0]
+ Dot {
+  name Dot5
+  xpos 2014
+  ypos 201
+ }
+push $Nfb7fb800
+ Group {
+  name Color_Temperature_tool7
+  tile_color 0xf400ff
+  xpos 2206
+  ypos 67
+  disable {{(colorMode)-2}}
+  addUserKnob {20 User}
+  addUserKnob {4 ChooseLight t "Light Temperature" M {1200 2000 2550 3200 4150 5000 5750 6000 7500 9000 15000 20000 25000 "" "" "" "" "" "" ""}}
+  ChooseLight 6000
+ }
+  Viewer {
+   inputs 0
+   frame 1012
+   frame_range 1-100
+   input_number 4
+   name Viewer1
+   xpos 1439
+   ypos 337
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos 2182
+   ypos -499
+  }
+  Dot {
+   name Dot1
+   xpos 2199
+   ypos -416
+  }
+set N89e3e000 [stack 0]
+  Grade {
+   channels all
+   white 1.935
+   multiply {0.2856445312 0.5625 1.022460938 1.022460938}
+   name Bluesky03_25000K1
+   xpos 3047
+   ypos -226
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 1.935
+   multiply {0.2934570312 0.552734375 0.96875 0.96875}
+   name Bluesky02_20000K1
+   xpos 2936
+   ypos -226
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 1.92
+   multiply {0.3178710938 0.5551757812 0.9106445312 0.9106445312}
+   name Bluesky01_15000K1
+   xpos 2816
+   ypos -222
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 1.98
+   multiply {0.3742675781 0.533203125 0.7177734375 0.7177734375}
+   name Overcast02_9000k1
+   xpos 2696
+   ypos -227
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 1.92
+   multiply {0.4133300781 0.5336914062 0.6455078125 0.6455078125}
+   name Overcast01_7500k1
+   xpos 2557
+   ypos -228
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 2
+   multiply {0.4333496094 0.5122070312 0.5595703125 0.5595703125}
+   name Daylight_6500K1
+   xpos 2445
+   ypos -225
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 1.96
+   multiply {0.4768066406 0.5180664062 0.5112304688 0.5112304688}
+   name VerticalDaylight_5750K1
+   xpos 2325
+   ypos -222
+  }
+push $N89e3e000
+  Grade {
+   channels none
+   white 2
+   multiply {0.509765625 0.4985351562 0.4306640625 0.4306640625}
+   name Horizon_daylight_5000K1
+   xpos 2191
+   ypos -217
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 2.04
+   multiply {0.5659179688 0.4736328125 0.3305664062 0.3305664062}
+   name moonlight_4150k1
+   xpos 2078
+   ypos -217
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 2
+   multiply {0.697265625 0.45703125 0.2189941406 0.2189941406}
+   multiply_panelDropped true
+   name studio_lamps_3200K1
+   xpos 1969
+   ypos -219
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 2.03
+   multiply {0.8173828125 0.4206542969 0.1328125 0.1328125}
+   name Soft_White_Incanlamps_2550k1
+   xpos 1832
+   ypos -216
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   white 1.93
+   multiply {1.048828125 0.400390625 0.07073974609 0.07073974609}
+   multiply_panelDropped true
+   name CandleLight_2000k1
+   xpos 1718
+   ypos -213
+  }
+push $N89e3e000
+  Grade {
+   channels all
+   name fire_1200
+   xpos 1576
+   ypos -205
+  }
+  Switch {
+   inputs 13
+   which {{parent.ChooseLight}}
+   name Switcher1
+   xpos 2130
+   ypos -121
+  }
+  Dot {
+   name Dot669
+   xpos 2179
+   ypos -8
+  }
+  Output {
+   name Output1
+   xpos 2156
+   ypos 103
+  }
+ end_group
+ Grade {
+  channels all
+  multiply {{parent.LightColor} {parent.LightColor} {parent.LightColor} {parent.LightColor}}
+  multiply_panelDropped true
+  name Colornew
+  xpos 2424
+  ypos 61
+ }
+set Nfef74800 [stack 0]
+push $Nfb7fb800
+ Dot {
+  name Dot6
+  xpos 2049
+  ypos 157
+ }
+ Group {
+  name Color_Temperature_tool1
+  tile_color 0xf400ff
+  xpos 2205
+  ypos 153
+  addUserKnob {20 User}
+ }
+  Viewer {
+   inputs 0
+   frame 1012
+   frame_range 1-100
+   input_number 4
+   name Viewer1
+   xpos 1439
+   ypos 337
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos 2182
+   ypos -499
+  }
+  Dot {
+   name Dot1
+   xpos 2199
+   ypos -416
+  }
+set N89a74c00 [stack 0]
+  Grade {
+   channels all
+   white 1.935
+   multiply {0.2856445312 0.5625 1.022460938 1.022460938}
+   name Bluesky03_25000K1
+   selected true
+   xpos 3047
+   ypos -226
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 1.935
+   multiply {0.2934570312 0.552734375 0.96875 0.96875}
+   name Bluesky02_20000K1
+   xpos 2936
+   ypos -226
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 1.92
+   multiply {0.3178710938 0.5551757812 0.9106445312 0.9106445312}
+   name Bluesky01_15000K1
+   xpos 2816
+   ypos -222
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 1.98
+   multiply {0.3742675781 0.533203125 0.7177734375 0.7177734375}
+   name Overcast02_9000k1
+   xpos 2696
+   ypos -227
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 1.92
+   multiply {0.4133300781 0.5336914062 0.6455078125 0.6455078125}
+   name Overcast01_7500k1
+   xpos 2557
+   ypos -228
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 2
+   multiply {0.4333496094 0.5122070312 0.5595703125 0.5595703125}
+   name Daylight_6500K1
+   xpos 2445
+   ypos -225
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 1.96
+   multiply {0.4768066406 0.5180664062 0.5112304688 0.5112304688}
+   name VerticalDaylight_5750K1
+   xpos 2325
+   ypos -222
+  }
+push $N89a74c00
+  Grade {
+   channels none
+   white 2
+   multiply {0.509765625 0.4985351562 0.4306640625 0.4306640625}
+   name Horizon_daylight_5000K1
+   xpos 2191
+   ypos -217
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 2.04
+   multiply {0.5659179688 0.4736328125 0.3305664062 0.3305664062}
+   name moonlight_4150k1
+   xpos 2078
+   ypos -217
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 2
+   multiply {0.697265625 0.45703125 0.2189941406 0.2189941406}
+   multiply_panelDropped true
+   name studio_lamps_3200K1
+   xpos 1969
+   ypos -219
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 2.03
+   multiply {0.8173828125 0.4206542969 0.1328125 0.1328125}
+   name Soft_White_Incanlamps_2550k1
+   xpos 1832
+   ypos -216
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   white 1.93
+   multiply {1.048828125 0.400390625 0.07073974609 0.07073974609}
+   multiply_panelDropped true
+   name CandleLight_2000k1
+   xpos 1718
+   ypos -213
+  }
+push $N89a74c00
+  Grade {
+   channels all
+   name fire_1200
+   xpos 1576
+   ypos -205
+  }
+  Switch {
+   inputs 13
+   which {{parent.parent.Color_Temperature_tool7.Switcher1.which}}
+   name Switcher1
+   xpos 2130
+   ypos -121
+  }
+  Dot {
+   name Dot669
+   xpos 2179
+   ypos -8
+  }
+  Output {
+   name Output1
+   xpos 2156
+   ypos 103
+  }
+ end_group
+push $Nfef74800
+ Dot {
+  name Dot4
+  xpos 2334
+  ypos 109
+ }
+ Switch {
+  inputs 3
+  which {{(colorMode)}}
+  name Switch1
+  xpos 2424
+  ypos 153
+ }
+ Switch {
+  inputs 2
+  which {{parent.ByPassColor}}
+  name Switch_BypassColor
+  xpos 2424
+  ypos 198
+ }
+ Grade {
+  channels all
+  white {{parent.Intensity}}
+  name Intensity
+  xpos 2424
+  ypos 237
+  disable {{parent.ByPassIntensity x1 1}}
+ }
+ Grade {
+  channels all
+  white {{parent.Group2.intensity}}
+  name Exposure
+  xpos 2424
+  ypos 317
+  disable {{parent.ByPassIntensity}}
+ }
+ OCIOColorSpace {
+  channels all
+  in_colorspace "Utility - Linear - sRGB"
+  out_colorspace "ACES - ACEScg"
+  name OCIOColorSpace1
+  xpos 2424
+  ypos 433
+  disable true
+ }
+set Nfb129000 [stack 0]
+ Output {
+  name Output1
+  xpos 2424
+  ypos 546
+ }
+push $Nff228400
+push 0
+ Switch {
+  inputs 2
+  which {{parent.BeautySwitch}}
+  name DO_NOT_EDIT
+  tile_color 0x963366ff
+  xpos 1947
+  ypos -79
+ }
+push $Nfb129000
+ Shuffle {
+  name Shuffle1
+  xpos 2561
+  ypos 441
+ }
+ Group {
+  inputs 0
+  name randomizegrade
+  selected true
+  xpos 2643
+  ypos 157
+  disable true
+  addUserKnob {20 User}
+  addUserKnob {3 random}
+  random 1
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 497
+   ypos 111
+  }
+  Grade {
+   multiply {{(random(1,parent.random)*0.5)+1}}
+   name Randomize
+   tile_color 0xb14fffff
+   xpos 497
+   ypos 151
+  }
+  Output {
+   name Output1
+   xpos 497
+   ypos 251
+  }
+ end_group
+end_group

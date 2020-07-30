@@ -79,7 +79,7 @@ def main():
     load_custom_formats()
     load_custom_knob_defaults()
 
-    load_menu_Edit()
+    load_menu_edit()
     load_menu_viewer()
 
     # TODO
