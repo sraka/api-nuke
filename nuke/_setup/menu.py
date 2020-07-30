@@ -1,5 +1,6 @@
 """
 Module Doc:
+Load all the necessary menu items in nuke at launch.
 """
 __ver__ = 1.0
 __author__ = 'sraka'

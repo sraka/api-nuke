@@ -1,9 +1,12 @@
-'''
-This file contains all the paths that are req in the pipeline.
-'''
-print "Load Config from = " , __file__
+"""
+Module Doc:
+Module to define all the nuke necessary directories as os env variables in nuke.
+"""
+
 import os
 import sys
+
+print("Load Config from = " , __file__)
 
 # ::_______ PIPELINE PATH ________
 SELF_PATH = os.getenv('SELF_PATH')
