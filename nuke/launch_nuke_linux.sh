@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 # This wrapper is to launch NUKE for Testing in dev-zone
 
+# Need to add ENV Variables at Launch
+# SELF_PATH
+# CORE_LIB
+# Need to replace the use of .replace("\\","/") in config file
+# add args and make it capable of launching nuke for any version,
+    # eg: launch_nuke -version 11.3v2 - this will launch nuke 11.3
+    # launch_nuke
+
 set -e
 script_dir=`dirname $0 | xargs realpath `
 platform=`uname`
@@ -19,14 +27,3 @@ echo "added NUKE_PATH = ${NUKE_PATH}"
 
 
 
-
-
-
-
-
-
-
-# Need to add ENV Variables at Launch
-# SELF_PATH
-# CORE_LIB
-# Need to replace the use of .replace("\\","/") in config file

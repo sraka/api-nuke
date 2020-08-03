@@ -5,8 +5,6 @@
 # ###   diogogirondi@gmail.com
 
 import nuke
-import nukescripts
-from random import randint
 
 def nodecount():
     print "AA"

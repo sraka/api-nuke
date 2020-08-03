@@ -5,6 +5,13 @@ This is a collection of all necessary tools and scripts written for working effe
 ## Installation
 
 
+## Launching Nuke
+
+>**Windows**
+use the bat file to launch nuke for a specified version
+> **Linux**
+use the nuke wrapper to launch
+
 ## Features
 
 **Tools available :**
