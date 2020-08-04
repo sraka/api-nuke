@@ -7,9 +7,10 @@ This is a collection of all necessary tools and scripts written for working effe
 
 ## Launching Nuke
 
->**Windows**
+>**Windows**  
 use the bat file to launch nuke for a specified version
-> **Linux**
+>
+> **Linux**  
 use the nuke wrapper to launch
 
 ## Features
