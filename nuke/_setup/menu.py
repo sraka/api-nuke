@@ -46,6 +46,16 @@ def load_custom_menus_recursively():
                                        menu_name=utilities_menu
                                        )
 
+def load_custom_gizmo_menu():
+    menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
+                                               folder_name='ACG',
+                                               menu_name='ACG_Gizmos'
+                                               )
+    menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
+                                               folder_name='Nukepedia',
+                                               menu_name='Nukepedia_Gizmos'
+                                               )
+
 
 def load_nukelib_modules():
     """
@@ -55,44 +65,20 @@ def load_nukelib_modules():
     """
 
     print "---AA---"
-    import dcc.nuke.nukeClasses as nukeClasses;
+    import dcc.nuke.nukeClasses as nukeClasses
     reload(nukeClasses)
     nukenode = nukeClasses.NukeNode()
     nukescene = nukeClasses.NukeSession()
     nukevray = nukeClasses.NukeVray()
 
-    import dcc.nuke.nukeGui as nukeGui;
+    import dcc.nuke.nukeGui as nukeGui
     reload(nukeGui)
 
 
-def main():
-    nuke.addOnScriptLoad(menu_functions.kill_viewers)  # Delete viewer nodes while opening any script/nukefile
-
-    # Create MENU_BAR items - All paths of the menu scripts dir get appended by when calling the function
-    load_custom_menus_recursively()
-    load_custom_menus_icons_shortcuts()
-    # always execute this after load_custom_menus_icons_shortcuts()
-    # as it is failing when trying to add the icon for a seperator
-    add_tools_manually_to_acg_menu()
-    add_tools_manually_to_utilities_menu()
-
-    load_custom_shortcuts()
-    load_custom_formats()
-    load_custom_knob_defaults()
-
-    load_menu_edit()
-    load_menu_viewer()
-
-    # TODO
-    # load_custom_workspaces()
-    # load_callbacks()
-
-
-    if os.getenv("CORE_LIBRARY"):
-        load_nukelib_modules()
-
 
 #################################################################################################################################
+def load_gizmos_recursively():
+    pass
 
 def add_tools_manually_to_acg_menu():
     """
@@ -129,7 +115,7 @@ def load_custom_menus_icons_shortcuts():
             "External": ["Hide_Output.png", 'None'],
             "Browse File": ['default', 'Shift+F10'],
             "Hide Input": ['default', 'Shift+H'],
-            "Shortcut Editor": ['d.png', 'F8']
+            "Shortcut Editor": ['PySide_Custom_Ui_Docked.png', 'F8']
         },
         "|UIs|": {
 
@@ -214,10 +200,10 @@ def load_custom_menus_icons_shortcuts():
                 addIcon(custom_menu_obj, each)
 
     nuke_menu_obj = nuke.menu('Nuke')
-    nuke_menu_list = [e.name() for e in nuke_menu_obj.items()]
+    nuke_menu_list = [e.name() for e in nuke_menu_obj.items()]      # all menus under Nuke
 
     # for each menu on all the custom menus defined in the dict json
-    for each_custom_menu in custom_icons_dict.keys():
+    for each_custom_menu in custom_icons_dict.keys():   # "|ACG Tools|" , "|UIs|", "|Nukepedia|"
         if each_custom_menu in nuke_menu_list:
             each_custom_menu_obj = nuke_menu_obj.findItem(str(each_custom_menu))
             # print(each_custom_menu , each_custom_menu_obj.name())
@@ -296,7 +282,9 @@ def load_custom_knob_defaults():
     # toolbar.addCommand("3D/Lights/Direct", "nuke.createNode('DirectLight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")     #modify DirectLight to have Add Constrain Tab
     # toolbar.addCommand("3D/Lights/Spotlight", "nuke.createNode('Spotlight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")    #modify Spotlight to have Add Constrain Tab
 
+
 #################################################################################################################################
+# CALLBACKS
 
 def load_callbacks():
     """
@@ -403,11 +391,14 @@ def load_callbacks():
 # nMenuItem.addCommand( '%s/CreateCC'% (menu_name_03), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
 # nMenuItem.findItem( '%s' % (menu_name_03) ).addSeparator()
 
+#################################################################################################################################
+# MENUS
 
 """
-> Menu Bar
-> Viewer
+[each.name() for each in nuke.menu('Nuke').items()]
+['File', 'Edit', 'Workspace', 'Viewer', 'Render', 'Cache', 'Help',]
 """
+
 def load_menu_file():
     f = menubar.findItem("File")
 
@@ -418,9 +409,12 @@ def load_menu_edit():
 def load_menu_workspace():
     f = menubar.findItem("Workspace")
 
-# nViewer = nuke.menu( 'Viewer' )
-# nViewer.addMenu( 'MyStuff',"nuke.createNode('NoOp')", icon='logo08.png' )
 def load_menu_viewer():
+    """
+    # nViewer = nuke.menu( 'Viewer' )
+# nViewer.addMenu( 'MyStuff',"nuke.createNode('NoOp')", icon='logo08.png' )
+    :return:
+    """
     v = menubar.findItem("Viewer")
     v.addCommand('MyStuff/aaaaa', "nuke.createNode('Blur')")
     v.addCommand('MyStuffdddd', "nuke.createNode('NoOp')", icon='logo08.png')
@@ -435,17 +429,59 @@ def load_menu_cache():
 def load_menu_help():
     h = menubar.findItem("Help")
 
-
-
+"""
+[each.name() for each in nuke.menu('Nodes').items()]
+['Image', 'Draw', 'Time', 'Channel', 'Color', 'Filter', 'Keyer', 'Merge', 'Transform', '3D', 'Particles', 'Deep', 
+'Views', 'MetaData', 'ToolSets', 'Other', 'FurnaceCore', 'CaraVR']
+"""
 
 def load_menu_nodes():
     n = menubar.findItem("Nodes")
+
+"""
+"""
+
+
+
+
+
 
 def load_menu_layout():
     l = menubar.findItem("Layout")
 
 def load_menu_view():
     v = menubar.findItem("View")
+#################################################################################################################################
+
+
+def main():
+    nuke.addOnScriptLoad(menu_functions.kill_viewers)  # Delete viewer nodes while opening any script/nukefile
+
+    load_gizmos_recursively()
+    # Create MENU_BAR items - All paths of the menu scripts dir get appended by when calling the function
+    load_custom_menus_recursively()
+    load_custom_gizmo_menu()
+    load_custom_menus_icons_shortcuts()
+
+    # always execute this after load_custom_menus_icons_shortcuts()
+    # as it is failing when trying to add the icon for a separator -> TODO
+    add_tools_manually_to_acg_menu()
+    add_tools_manually_to_utilities_menu()
+
+    load_custom_shortcuts()
+    load_custom_formats()
+    load_custom_knob_defaults()
+
+    load_menu_edit()
+    load_menu_viewer()
+
+    # TODO
+    # load_custom_workspaces()
+    # load_callbacks()
+
+    if os.getenv("CORE_LIBRARY"):
+        load_nukelib_modules()
+
 
 
 if __name__ == '__main__':

@@ -88,7 +88,7 @@ def make_menu_recursive(src_path, folder_name, menu_name):
         if filenames:
             for each_file in filenames:
                 if each_file.endswith('.py'):
-                    print "\n"
+                    print("\n")
                     each_file_name = os.path.splitext(each_file)[0]
                     each_file_menu_name = os.path.splitext(each_file)[0].replace("_", " ")
                     each_file_path = os.path.join(root, each_file).replace(os.sep, '/')
@@ -99,7 +99,20 @@ def make_menu_recursive(src_path, folder_name, menu_name):
                         '{MENU_NAME}/{MENU_FILE_NAME}'.format(MENU_NAME=menu_name, MENU_FILE_NAME=menu_file_path),
                         "import {0} as {0};reload({0})".format(each_file_name))
                     
-                    
+
+def make_gizmo_menu_recurcively(src_path, folder_name, menu_name):
+    node_menu = nuke.menu('Nodes')
+    for root, dir, file in os.walk(os.path.join(src_path, folder_name)):
+        gizmo_menu = node_menu.addMenu(menu_name)
+        if file:
+            nuke.pluginAddPath(root)
+            for each_file in file:
+                if each_file.endswith('.gizmo'):
+                    each_file_name = os.path.splitext(each_file)[0]
+                    each_file_path = os.path.join(root, each_file).replace(os.sep, '/')
+                    menu_file_path = each_file_path.replace((src_path + '/' + folder_name + '/'), '').split(".")[0].replace("_", " ")
+                    gizmo_menu.addCommand('{MENU_FILE_NAME}'.format(MENU_FILE_NAME=menu_file_path),
+                                          lambda: nuke.createNode(each_file_name))
 #################################################################################################################################
 
 
