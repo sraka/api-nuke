@@ -1,0 +1,352 @@
+#! C:/Program Files/Nuke9.0v4/nuke-9.0.4.dll -nx
+version 9.0 v4
+Gizmo {
+ tile_color 0xaaff55ff
+ gl_color 0xfefefeff
+ label AT_Color_3D_Visualiser
+ note_font "Helvetica Bold Bold"
+ note_font_size 12
+ postage_stamp true
+ addUserKnob {20 AT_Color_3d_Visualiser}
+ addUserKnob {41 Plate_or_CheckerBoard l Plate_or_Checkerboard t "Which in " T Which_IN1.which}
+ addUserKnob {26 Visualiser_Core}
+ addUserKnob {41 Visualiser_Operation t "select what to visualise !" T Keyer2.operation}
+ addUserKnob {41 Visualiser_Scale T DisplaceGeo2.scale}
+ addUserKnob {41 Points_Density t "Particle emission rate" T PE_1.rate}
+ addUserKnob {26 Attention l Attention: T "To refresh move Point Density slider !"}
+ addUserKnob {26 ""}
+ addUserKnob {41 Render_Camera t "0 = Front\n1 = 45Degree\n2 = Side\n3 = Top" T which_cam1.which}
+ addUserKnob {26 ""}
+ addUserKnob {22 Abhimanyu_Tanwar T "nukescripts.start('https://www.linkedin.com/in/abhimanyutanwar')\n" +STARTLINE}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode10
+  tile_color 0x484036ff
+  label Cams
+  note_font_size 42
+  xpos 13
+  ypos 253
+  bdwidth 323
+  bdheight 438
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  tile_color 0x388e8e00
+  label geo
+  note_font_size 42
+  xpos 468
+  ypos -658
+  bdwidth 223
+  bdheight 269
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode7
+  tile_color 0x539153ff
+  label "Displace_map/geo\n\n"
+  note_font_size 42
+  xpos -13
+  ypos -402
+  bdwidth 329
+  bdheight 526
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode8
+  tile_color 0x264064ff
+  label Point_sim
+  note_font_size 42
+  xpos 568
+  ypos 26
+  bdwidth 252
+  bdheight 292
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode9
+  tile_color 0x445d78ff
+  label IN
+  note_font_size 42
+  xpos -229
+  ypos -915
+  bdwidth 383
+  bdheight 227
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote1
+  tile_color 0x777775ff
+  label "     Welcome to Color 3d Visualiser "
+  note_font "Helvetica Bold Bold"
+  note_font_size 16
+  xpos 92
+  ypos -953
+ }
+ Camera2 {
+  inputs 0
+  translate {0 6.690000057 -2.924292346e-007}
+  rotate {-90 0 0}
+  focal 71
+  vaperture 50
+  name Camera5
+  label "top\t"
+  xpos 23
+  ypos 601
+ }
+set N5d18a400 [stack 0]
+ Camera2 {
+  inputs 0
+  translate {-3.160000086 0.8 0.039999865}
+  rotate {0 -90 0}
+  focal 43.5
+  vaperture 50
+  name Camera6
+  label side
+  xpos 23
+  ypos 503
+ }
+set N5d18a000 [stack 0]
+ Camera2 {
+  inputs 0
+  translate {0 1.971001863 1.368998289}
+  rotate {-45 0 0}
+  focal 24
+  vaperture 50
+  name Camera7
+  label -45D
+  xpos 23
+  ypos 420
+ }
+set N5d1cdc00 [stack 0]
+ Camera2 {
+  inputs 0
+  translate {0 0.3359999955 4.179999828}
+  focal 55
+  vaperture 50
+  name Camera8
+  label FR
+  xpos 23
+  ypos 333
+ }
+set N5d1cd800 [stack 0]
+ Switch {
+  inputs 4
+  name which_cam1
+  xpos 246
+  ypos 621
+ }
+ Dot {
+  name Dot15
+  xpos 280
+  ypos 669
+ }
+push $N5d1cd800
+push $N5d1cdc00
+push $N5d18a000
+push $N5d18a400
+ Scene {
+  inputs 4
+  name cams_scn1
+  xpos 373
+  ypos 503
+  hide_input true
+ }
+ CheckerBoard2 {
+  inputs 0
+  boxsize 256
+  name CheckerBoard2
+  label TEST_pattern
+  xpos -198
+  ypos -805
+ }
+ Input {
+  inputs 0
+  name Ingest_plate
+  note_font Helvetica
+  xpos -6
+  ypos -951
+ }
+ Dot {
+  name Dot16
+  label Ingest_plate
+  note_font_size 21
+  xpos 28
+  ypos -867
+ }
+ Switch {
+  inputs 2
+  which 1
+  name Which_IN1
+  xpos -6
+  ypos -775
+ }
+ Dot {
+  name Dot17
+  xpos 326
+  ypos -771
+ }
+ Mirror2 {
+  name Mirror2_2
+  xpos 292
+  ypos -727
+  flip true
+ }
+ Dot {
+  name Dot18
+  xpos 326
+  ypos -675
+ }
+set N5d214400 [stack 0]
+ Dot {
+  name Dot19
+  xpos 326
+  ypos -339
+ }
+ Dot {
+  name Dot20
+  xpos 119
+  ypos -339
+ }
+ Keyer {
+  operation "saturation key"
+  name Keyer2
+  xpos 85
+  ypos -287
+ }
+ Premult {
+  name Premult2
+  xpos 85
+  ypos -187
+ }
+push $N5d214400
+ Dot {
+  name Dot21
+  xpos 547
+  ypos -675
+ }
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 513
+  ypos -519
+ }
+ Card2 {
+  orientation ZX
+  rows 100
+  columns 100
+  control_points {3 3 3 6 
+
+1 {-0.5 0 -0.5} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0.1666666865} 0 {0 0 0} 0 {0 0 0} 
+1 {0 0 -0.5} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0.1666666865} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 0 -0.5} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0.1666666865} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0.1666666716} 0 {0 0 -0.1666666716} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0.1666666716} 0 {0 0 -0.1666666716} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0.1666666716} 0 {0 0 -0.1666666716} 0 {1 0.5 0} 
+1 {-0.5 0 0.5} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 0 -0.1666666865} 0 {0 1 0} 
+1 {0 0 0.5} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 0 -0.1666666865} 0 {0.5 1 0} 
+1 {0.5 0 0.5} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 0 -0.1666666865} 0 {1 1 0} }
+  name Card2
+  selected true
+  xpos 513
+  ypos -463
+ }
+ Dot {
+  name Dot22
+  xpos 547
+  ypos -75
+ }
+ DisplaceGeo {
+  inputs 2
+  source "rgb relative"
+  offset {0 15 0}
+  filter Cubic
+  name DisplaceGeo2
+  xpos 85
+  ypos -79
+ }
+ Dot {
+  name Dot23
+  xpos 119
+  ypos 93
+ }
+ Dot {
+  name Dot24
+  xpos 694
+  ypos 93
+ }
+push 0
+ ParticleEmitter {
+  inputs 2
+  start_frame -5
+  rate 250
+  lifetime 200
+  velocity 0
+  size 0.005
+  color_from_texture true
+  name PE_1
+  xpos 660
+  ypos 145
+ }
+ FrameHold {
+  first_frame 100
+  name FrameHold2
+  label Hold_sim
+  xpos 660
+  ypos 185
+ }
+ Dot {
+  name Dot25
+  xpos 694
+  ypos 246
+ }
+ Dot {
+  name Dot26
+  xpos 507
+  ypos 246
+ }
+ Scene {
+  inputs 2
+  name threeD_vis_scn1
+  tile_color 0x1028a4ff
+  note_font "Helvetica Bold Bold Bold Bold"
+  xpos 483
+  ypos 503
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  format "1080 2048 0 0 1080 2048 1 sat_vis"
+  name Constant2
+  xpos 680
+  ypos 582
+ }
+ Dot {
+  name Dot27
+  xpos 714
+  ypos 669
+ }
+ ScanlineRender {
+  inputs 3
+  conservative_shader_sampling false
+  motion_vectors_type distance
+  name ScanlineRender2
+  xpos 473
+  ypos 665
+ }
+ Dot {
+  name Dot28
+  label OUT
+  note_font "Helvetica Bold Bold Bold Bold"
+  note_font_size 23
+  note_font_color 0xff3fff
+  xpos 507
+  ypos 830
+ }
+ Output {
+  name Output1
+  xpos 473
+  ypos 893
+ }
+end_group

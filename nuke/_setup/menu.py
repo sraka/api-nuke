@@ -7,6 +7,7 @@ __author__ = 'sraka'
 
 import os
 import sys
+import json
 import nuke
 import nukescripts
 
@@ -47,13 +48,19 @@ def load_custom_menus_recursively():
                                        )
 
 def load_custom_gizmo_menu():
+    """
+
+    :return:
+    """
     menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
                                                folder_name='ACG',
-                                               menu_name='ACG_Gizmos'
+                                               menu_name='ACG_Gizmos',
+                                               icon='Python.png'
                                                )
     menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
                                                folder_name='Nukepedia',
-                                               menu_name='Nukepedia_Gizmos'
+                                               menu_name='Nukepedia_Gizmos',
+                                                icon = 'nukepedia_gizmos.png'
                                                )
 
 
@@ -77,8 +84,6 @@ def load_nukelib_modules():
 
 
 #################################################################################################################################
-def load_gizmos_recursively():
-    pass
 
 def add_tools_manually_to_acg_menu():
     """
@@ -109,26 +114,9 @@ def load_custom_menus_icons_shortcuts():
             default - only png file formats are loaded
     :return:
     """
-
-    custom_icons_dict = {
-        "|ACG Tools|": {
-            "External": ["Hide_Output.png", 'None'],
-            "Browse File": ['default', 'Shift+F10'],
-            "Hide Input": ['default', 'Shift+H'],
-            "Shortcut Editor": ['PySide_Custom_Ui_Docked.png', 'F8']
-        },
-        "|UIs|": {
-
-        },
-        "|Nukepedia|": {
-
-        },
-        "|Utilities|": {
-            "Cleanup Tools": ['Folder BlackRed.png', 'None'],
-            "Common": ['Folder BlackRed.png', 'None'],
-            "File": ['Folder BlackRed.png', 'None']
-        }
-    }
+    menu_ico_config_file = os.path.join(os.path.dirname(__file__), "menu_ico.json")
+    with open(menu_ico_config_file, 'r') as f:
+        custom_icons_dict = json.load(f)
 
     def addIcon(custom_menu_obj, obj):
         """
@@ -192,7 +180,7 @@ def load_custom_menus_icons_shortcuts():
 
         for each in men_obj.items():
             if each.__doc__ == "Menu":
-                # Recursively check for all menu items
+                # Recursively check for all menus
                 list_menus(custom_menu_obj, each)
             elif each.__doc__ == "MenuItem":
                 # add icons for menuItems
@@ -200,7 +188,12 @@ def load_custom_menus_icons_shortcuts():
                 addIcon(custom_menu_obj, each)
 
     nuke_menu_obj = nuke.menu('Nuke')
+    nuke_node_menus_obj = nuke.menu('Nodes')
     nuke_menu_list = [e.name() for e in nuke_menu_obj.items()]      # all menus under Nuke
+    nuke_nodes_menu_list = [e.name() for e in nuke_node_menus_obj.items()]      # all menus under Nuke
+    all_menus = nuke_menu_list + nuke_nodes_menu_list
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    print(all_menus)
 
     # for each menu on all the custom menus defined in the dict json
     for each_custom_menu in custom_icons_dict.keys():   # "|ACG Tools|" , "|UIs|", "|Nukepedia|"
@@ -457,7 +450,6 @@ def load_menu_view():
 def main():
     nuke.addOnScriptLoad(menu_functions.kill_viewers)  # Delete viewer nodes while opening any script/nukefile
 
-    load_gizmos_recursively()
     # Create MENU_BAR items - All paths of the menu scripts dir get appended by when calling the function
     load_custom_menus_recursively()
     load_custom_gizmo_menu()

@@ -1,0 +1,23 @@
+{
+        "|ACG Tools|": {
+            "External": ["Hide_Output.png", "None"],
+            "Browse File": ["default", "Shift+F10"],
+            "Hide Input": ["default", "Shift+H"],
+            "Shortcut Editor": ["PySide_Custom_Ui_Docked.png", "F8"]
+        },
+        "|UIs|": {
+
+        },
+        "|Nukepedia|": {
+
+        },
+        "|Utilities|": {
+            "Cleanup Tools": ["Folder BlackRed.png", "None"],
+            "Common": ["Folder BlackRed.png", "None"],
+            "File": ["Folder BlackRed.png", "None"]
+        },
+        "ACG_Gizmos": {
+            "ContactShadow" : ["Folder BlackRed.png", "None"]
+        }
+
+}

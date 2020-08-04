@@ -1,0 +1,228 @@
+#! C:/Program Files/Nuke8.0v3/nuke-8.0.v3.dll -nx
+version 8.0 v3
+Gizmo {
+ inputs 3
+ tile_color 0xff6e00ff
+ addUserKnob {20 User}
+ addUserKnob {26 Remind l "" +STARTLINE T "Edge Matte need alpha"}
+ addUserKnob {41 channels T Dilate1.channels}
+ addUserKnob {4 edgeMatrix l edgeMatte M {none Left Right Top Bottom "" "" "" ""}}
+ addUserKnob {26 ""}
+ addUserKnob {68 erodeType M {erodeBoth erodeIn erodeOut}}
+ addUserKnob {7 erodeFast R 0 100}
+ addUserKnob {26 ""}
+ addUserKnob {7 blur R 0 100}
+ addUserKnob {7 edgeBlur R 0 100}
+ addUserKnob {4 Blur1_filter l filter M {box triangle quadratic gaussian "" ""}}
+ Blur1_filter gaussian
+ addUserKnob {41 quality l "" -STARTLINE T Blur1.quality}
+ addUserKnob {26 Edge_Matte l "" t "Create by Yeu Jian Lim" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name blurMask
+  xpos 788
+  ypos 30
+  number 1
+ }
+set N1316b610 [stack 0]
+ Dot {
+  name Dot6
+  xpos 822
+  ypos 231
+ }
+set N13169a90 [stack 0]
+ Dot {
+  name Dot5
+  xpos 822
+  ypos 318
+ }
+ Input {
+  inputs 0
+  name Source
+  xpos 130
+  ypos -650
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle1
+  label "Shuffel The Alpha"
+  xpos 130
+  ypos -589
+ }
+set N152003b0 [stack 0]
+ PostageStamp {
+  name PostageStamp1
+  label None
+  xpos 130
+  ypos -333
+  postage_stamp true
+ }
+set N152014e0 [stack 0]
+ Dot {
+  name Dot3
+  xpos 466
+  ypos -300
+ }
+set N15200040 [stack 0]
+ Dot {
+  name Dot4
+  xpos 669
+  ypos -300
+ }
+ EdgeBlur {
+  inputs 1+1
+  channels {{{parent.Dilate1.channels}}}
+  size {{parent.edgeBlur}}
+  name EdgeBlur1
+  xpos 635
+  ypos 309
+ }
+ set C15201170 [stack 0]
+ Invert {
+  name Invert2
+  xpos 635
+  ypos 345
+ }
+push $N1316b610
+ Input {
+  inputs 0
+  name erodeMask
+  xpos 793
+  ypos -124
+  number 2
+ }
+push $N152003b0
+ Matrix {
+  matrix {
+      {1 2 1}
+      {0 0 0}
+      {-1 -2 -1}
+    }
+  name Matrix13
+  label "+y\nbottom edge\n"
+  xpos 518
+  ypos -461
+ }
+push $N152003b0
+ Matrix {
+  matrix {
+      {-1 -1 -1}
+      {0 0 0}
+      {1 1 1}
+    }
+  name Matrix12
+  label "-y \ntop edge"
+  xpos 433
+  ypos -460
+ }
+push $N152003b0
+ Matrix {
+  matrix {
+      {1 0 -1}
+      {2 0 -2}
+      {1 0 -1}
+    }
+  name Matrix11
+  label "+x\nright edge"
+  xpos 346
+  ypos -460
+ }
+push $N152003b0
+ Matrix {
+  matrix {
+      {-1 0 1}
+      {-2 0 2}
+      {-1 0 1}
+    }
+  name Matrix14
+  label "-x\nleft edge"
+  xpos 261
+  ypos -460
+ }
+push $N152014e0
+ Switch {
+  inputs 5
+  which {{parent.edgeMatrix}}
+  name Switch1
+  xpos 130
+  ypos -154
+  addUserKnob {20 User}
+ }
+ Dilate {
+  inputs 1+1
+  size {{erodeFast}}
+  name Dilate1
+  xpos 130
+  ypos -130
+ }
+ Blur {
+  inputs 1+1
+  channels {{{parent.Dilate1.channels}}}
+  size {{blur}}
+  filter {{parent.Blur1_filter}}
+  name Blur1
+  xpos 130
+  ypos 24
+ }
+ Dot {
+  name Dot11
+  xpos 164
+  ypos 201
+ }
+set N151ff5f0 [stack 0]
+ Dot {
+  name Dot12
+  xpos 164
+  ypos 384
+ }
+set N15200a90 [stack 0]
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge2
+  xpos 635
+  ypos 381
+ }
+ Dot {
+  name Dot13
+  xpos 669
+  ypos 609
+ }
+push $N13169a90
+push $N151ff5f0
+push $N15200040
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge1
+  xpos 432
+  ypos 198
+ }
+clone $C15201170 {
+  inputs 1+1
+  xpos 432
+  ypos 222
+  selected false
+ }
+ Dot {
+  name Dot14
+  xpos 466
+  ypos 487
+ }
+push $N15200a90
+ Switch {
+  inputs 3
+  which {{parent.erodeType}}
+  name Switch2
+  xpos 130
+  ypos 606
+ }
+ Output {
+  name Output1
+  xpos 130
+  ypos 681
+ }
+end_group

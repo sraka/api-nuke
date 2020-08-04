@@ -1,0 +1,161 @@
+Group {
+ name KSMB
+ selected true
+ xpos 8
+ ypos -123
+ addUserKnob {20 User}
+ addUserKnob {3 KronosDriver_input.first l "Input Range"}
+ KronosDriver_input.first 1
+ addUserKnob {3 KronosDriver_input.last l "" -STARTLINE R 0 100}
+ KronosDriver_input.last 200
+ addUserKnob {26 lastHint l "" -STARTLINE T "Last Frame = Input Last Frame X 2"}
+ addUserKnob {8 KronosDriver_vectorDetail l "Vector Detail" R 0.01 1}
+ KronosDriver_vectorDetail 1
+ addUserKnob {8 KronosDriver_smoothness l Smoothness R 0.01 1}
+ KronosDriver_smoothness 0.2
+ addUserKnob {3 KronosDriver_shutterSamples l "Shutter Samples" R 0 20}
+ KronosDriver_shutterSamples 10
+ addUserKnob {8 KronosDriver_shutterTime l "Shutter Time" R 0 10}
+ KronosDriver_shutterTime 2
+ addUserKnob {6 DoubleDown l "Double Down" +STARTLINE}
+ DoubleDown true
+ addUserKnob {6 TripleDown l "Triple Down" -STARTLINE}
+ TripleDown true
+}
+ Input {
+  inputs 0
+  name Plate
+  xpos -540
+  ypos 106
+ }
+ FrameHold {
+  first_frame {{ceil(frame/2)}}
+  name FrameHold8
+  xpos -540
+  ypos 170
+  addUserKnob {20 Set_This_Frame l SetThisFrame}
+  addUserKnob {22 SetThisFrame -STARTLINE T "node =\nnuke.thisNode()\n\nnode\['first_frame'].setValue(nuke.frame()) "}
+  addUserKnob {22 setCurrentFrame l "Set current frame" -STARTLINE T "import nuke\nnuke.thisNode()\['first_frame'].setValue(nuke.frame())"}
+ }
+ Kronos {
+  input.first {{parent.KronosDriver_input.first}}
+  input.last {{parent.KronosDriver_input.last}}
+  timingSpeed 2
+  vectorDetail {{parent.KronosDriver_vectorDetail}}
+  smoothness {{parent.KronosDriver_smoothness}}
+  Shutter 1
+  shutterSamples {{parent.KronosDriver_shutterSamples}}
+  shutterTime {{parent.KronosDriver_shutterTime}}
+  Advanced 1
+  Tolerances 1
+  vectorSpacing 1
+  name KronosDriver
+  selected true
+  xpos -540
+  ypos 265
+ }
+set N174bacf0 [stack 0]
+ FrameHold {
+  first_frame {{ceil(frame/2)}}
+  name FrameHold9
+  xpos -268
+  ypos 265
+  addUserKnob {20 Set_This_Frame l SetThisFrame}
+  addUserKnob {22 SetThisFrame -STARTLINE T "node =\nnuke.thisNode()\n\nnode\['first_frame'].setValue(nuke.frame()) "}
+  addUserKnob {22 setCurrentFrame l "Set current frame" -STARTLINE T "import nuke\nnuke.thisNode()\['first_frame'].setValue(nuke.frame())"}
+ }
+ Kronos {
+  useGPUIfAvailable {{KronosDriver.useGPUIfAvailable}}
+  input.first {{KronosDriver.input.first}}
+  input.last {{KronosDriver.input.last}}
+  timing {{KronosDriver.timing}}
+  timingSpeed {{KronosDriver.timingSpeed}}
+  timingFrame {{KronosDriver.timingFrame}}
+  vectorDetail {{KronosDriver.vectorDetail}}
+  smoothness {{KronosDriver.smoothness}}
+  vectorSourceFlag {{KronosDriver.vectorSourceFlag}}
+  warpSourceFlag {{KronosDriver.warpSourceFlag}}
+  computedVectorFlag {{KronosDriver.computedVectorFlag}}
+  shutterSamples {{KronosDriver.shutterSamples}}
+  shutterTime {{KronosDriver.shutterTime}}
+  autoShutterTime {{KronosDriver.autoShutterTime}}
+  output {{KronosDriver.output}}
+  matteChannel {{KronosDriver.matteChannel}}
+  maskFlag {{KronosDriver.maskFlag}}
+  flickerCompensation {{KronosDriver.flickerCompensation}}
+  weightRed {{KronosDriver.weightRed}}
+  weightGreen {{KronosDriver.weightGreen}}
+  weightBlue {{KronosDriver.weightBlue}}
+  vectorSpacing {{KronosDriver.vectorSpacing}}
+  showVectors {{KronosDriver.showVectors}}
+  name Kronos7_clone1
+  xpos -268
+  ypos 330
+  icon "\[value Kronos7.icon]"
+  disable {{parent.TripleDown?0:parent.DoubleDown?0:1}}
+ }
+ Dot {
+  name Dot1
+  xpos -234
+  ypos 434
+ }
+set N174bd630 [stack 0]
+ FrameHold {
+  first_frame {{ceil(frame/2)}}
+  name FrameHold1
+  xpos -114
+  ypos 424
+  addUserKnob {20 Set_This_Frame l SetThisFrame}
+  addUserKnob {22 SetThisFrame -STARTLINE T "node =\nnuke.thisNode()\n\nnode\['first_frame'].setValue(nuke.frame()) "}
+  addUserKnob {22 setCurrentFrame l "Set current frame" -STARTLINE T "import nuke\nnuke.thisNode()\['first_frame'].setValue(nuke.frame())"}
+ }
+ Kronos {
+  useGPUIfAvailable {{KronosDriver.useGPUIfAvailable}}
+  input.first {{KronosDriver.input.first}}
+  input.last {{KronosDriver.input.last}}
+  timing {{KronosDriver.timing}}
+  timingSpeed {{KronosDriver.timingSpeed}}
+  timingFrame {{KronosDriver.timingFrame}}
+  vectorDetail {{KronosDriver.vectorDetail}}
+  smoothness {{KronosDriver.smoothness}}
+  vectorSourceFlag {{KronosDriver.vectorSourceFlag}}
+  warpSourceFlag {{KronosDriver.warpSourceFlag}}
+  computedVectorFlag {{KronosDriver.computedVectorFlag}}
+  shutterSamples {{KronosDriver.shutterSamples}}
+  shutterTime {{KronosDriver.shutterTime}}
+  autoShutterTime {{KronosDriver.autoShutterTime}}
+  output {{KronosDriver.output}}
+  matteChannel {{KronosDriver.matteChannel}}
+  maskFlag {{KronosDriver.maskFlag}}
+  flickerCompensation {{KronosDriver.flickerCompensation}}
+  weightRed {{KronosDriver.weightRed}}
+  weightGreen {{KronosDriver.weightGreen}}
+  weightBlue {{KronosDriver.weightBlue}}
+  vectorSpacing {{KronosDriver.vectorSpacing}}
+  showVectors {{KronosDriver.showVectors}}
+  name Kronos7_clone2
+  xpos -114
+  ypos 489
+  icon "\[value Kronos7.icon]"
+  disable {{parent.TripleDown?0:1}}
+ }
+ Dot {
+  name Dot2
+  xpos -80
+  ypos 579
+ }
+push $N174bd630
+push $N174bacf0
+ Switch {
+  inputs 3
+  which {{parent.TripleDown?2:parent.DoubleDown?1:0}}
+  name Switch1
+  xpos -540
+  ypos 575
+ }
+ Output {
+  name Output1
+  xpos -540
+  ypos 734
+ }
+end_group

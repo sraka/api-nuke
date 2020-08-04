@@ -1,0 +1,39 @@
+Gizmo {
+ inputs 0
+ name DisableMotionBlur1
+ addUserKnob {20 disable_mb l DisableMotionBlur}
+ addUserKnob {22 link_mb l "Link Selected MB" t "Link motionblur knob in selected nodes." T "t = nuke.thisGroup().name()\n\nr = nuke.root()\nr.begin()\n\nn = nuke.selectedNodes()\n\nfor x in n:\n\tfor k in x.allKnobs():\n\t\tif k.name() == \"motionblur\":\n\t\t\tx.knob(\"motionblur\").setExpression(\"\[value \" + t + \".disable] ? 0 : \[value motionblur]\")\n\t\telif k.name() == \"samples\":\n\t\t\tx.knob(\"samples\").setExpression(\"\[value \" + t + \".disable] ? 0 : \[value samples]\")\n\nr.end()" +STARTLINE}
+ addUserKnob {22 unlink_mb l "Unlink Selected MB" t "Unlink motionblur knob in selected nodes." -STARTLINE T "t = nuke.thisGroup().name()\n\nr = nuke.root()\nr.begin()\n\nn = nuke.selectedNodes()\n\nfor x in n:\n\tfor k in x.allKnobs():\n\t\tif k.name() == \"motionblur\":\n\t\t\tx.knob(\"motionblur\").setExpression(\"\[value \" + t + \".disable] ? 0 : \[value motionblur]\")\n\t\telif k.name() == \"samples\":\n\t\t\tx.knob(\"samples\").setExpression(\"\[value \" + t + \".disable] ? 0 : \[value samples]\")\n\nr.end()\n\n\n\nr = nuke.root()\nr.begin()\n\nn = nuke.selectedNodes()\n\nfor x in n:\n\tfor k in x.allKnobs():\n\t\tif k.name() == \"motionblur\":\n\t\t\tx.knob(\"motionblur\").clearAnimated()\n\t\telif k.name() == \"samples\":\n\t\t\tx.knob(\"samples\").clearAnimated()\n\tx.setSelected(False)"}
+ addUserKnob {26 ""}
+ addUserKnob {6 tr l transform t "Select classes of nodes to link/unlink motionblur." +STARTLINE}
+ tr true
+ addUserKnob {6 tm l "transform masked" t "Select classes of nodes to link/unlink motionblur." -STARTLINE}
+ tm true
+ addUserKnob {6 cp l "corner pin" t "Select classes of nodes to link/unlink motionblur." +STARTLINE}
+ cp true
+ addUserKnob {6 tk l tracker t "Select classes of nodes to link/unlink motionblur." -STARTLINE}
+ tk true
+ addUserKnob {6 cd l card3D t "Select classes of nodes to link/unlink motionblur." +STARTLINE}
+ cd true
+ addUserKnob {6 cs l "camera shake" t "Select classes of nodes to link/unlink motionblur." -STARTLINE}
+ cs true
+ addUserKnob {6 sr l "scanline render" t "Select classes of nodes to link/unlink motionblur." +STARTLINE}
+ sr true
+ addUserKnob {22 link_sel l "Link Selected Classes MB" t "Link motionblur knob in selected classes of nodes." T "t = nuke.thisNode()\n\nr = nuke.root()\nr.begin()\n\na = nuke.allNodes()\n\nfor x in a:\n\tif t.knob(\"tr\").getValue() == True and x.Class() == \"Transform\":\n\t\tx.setSelected(True)\n\telif t.knob(\"tm\").getValue() == True and x.Class() == \"TransformMasked\":\n\t\tx.setSelected(True)\n\telif t.knob(\"cp\").getValue() == True and x.Class() == \"CornerPin2D\":\n\t\tx.setSelected(True)\n\telif t.knob(\"tk\").getValue() == True and x.Class() == \"Tracker4\":\n\t\tx.setSelected(True)\n\telif t.knob(\"cd\").getValue() == True and x.Class() == \"Card3D\":\n\t\tx.setSelected(True)\n\telif t.knob(\"cs\").getValue() == True and x.Class() == \"CameraShake2\":\n\t\tx.setSelected(True)\n\telif t.knob(\"sr\").getValue() == True and x.Class() == \"ScanlineRender\":\n\t\tx.setSelected(True)\n\nn = nuke.selectedNodes()\n\nfor x in n:\n\tfor k in x.allKnobs():\n\t\tif k.name() == \"motionblur\":\n\t\t\tx.knob(\"motionblur\").setExpression(\"\[value \" + t.name() + \".disable] ? 0 : \[value motionblur]\")\n\t\telif k.name() == \"samples\":\n\t\t\tx.knob(\"samples\").setExpression(\"\[value \" + t.name() + \".disable] ? 0 : \[value samples]\")\n\tx.setSelected(False)\n\nr.end()" +STARTLINE}
+ addUserKnob {22 unlink_sel l "Unlink Selected Classes MB" t "Unlink motionblur knob in selected classes of nodes." -STARTLINE T "t = nuke.thisNode()\n\nr = nuke.root()\nr.begin()\n\na = nuke.allNodes()\n\nfor x in a:\n\tif t.knob(\"tr\").getValue() == True and x.Class() == \"Transform\":\n\t\tx.setSelected(True)\n\telif t.knob(\"tm\").getValue() == True and x.Class() == \"TransformMasked\":\n\t\tx.setSelected(True)\n\telif t.knob(\"cp\").getValue() == True and x.Class() == \"CornerPin2D\":\n\t\tx.setSelected(True)\n\telif t.knob(\"tk\").getValue() == True and x.Class() == \"Tracker4\":\n\t\tx.setSelected(True)\n\telif t.knob(\"cd\").getValue() == True and x.Class() == \"Card3D\":\n\t\tx.setSelected(True)\n\telif t.knob(\"cs\").getValue() == True and x.Class() == \"CameraShake2\":\n\t\tx.setSelected(True)\n\telif t.knob(\"sr\").getValue() == True and x.Class() == \"ScanlineRender\":\n\t\tx.setSelected(True)\n\nn = nuke.selectedNodes()\nfor x in n:\n\tfor k in x.allKnobs():\n\t\tif k.name() == \"motionblur\":\n\t\t\tx.knob(\"motionblur\").clearAnimated()\n\t\telif k.name() == \"samples\":\n\t\t\tx.knob(\"samples\").clearAnimated()\n\tx.setSelected(False)\n\nr.end()"}
+ addUserKnob {22 unlink l "Unlink All MB" t "Unlink motionblur knob in every node in the script." T "t = nuke.thisGroup().name()\n\nr = nuke.root()\nr.begin()\n\na = nuke.allNodes()\n\nfor x in a:\n\tfor k in x.allKnobs():\n\t\tif k.name() == \"motionblur\": \n\t\t\tif x.knob(\"motionblur\").hasExpression:\n\t\t\t\tx.knob(\"motionblur\").clearAnimated()\n\t\telif k.name() == \"samples\": \n\t\t\tif x.knob(\"samples\").hasExpression:\n\t\t\t\tx.knob(\"samples\").clearAnimated()\n\tx.setSelected(False)\n\nr.end()" +STARTLINE}
+}
+ Switch {
+  inputs 0
+  name Switch1
+  label "\[value which]"
+  xpos 824
+  ypos 1
+ }
+ Output {
+  name Output1
+  selected true
+  xpos 824
+  ypos 100
+ }
+end_group

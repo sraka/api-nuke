@@ -14,12 +14,12 @@ script_dir=`dirname $0 | xargs realpath `
 platform=`uname`
 
 export SELF_PATH=${script_dir}
-export CORE_LIBRARY=${script_dir}/../../python-corelib/core-lib/
+#export CORE_LIBRARY=${script_dir}/../../python-corelib/core-lib/
 export NUKE_PATH=${script_dir}/_setup/
 
 echo "Current platform =  ${platform}"
 echo "added SELF_PATH = ${SELF_PATH}"
-echo "added CORE_LIBRARY = ${CORE_LIBRARY}"
+#echo "added CORE_LIBRARY = ${CORE_LIBRARY}"
 echo "added NUKE_PATH = ${NUKE_PATH}"
 
 # Launch NUKE
