@@ -1,13 +1,13 @@
 
-Franklin Toussaint - VFX Supervisor
+FranklinToussaint - VFX Supervisor
 - [website](http://franklinvfx.com/)
 - [nukeTools](http://franklinvfx.com/tools-2/)
 
-Simon Jokuschies -  cragl vfx tools:
+SimonJokuschies -  cragl vfx tools:
 - [website](http://www.cragl.com/index.php)
 - [nukeTools](http://www.cragl.com/tools.php)
 
-Adrian Pueyo - VFX COMPOSITOR
+AdrianPueyo - VFX COMPOSITOR
 - [website](http://www.adrianpueyo.com/)
 - [nukeTools](http://www.adrianpueyo.com/)
 - [vimeo](https://vimeo.com/adrianpueyo)
@@ -32,7 +32,7 @@ BenMcEwan - xxnukeBenMcEwan[https://github.com/BenMcEwan/nuke_public]
 - [github](https://github.com/BenMcEwan)
 - [BLOG](https://benmcewan.com/blog/)
 
-Chris McCrowe - xxMcCroweGizmos[https://github.com/cmccrowe/nuke-gizmos]
+ChrisMcCrowe - xxMcCroweGizmos[https://github.com/cmccrowe/nuke-gizmos]
 - [github](https://github.com/cmccrowe)
 - [website](http://www.chrismccrowe.com/)
 - [nukeTools](http://www.chrismccrowe.com/tools.html)

@@ -58,9 +58,14 @@ def load_custom_gizmo_menu():
                                                icon='Python.png'
                                                )
     menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
+                                               folder_name='OpenSource',
+                                               menu_name='OpenSource_Gizmos',
+                                               icon = 'Folder BlackRed.png'
+                                               )
+    menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
                                                folder_name='Nukepedia',
                                                menu_name='Nukepedia_Gizmos',
-                                                icon = 'nukepedia_gizmos.png'
+                                               icon = 'nukepedia_gizmos.png'
                                                )
 
 
@@ -467,6 +472,7 @@ def main():
     load_menu_edit()
     load_menu_viewer()
 
+    menu_functions.make_custom_toolset_window()
     # TODO
     # load_custom_workspaces()
     # load_callbacks()
@@ -478,3 +484,20 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+"""
+Setting Icons Manually in nuke
+
+# -- for gizmo menus 
+acg = nuke.menu('Nodes').findItem('ACG_Gizmos')
+cs_gizmo = acg.findItem('ContactShadow')
+cs_gizmo.setIcon(os.path.join(init.NUKE_API_ICONS,'NukeApp.ico'))
+
+# -- for nuke menus
+ui = nuke.menu('Nuke').findItem('|UIs|')
+#ui.setIcon(os.path.join(init.NUKE_API_ICONS,'Folder Docs.png'))
+UI = ui.findItem('PySide')
+UI.setIcon(os.path.join(init.NUKE_API_ICONS,'Folder Docs.png'))
+
+"""

@@ -19,12 +19,12 @@ use the nuke wrapper to launch
 
 - Gizmos
 - PythonScripts
+- TclScripts
+- BlinkScripts
 - Plugins
 - Templates
 - Toolsets
 - NodePresets
-- TclScripts
-- BlickScripts
 - Fonts
 - Workspaces
 

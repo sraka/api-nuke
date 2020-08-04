@@ -22,6 +22,7 @@ def kill_viewers():
     for v in nuke.allNodes("Viewer"):
         nuke.delete(v)
 
+#################################################################################################################################
 #OBSELETE
 def make_menu(path,menu_name):
     """
@@ -71,7 +72,7 @@ def make_menu_from_dir(src_path , folder_name , menu_name):
                 if each_file.endswith('.py'):
                     each_file = os.path.splitext(each_file)[0]
                     MenuItem.addCommand( '%s/%s'% (menu_name,file), "import {0} as {0};reload({0});{0}.{0}()".format(each_file), icon='ohu_icon.png' )
-
+#################################################################################################################################
 
 def make_menu_recursive(src_path, folder_name, menu_name):
     """
@@ -98,7 +99,6 @@ def make_menu_recursive(src_path, folder_name, menu_name):
                     MenuItem.addCommand(
                         '{MENU_NAME}/{MENU_FILE_NAME}'.format(MENU_NAME=menu_name, MENU_FILE_NAME=menu_file_path),
                         "import {0} as {0};reload({0})".format(each_file_name))
-                    
 
 def make_gizmo_menu_recurcively(src_path, folder_name, menu_name, icon):
     node_menu = nuke.menu('Nodes')
@@ -113,6 +113,24 @@ def make_gizmo_menu_recurcively(src_path, folder_name, menu_name, icon):
                     menu_file_path = each_file_path.replace((src_path + '/' + folder_name + '/'), '').split(".")[0].replace("_", " ")
                     gizmo_command = "nuke.createNode(\"{}\")".format(each_file_name)
                     gizmo_menu.addCommand('{MENU_FILE_NAME}'.format(MENU_FILE_NAME=menu_file_path), gizmo_command)
+
+def make_custom_toolset_window():
+    def load_toolsets():
+        print("loading toolsets")
+
+
+    nuke_tool = nuke.menu('Nodes')
+    #nuke_tool.removeItem('API-Toolsets')
+    api_toolsets = nuke_tool.addMenu('API-Toolsets', icon='code_paren.png')
+    api_toolsets.addCommand('Create', load_toolsets)
+    api_toolsets.addCommand('Toolset Browser', load_toolsets)
+    # api_toolsets.addSeparator()
+    api_toolsets.addMenu('2D')
+    api_toolsets.addMenu('3D')
+    api_toolsets.addMenu('Particles')
+    # api_toolsets.addSeparator()
+    api_toolsets.addMenu('S01')
+    api_toolsets.addMenu('Char')
 #################################################################################################################################
 
 
