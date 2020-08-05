@@ -5,7 +5,7 @@ set SELF_PATH=%~dp0
 
 ::set CORE_LIBRARY=%SELF_PATH%/../../python-corelib/core-lib/
 ::set PYTHONPATH=%PYTHONPATH%;::E:\__CS_code\acgfilms\repos\PIPELINE\python\Lib\site-packages-dcc
-set NUKE_PATH=%SELF_PATH%/_setup;%SELF_PATH%/xPr_Suite;
+set NUKE_PATH=%SELF_PATH%/_setup;%SELF_PATH%/../xxPrSuite;
 ::%SELF_PATH%/xDekeKincaid\nuke.env-master
 
 ::echo %CORE_LIBRARY%

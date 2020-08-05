@@ -119,7 +119,7 @@ def load_custom_menus_icons_shortcuts():
             default - only png file formats are loaded
     :return:
     """
-    menu_ico_config_file = os.path.join(os.path.dirname(__file__), "menu_ico.json")
+    menu_ico_config_file = os.path.join(os.path.dirname(__file__), "config/menu_ico.json")
     with open(menu_ico_config_file, 'r') as f:
         custom_icons_dict = json.load(f)
 

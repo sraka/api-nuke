@@ -14,6 +14,7 @@
         "|Utilities|": {
             "Cleanup Tools": ["Folder BlackRed.png", "None"],
             "Common": ["Folder BlackRed.png", "None"],
+            "Nodes": ["Folder BlackRed.png", "None"],
             "File": ["Folder BlackRed.png", "None"]
         },
         "ACG_Gizmos": {
