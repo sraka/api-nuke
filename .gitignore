@@ -1,4 +1,4 @@
 *.pyc
 .idea
 .directory
-xx*
+refs
