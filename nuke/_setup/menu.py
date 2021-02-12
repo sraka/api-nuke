@@ -19,16 +19,18 @@ from callbacks import Callbacks
 
 reload(menu_functions)
 
-cece_menu='|ACG Tools|'
+# MENU Names
+cece_menu='CeCe'
 acg_menu='|ACG Tools|'
 uis_menu='|UIs|'
 nukepedia_menu='|Nukepedia|'
 utilities_menu='|Utilities|'
-menubar = nuke.menu("Nuke")             # All the menu's in Nuke
 
+# ICONS
 ccMonoIcon = "ccMono_500x500.png"
 ccDualIcon = "ccDual_500x500.png"
 
+menubar = nuke.menu("Nuke")             # All the menu's in Nuke
 
 def load_custom_menus_recursively():
     """
@@ -38,6 +40,10 @@ def load_custom_menus_recursively():
     menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
                                        folder_name='CeCe',
                                        menu_name=cece_menu
+                                       )
+    menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
+                                       folder_name='Utilities',
+                                       menu_name=utilities_menu
                                        )
     menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
                                        folder_name='acg_tools',
@@ -50,10 +56,6 @@ def load_custom_menus_recursively():
     menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
                                        folder_name='Nukepedia',
                                        menu_name=nukepedia_menu
-                                       )
-    menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
-                                       folder_name='Utilities',
-                                       menu_name=utilities_menu
                                        )
 
 def load_custom_gizmo_menu():
@@ -173,7 +175,7 @@ def load_menu_file():
 # Edit Menu
 def load_menu_edit():
     m = menubar.findItem("Edit")
-    m.addCommand('Reload All Custom MenuBars', 'make_menubar_menu()')
+    m.addCommand('Reload All Custom MenuBars', 'make_menubar_menu()', icon=ccMonoIcon)
 
 # Workspace Menu
 def load_menu_workspace():
@@ -183,7 +185,7 @@ def load_menu_workspace():
 def load_menu_viewer():
     """
     # nViewer = nuke.menu( 'Viewer' )
-# nViewer.addMenu( 'MyStuff',"nuke.createNode('NoOp')", icon='logo08.png' )
+    # nViewer.addMenu( 'MyStuff',"nuke.createNode('NoOp')", icon='logo08.png' )
     :return:
     """
     v = menubar.findItem("Viewer")
@@ -203,11 +205,12 @@ def load_menu_cache():
 def load_menu_help():
     h = menubar.findItem("Help")
     h.addSeparator()
-    h.addCommand("CeCe Menu's", "nuke.createNode('Blur')", icon=ccDualIcon)
-    h.addCommand("CeCe Gizmos & Plugins", "nuke.createNode('Blur')", icon=ccDualIcon)
-    h.addCommand("CeCe Tools", "nuke.createNode('Blur')", icon=ccDualIcon)
-    h.addCommand("CeCe Nuke Tools Workflow", "nuke.createNode('Blur')", icon=ccDualIcon)
-    h.addCommand("CeCe Nuke Wiki", "nuke.createNode('Blur')", icon=ccDualIcon)
+    h.addCommand("CeCe Nuke Wiki", "nuke.createNode('Blur')", icon=ccMonoIcon)
+    h.addCommand("CeCe Menu's", "nuke.createNode('Blur')", icon=ccMonoIcon)
+    h.addCommand("CeCe Gizmos & Plugins", "nuke.createNode('Blur')", icon=ccMonoIcon)
+    h.addCommand("CeCe Tools", "nuke.createNode('Blur')", icon=ccMonoIcon)
+    h.addCommand("CeCe Nuke Tools Workflow", "nuke.createNode('Blur')", icon=ccMonoIcon)
+    h.addCommand("CeCe Menu Tools Shortcuts", "nuke.createNode('Blur')", icon=ccMonoIcon)
 
 #=======================================================================================================================
 #=======================================================================================================================
@@ -501,21 +504,37 @@ def main():
     nuke.addOnScriptLoad(menu_functions.kill_viewers)  # Delete viewer nodes while opening any script/nukefile
 
     # Create MENU_BAR items - All paths of the menu scripts dir get appended by when calling the function
+    # CUSTOM Menu
     load_custom_menus_recursively()
     load_custom_gizmo_menu()
+
+    # CUSTOM Menu Shortcuts
     load_custom_menus_icons_shortcuts()
 
+    #
     # always execute this after load_custom_menus_icons_shortcuts()
     # as it is failing when trying to add the icon for a separator -> TODO
+    # CUSTOM MENU's - add manual menu item's
     add_tools_manually_to_acg_menu()
     add_tools_manually_to_utilities_menu()
+
+    # DEFAULT MENU's - add custom menu item's
+    load_menu_file()
+    load_menu_edit()
+    load_menu_workspace()
+    load_menu_viewer()
+    load_menu_render()
+    load_menu_cache()
+    load_menu_help()
+
+
 
     load_custom_shortcuts()
     load_custom_formats()
     load_custom_knob_defaults()
 
     load_menu_edit()
-    load_menu_viewer()
+    # load_menu_viewer()
 
     menu_functions.make_custom_toolset_window()
     # TODO
