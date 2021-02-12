@@ -217,6 +217,113 @@ def load_menu_help():
 
 #=======================================================================================================================
 #=======================================================================================================================
+# DEFAULT GIZMO Menus's - adding custom tools
+
+# Image Gizmo Menu
+def addtools_gizmomenu_image():
+    nodeImage = nodebar.findItem("Image")
+    nodeImage.addSeparator()
+    nodeImage.addCommand("DEMO Image", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Draw Gizmo Menu
+def addtools_gizmomenu_draw():
+    nodeDraw = nodebar.findItem("Draw")
+    nodeDraw.addSeparator()
+    nodeDraw.addCommand("DEMO Draw", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Time Gizmo Menu
+def addtools_gizmomenu_time():
+    nodeTime = nodebar.findItem("Time")
+    nodeTime.addSeparator()
+    nodeTime.addCommand("DEMO Time", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Channel Gizmo Menu
+def addtools_gizmomenu_channel():
+    nodeChannel = nodebar.findItem("Channel")
+    nodeChannel.addSeparator()
+    nodeChannel.addCommand("DEMO Channel", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Color Node Menu
+def addtools_gizmomenu_color():
+    nodeColor = nodebar.findItem("Color")
+    nodeColor.addSeparator()
+    nodeColor.addCommand("DEMO Color", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Filter Node Menu
+def addtools_gizmomenu_filter():
+    nodeFilter = nodebar.findItem("Filter")
+    nodeFilter.addSeparator()
+    nodeFilter.addCommand("DEMO Filter", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Keyer Node Menu
+def addtools_gizmomenu_keyer():
+    nodeKeyer = nodebar.findItem("Keyer")
+    nodeKeyer.addSeparator()
+    nodeKeyer.addCommand("DEMO Keyer", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Merge Node Menu
+def addtools_gizmomenu_merge():
+    nodeMerge = nodebar.findItem("Merge")
+    nodeMerge.addSeparator()
+    nodeMerge.addCommand("DEMO Merge", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Transform Node menu
+def addtools_gizmomenu_transform():
+    nodeTransform = nodebar.findItem("Transform")
+    nodeTransform.addSeparator()
+    nodeTransform.addCommand("DEMO Transform", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# 3D Node Menu
+def addtools_gizmomenu_3d():
+    node3d = nodebar.findItem("3D")
+    node3d.addSeparator()
+    node3d.addCommand("DEMO 3D", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Particles Node Menu
+def addtools_gizmomenu_particles():
+    nodeParticles = nodebar.findItem("Particles")
+    nodeParticles.addSeparator()
+    nodeParticles.addCommand("DEMO Particles", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Deep Node Menu
+def addtools_gizmomenu_deep():
+    nodeDeep = nodebar.findItem("Deep")
+    nodeDeep.addSeparator()
+    nodeDeep.addCommand("DEMO Deep", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Views Node Menu
+def addtools_gizmomenu_views():
+    nodeViews = nodebar.findItem("Views")
+    nodeViews.addSeparator()
+    nodeViews.addCommand("DEMO Views", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Metadata Node Menu
+def addtools_gizmomenu_metadata():
+    nodeMetadata = nodebar.findItem("MetaData")
+    nodeMetadata.addSeparator()
+    nodeMetadata.addCommand("DEMO MetaData", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Toolsets Node Menu
+def addtools_gizmomenu_toolsets():
+    nodeToolsets = nodebar.findItem("ToolSets")
+    nodeToolsets.addSeparator()
+    nodeToolsets.addCommand("DEMO ToolSets", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# Other Node Menu
+def addtools_gizmomenu_other():
+    nodeOther = nodebar.findItem("Other")
+    nodeOther.addSeparator()
+    nodeOther.addCommand("DEMO Other", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+# FurnanceCore Node Menu
+def addtools_gizmomenu_furnacecore():
+    nodeFurnanceCore = nodebar.findItem("FurnaceCore")
+    nodeFurnanceCore.addSeparator()
+    nodeFurnanceCore.addCommand("DEMO FurnaceCore", "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+
+#=======================================================================================================================
+#=======================================================================================================================
 
 def load_custom_menus_icons_shortcuts():
     """
@@ -530,6 +637,24 @@ def main():
     load_menu_cache()
     load_menu_help()
 
+    # DEFAULT GIZMO Menus's - adding custom tools
+    addtools_gizmomenu_image()
+    addtools_gizmomenu_draw()
+    addtools_gizmomenu_time()
+    addtools_gizmomenu_channel()
+    addtools_gizmomenu_color()
+    addtools_gizmomenu_filter()
+    addtools_gizmomenu_keyer()
+    addtools_gizmomenu_merge()
+    addtools_gizmomenu_transform()
+    addtools_gizmomenu_3d()
+    addtools_gizmomenu_particles()
+    addtools_gizmomenu_deep()
+    addtools_gizmomenu_views()
+    addtools_gizmomenu_metadata()
+    addtools_gizmomenu_toolsets()
+    addtools_gizmomenu_other()
+    addtools_gizmomenu_furnacecore()
 
 
     load_custom_shortcuts()

@@ -78,15 +78,18 @@ def make_custom_toolset_window():
     nuke_tool = nuke.menu('Nodes')
     #nuke_tool.removeItem('API-Toolsets')
     api_toolsets = nuke_tool.addMenu('API-Toolsets', icon='code_paren.png')
+
     api_toolsets.addCommand('Create', load_toolsets)
     api_toolsets.addCommand('Toolset Browser', load_toolsets)
-    # api_toolsets.addSeparator()
-    api_toolsets.addMenu('2D', load_toolsets)
-    api_toolsets.addMenu('3D', load_toolsets)
-    api_toolsets.addMenu('Particles', load_toolsets)
-    # api_toolsets.addSeparator()
-    api_toolsets.addMenu('S01', load_toolsets)
-    api_toolsets.addMenu('Char', load_toolsets)
+
+    api_toolsets.addSeparator()
+    api_toolsets.addMenu('2D')
+    api_toolsets.addMenu('3D')
+    api_toolsets.addMenu('Particles')
+
+    api_toolsets.addSeparator()
+    api_toolsets.addMenu('S01')
+    api_toolsets.addMenu('Char')
 #################################################################################################################################
 
 
