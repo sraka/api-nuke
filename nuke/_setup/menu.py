@@ -19,17 +19,26 @@ from callbacks import Callbacks
 
 reload(menu_functions)
 
+cece_menu='|ACG Tools|'
 acg_menu='|ACG Tools|'
 uis_menu='|UIs|'
 nukepedia_menu='|Nukepedia|'
 utilities_menu='|Utilities|'
 menubar = nuke.menu("Nuke")             # All the menu's in Nuke
 
+ccMonoIcon = "ccMono_500x500.png"
+ccDualIcon = "ccDual_500x500.png"
+
+
 def load_custom_menus_recursively():
     """
     To Create a Menu in nuke
     """
 
+    menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
+                                       folder_name='CeCe',
+                                       menu_name=cece_menu
+                                       )
     menu_functions.make_menu_recursive(src_path=''.join([init.NUKE_API_SCRIPTS, '/ui_exe/Menu_Bars']),
                                        folder_name='acg_tools',
                                        menu_name=acg_menu
@@ -53,18 +62,23 @@ def load_custom_gizmo_menu():
     :return:
     """
     menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
+                                               folder_name='CeCe',
+                                               menu_name='CeCe',
+                                               icon=ccDualIcon
+                                               )
+    menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
                                                folder_name='ACG',
                                                menu_name='ACG_Gizmos',
                                                icon='Python.png'
                                                )
     menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
                                                folder_name='OpenSource',
-                                               menu_name='OpenSource_Gizmos',
+                                               menu_name='OpenSource',
                                                icon = 'Folder BlackRed.png'
                                                )
     menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
                                                folder_name='Nukepedia',
-                                               menu_name='Nukepedia_Gizmos',
+                                               menu_name='Nukepedia',
                                                icon = 'nukepedia_gizmos.png'
                                                )
 
@@ -90,6 +104,15 @@ def load_nukelib_modules():
 
 #################################################################################################################################
 
+def add_tools_manually_to_cece_menu():
+    """
+    Function to manually add tools to acg custom menu in Nuke.
+    :return:
+    """
+    acg = menubar.addMenu(cece_menu)
+    acg.addSeparator()
+    acg.addCommand('Vece', "nuke.createNode('Blur')")
+
 def add_tools_manually_to_acg_menu():
     """
     Function to manually add tools to acg custom menu in Nuke.
@@ -106,7 +129,8 @@ def add_tools_manually_to_utilities_menu():
     """
     acg = menubar.addMenu(utilities_menu)
     acg.addSeparator()
-    acg.addCommand('aaaaa', "nuke.createNode('Blur')")
+    acg.addCommand('aaaaaUtil', "nuke.createNode('Blur')", icon=ccDualIcon)
+    acg.addCommand('aaaaaUtsil', "nuke.createNode('Blur')", icon=ccMonoIcon)
 
 def load_custom_menus_icons_shortcuts():
     """

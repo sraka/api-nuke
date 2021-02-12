@@ -1,0 +1,43 @@
+set cut_paste_input [stack 0]
+push $cut_paste_input
+Group {
+ name HighPass
+ selected true
+ xpos 36
+ ypos -100
+ addUserKnob {20 User}
+ addUserKnob {26 HighPass_title l "<b>HighPass v1.0<b>" T ""}
+ addUserKnob {22 Doc l Documentation -STARTLINE}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 size l Threshold T Laplacian1.size}
+ addUserKnob {41 value l MidtoneValue T AddMidtone.value}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 149
+  ypos -160
+ }
+ Clamp {
+  name Clamp1
+  xpos 149
+  ypos -98
+ }
+ Laplacian {
+  size 30
+  name Laplacian1
+  xpos 149
+  ypos -60
+ }
+ Add {
+  value 0.5
+  name AddMidtone
+  xpos 149
+  ypos -22
+ }
+ Output {
+  name Output1
+  xpos 149
+  ypos 56
+ }
+end_group
