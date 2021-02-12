@@ -82,7 +82,6 @@ def load_custom_gizmo_menu():
                                                icon = 'nukepedia_gizmos.png'
                                                )
 
-
 def load_nukelib_modules():
     """
     loads all the req nukelib modules in nuke at launch
@@ -102,7 +101,11 @@ def load_nukelib_modules():
 
 
 
-#################################################################################################################################
+########################################################################################################################
+#=======================================================================================================================
+#=======================================================================================================================
+# CUSTOM MENU's - add manual menu item's
+
 
 def add_tools_manually_to_cece_menu():
     """
@@ -131,6 +134,83 @@ def add_tools_manually_to_utilities_menu():
     acg.addSeparator()
     acg.addCommand('aaaaaUtil', "nuke.createNode('Blur')", icon=ccDualIcon)
     acg.addCommand('aaaaaUtsil', "nuke.createNode('Blur')", icon=ccMonoIcon)
+
+
+########################################################################################################################
+#=======================================================================================================================
+#=======================================================================================================================
+# ________________________________________________________________________________________________________________________________
+#			MENU BAR
+# ________________________________________________________________________________________________________________________________
+
+# nMenuItem = nuke.menu('Nuke')
+
+# menu_name_01 = 'Custom Menu'
+# nMenuItem.addCommand( '%s/CreateCC'% (menu_name_01), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
+# nMenuItem.findItem( '%s' % (menu_name_01) ).addSeparator()
+
+# menu_name_02 = 'Utilities'
+# nMenuItem.addCommand( '%s/CreateCC'% (menu_name_02), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
+# nMenuItem.findItem( '%s' % (menu_name_02) ).addSeparator()
+
+# menu_name_03 = 'Tools'
+# nMenuItem.addCommand( '%s/CreateCC'% (menu_name_03), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
+# nMenuItem.findItem( '%s' % (menu_name_03) ).addSeparator()
+
+########################################################################################################################
+#=======================================================================================================================
+#=======================================================================================================================
+# DEFAULT MENU's - add custom menu item's
+"""
+[each.name() for each in nuke.menu('Nuke').items()]
+['File', 'Edit', 'Workspace', 'Viewer', 'Render', 'Cache', 'Help',]
+"""
+
+# File Menu
+def load_menu_file():
+    f = menubar.findItem("File")
+
+# Edit Menu
+def load_menu_edit():
+    m = menubar.findItem("Edit")
+    m.addCommand('Reload All Custom MenuBars', 'make_menubar_menu()')
+
+# Workspace Menu
+def load_menu_workspace():
+    f = menubar.findItem("Workspace")
+
+# Viewer Menu
+def load_menu_viewer():
+    """
+    # nViewer = nuke.menu( 'Viewer' )
+# nViewer.addMenu( 'MyStuff',"nuke.createNode('NoOp')", icon='logo08.png' )
+    :return:
+    """
+    v = menubar.findItem("Viewer")
+    v.addCommand('MyStuff/aaaaa', "nuke.createNode('Blur')")
+    v.addCommand('MyStuffdddd', "nuke.createNode('NoOp')", icon='logo08.png')
+    v.addCommand('Reset Viewing channel', "menu_functions.set_Viewer_Channels()", "`")
+
+# Render Menu
+def load_menu_render():
+    r = menubar.findItem("Render")
+
+# Cache Menu
+def load_menu_cache():
+    c = menubar.findItem("Cache")
+
+# Help Menu
+def load_menu_help():
+    h = menubar.findItem("Help")
+    h.addSeparator()
+    h.addCommand("CeCe Menu's", "nuke.createNode('Blur')", icon=ccDualIcon)
+    h.addCommand("CeCe Gizmos & Plugins", "nuke.createNode('Blur')", icon=ccDualIcon)
+    h.addCommand("CeCe Tools", "nuke.createNode('Blur')", icon=ccDualIcon)
+    h.addCommand("CeCe Nuke Tools Workflow", "nuke.createNode('Blur')", icon=ccDualIcon)
+    h.addCommand("CeCe Nuke Wiki", "nuke.createNode('Blur')", icon=ccDualIcon)
+
+#=======================================================================================================================
+#=======================================================================================================================
 
 def load_custom_menus_icons_shortcuts():
     """
@@ -304,8 +384,9 @@ def load_custom_knob_defaults():
     # toolbar.addCommand("3D/Lights/Direct", "nuke.createNode('DirectLight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")     #modify DirectLight to have Add Constrain Tab
     # toolbar.addCommand("3D/Lights/Spotlight", "nuke.createNode('Spotlight');addconstraintab.constrain();nuke.selectedNode().knob('display').setFlag(0)")    #modify Spotlight to have Add Constrain Tab
 
-
-#################################################################################################################################
+########################################################################################################################
+#=======================================================================================================================
+#=======================================================================================================================
 # CALLBACKS
 
 def load_callbacks():
@@ -390,66 +471,6 @@ def load_callbacks():
     nuke.addAutoSaveRestoreFilter(cb.function)
     nuke.removeAutoSaveRestoreFilter(cb.function)
 
-#################################################################################################################################
-
-
-
-
-# ________________________________________________________________________________________________________________________________
-#			MENU BAR
-# ________________________________________________________________________________________________________________________________
-
-# nMenuItem = nuke.menu('Nuke')
-
-# menu_name_01 = 'Custom Menu'
-# nMenuItem.addCommand( '%s/CreateCC'% (menu_name_01), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
-# nMenuItem.findItem( '%s' % (menu_name_01) ).addSeparator()
-
-# menu_name_02 = 'Utilities'
-# nMenuItem.addCommand( '%s/CreateCC'% (menu_name_02), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
-# nMenuItem.findItem( '%s' % (menu_name_02) ).addSeparator()
-
-# menu_name_03 = 'Tools'
-# nMenuItem.addCommand( '%s/CreateCC'% (menu_name_03), "nuke.createNode('ColorCorrect')", icon='ohu_icon.png' )
-# nMenuItem.findItem( '%s' % (menu_name_03) ).addSeparator()
-
-#################################################################################################################################
-# MENUS
-
-"""
-[each.name() for each in nuke.menu('Nuke').items()]
-['File', 'Edit', 'Workspace', 'Viewer', 'Render', 'Cache', 'Help',]
-"""
-
-def load_menu_file():
-    f = menubar.findItem("File")
-
-def load_menu_edit():
-    m = menubar.findItem("Edit")
-    m.addCommand('Reload All Custom MenuBars', 'make_menubar_menu()')
-
-def load_menu_workspace():
-    f = menubar.findItem("Workspace")
-
-def load_menu_viewer():
-    """
-    # nViewer = nuke.menu( 'Viewer' )
-# nViewer.addMenu( 'MyStuff',"nuke.createNode('NoOp')", icon='logo08.png' )
-    :return:
-    """
-    v = menubar.findItem("Viewer")
-    v.addCommand('MyStuff/aaaaa', "nuke.createNode('Blur')")
-    v.addCommand('MyStuffdddd', "nuke.createNode('NoOp')", icon='logo08.png')
-    v.addCommand('Reset Viewing channel', "menu_functions.set_Viewer_Channels()", "`")
-
-def load_menu_render():
-    r = menubar.findItem("Render")
-
-def load_menu_cache():
-    c = menubar.findItem("Cache")
-
-def load_menu_help():
-    h = menubar.findItem("Help")
 
 """
 [each.name() for each in nuke.menu('Nodes').items()]
