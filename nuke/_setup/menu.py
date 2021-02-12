@@ -31,6 +31,9 @@ ccMonoIcon = "ccMono_500x500.png"
 ccDualIcon = "ccDual_500x500.png"
 
 menubar = nuke.menu("Nuke")             # All the menu's in Nuke
+nodebar = nuke.menu('Nodes')
+
+
 
 def load_custom_menus_recursively():
     """
@@ -69,11 +72,6 @@ def load_custom_gizmo_menu():
                                                icon=ccDualIcon
                                                )
     menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
-                                               folder_name='ACG',
-                                               menu_name='ACG_Gizmos',
-                                               icon='Python.png'
-                                               )
-    menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
                                                folder_name='OpenSource',
                                                menu_name='OpenSource',
                                                icon = 'Folder BlackRed.png'
@@ -82,6 +80,11 @@ def load_custom_gizmo_menu():
                                                folder_name='Nukepedia',
                                                menu_name='Nukepedia',
                                                icon = 'nukepedia_gizmos.png'
+                                               )
+    menu_functions.make_gizmo_menu_recurcively(src_path=init.NUKE_API_GIZMOS,
+                                               folder_name='ACG',
+                                               menu_name='ACG_Gizmos-WIP',
+                                               icon='Python.png'
                                                )
 
 def load_nukelib_modules():
